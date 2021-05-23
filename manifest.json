@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Test extension",
+    "name": "Idleon-Api-Downloader",
     "version": "0.1",
     
     "browser_action": {
