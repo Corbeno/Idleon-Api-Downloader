@@ -1,4 +1,8 @@
-(function(xhr) {
+
+xhrIntercept();
+wsIntercept();
+
+function xhrIntercept() {
     var XHR = XMLHttpRequest.prototype;
 
     var open = XHR.open;
@@ -27,8 +31,34 @@
         }
         return send.apply(this, arguments);
     };
+}
 
-})(XMLHttpRequest);
+function wsIntercept() {
+    var OrigWebSocket = window.WebSocket;
+    var wsSend = OrigWebSocket.prototype.send;
+    wsSend = wsSend.apply.bind(wsSend);
+    OrigWebSocket.prototype.send = function(data) {
+        if(this.addedListener == undefined){
+            this.addEventListener("message", function(event) {
+                var jsonData = JSON.parse(event.data).d.b.d;
+
+                //check that the data is char names
+                try{
+                    if("0" in jsonData){
+                        console.log("Ws worked!"); //TODO remove
+                        //data is char names, send it to inject.js
+                        var send = new CustomEvent("PassCharNameToInject", {detail: jsonData});
+                        window.dispatchEvent(send);
+                    }
+                }catch(e){
+                    //ignore
+                }
+            });
+            this.addedListener = true;
+        }
+        return wsSend(this, arguments);
+    };
+}
 
 function parseRequest(request) {
     //remove up to and including new line
@@ -46,7 +76,8 @@ function parseRequest(request) {
         try{
             var jsonData = JSON.parse(data[i]);
             if(jsonData["documentChange"]["document"]["name"].includes("projects/idlemmo/databases/(default)/documents/_data/")){
-                var event = new CustomEvent("PassToInject", {detail: jsonData});
+                //the data is needed, so pass it on to inject.js
+                var event = new CustomEvent("PassSaveToInject", {detail: jsonData});
                 window.dispatchEvent(event);
             }
         }catch(e){
