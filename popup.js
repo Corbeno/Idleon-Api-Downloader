@@ -40,7 +40,7 @@ function showLootyCopyButton() {
             a.innerHTML = "copy looty string";
             console.log("adding event listener");
             a.addEventListener("click", function(){
-                copyTextToClipboard(lootyString);
+                copyTextToClipboard(lootyString.replace(/\"/g, "\\"));
                 console.log("event listener");
             });
             while (container.hasChildNodes()) {
