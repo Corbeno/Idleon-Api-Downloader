@@ -1,10 +1,11 @@
 showRawJSONDownloadButton();
+showLootyCopyButton();
 
 chrome.storage.onChanged.addListener(function(changes, namespace){
-    console.log("changes detected: "  + changes.stringify);
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
         if(newValue != null){
             showRawJSONDownloadButton();
+            showLootyCopyButton();
         }
     }
 });
@@ -14,12 +15,12 @@ function showRawJSONDownloadButton() {
         if(result.data != null){
             var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
 
-            var a = document.createElement('a');
-            a.href = 'data:' + data;
-            a.download = 'data.json';
-            a.innerHTML = 'download raw JSON';
+            var a = document.createElement("a");
+            a.href = "data:" + data;
+            a.download = "data.json";
+            a.innerHTML = "download raw JSON";
 
-            var container = document.getElementById('container');
+            var container = document.getElementById("rawDownloadLink");
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
             }
@@ -28,6 +29,37 @@ function showRawJSONDownloadButton() {
     });
 }
 
+
+function showLootyCopyButton() {
+    chrome.storage.local.get("data", function(result){
+        if(result.data != null){
+            var lootyString = result.data.saveData.documentChange.document.fields.Cards1.stringValue;
+            var container = document.getElementById("lootyCopyLink");
+            var a = document.createElement("a");
+            a.href = "";
+            a.innerHTML = "copy looty string";
+            console.log("adding event listener");
+            a.addEventListener("click", function(){
+                copyTextToClipboard(lootyString);
+                console.log("event listener");
+            });
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            container.appendChild(a);
+        }
+    });
+}
+
+function copyTextToClipboard(text) {
+    var copyFrom = document.createElement("textarea");
+    copyFrom.textContent = text;
+    document.body.appendChild(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy');
+    copyFrom.blur();
+    document.body.removeChild(copyFrom);
+  }
 
 //parses the raw json from the game into something more managable for easy modification and addition
 //This is a work in progress and is not intended to work yet

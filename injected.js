@@ -45,7 +45,7 @@ function wsIntercept() {
                 //check that the data is char names
                 try{
                     if("0" in jsonData){
-                        console.log("Ws worked!"); //TODO remove
+                        // console.log("Ws worked!"); //TODO remove
                         //data is char names, send it to inject.js
                         var send = new CustomEvent("PassCharNameToInject", {detail: jsonData});
                         window.dispatchEvent(send);
