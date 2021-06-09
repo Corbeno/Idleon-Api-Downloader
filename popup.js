@@ -36,12 +36,12 @@ function showLootyCopyButton() {
             var lootyString = result.data.saveData.documentChange.document.fields.Cards1.stringValue;
             var container = document.getElementById("lootyCopyLink");
             var a = document.createElement("a");
-            a.href = "";
+            a.href = "javascript:;";
             a.innerHTML = "copy looty string";
             console.log("adding event listener");
             a.addEventListener("click", function(){
                 copyTextToClipboard(lootyString.replace(/\"/g, "\\"));
-                console.log("event listener");
+                a.innerHTML = "copied to clipboard!";
             });
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
@@ -80,3 +80,4 @@ function parseRawJSON(jsonData) {
 
     return r;
 }
+
