@@ -118,7 +118,6 @@ function parseData(data){
 
     //cards
     var rawCardsData = JSON.parse(fields.Cards0.stringValue);
-    console.log("rawCardsData: " + JSON.stringify(rawCardsData));
     var cleanCardData = {};
     var cardKeys = Object.keys(rawCardsData);
     for(var i = 0; i < cardKeys.length; i++){
@@ -136,7 +135,6 @@ function parseData(data){
 
 function getStarLevelFromCard(cardName, cardLevel) {
     var list = cardLevelMap[cardName];
-    console.log("cardName: " + cardName);
     if(parseInt(cardLevel) >= list[2]){
         return "3 Star";
     }else if(parseInt(cardLevel) >= list[1]){
