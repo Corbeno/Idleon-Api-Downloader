@@ -1,3 +1,4 @@
+//maps stored mob names to their game display name
 var mobMap = {
     "ForgeA" : "Fire Forge",
     "ForgeB" : "Cinder Forge",

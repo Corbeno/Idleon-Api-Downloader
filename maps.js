@@ -23,17 +23,3 @@ var charSubclassMap = {
     33 : 31,
     32 : 31
 };
-
-var test = {
-    
-}
-
-
-var cardStarLevelMap = {
-
-}
-
-
-var mobNameMap = {
-
-}

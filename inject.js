@@ -31,7 +31,7 @@ function checkTempData(){
                     "charNameData" : charNameData
                 }
                 chrome.storage.local.set({"data": combined})
-                // console.log("got both!");
+                
                 //remove temp data
                 chrome.storage.local.set({"saveData": null});
                 chrome.storage.local.set({"charNameData": null});

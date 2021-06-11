@@ -1,3 +1,4 @@
+//maps items stored names to their display name in game
 var itemMap = {
     "Copper" : "Copper Ore",
     "Iron" : "Iron Ore",

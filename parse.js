@@ -92,12 +92,6 @@ function parseData(data){
 
     //minigame high scores
     /*
-    mining = 39
-    fishing = 17
-    catching = 88
-    chopping = 112
-    */
-    /*
     0 = chopping
     1 = fishing
     2 = catching
@@ -109,9 +103,6 @@ function parseData(data){
     account.minigameHighscores.mining = fields.FamValMinigameHiscores.arrayValue.values[3].integerValue;
 
     //highest item counts
-    //copper ore = "Copper"
-    //oak log = "OakTree"
-    //leaf = "Leaf1"
     account.highestItemCounts.copperOre = findHighestInStorage(account.chest, "Copper Ore");
     account.highestItemCounts.oakLogs = findHighestInStorage(account.chest, "Oak Logs");
     account.highestItemCounts.grassLeaf = findHighestInStorage(account.chest, "Grass Leaf");
@@ -124,7 +115,6 @@ function parseData(data){
         var key = cardKeys[i];
         var lookup = mobMap[key];
         var count = rawCardsData[key]
-
         cleanCardData[lookup] = {"collected" : count, "starLevel" : getStarLevelFromCard(key, count)};
     }
     account.cards = cleanCardData;
@@ -289,9 +279,7 @@ function fillCharacterData(characters, numChars, fields) {
         //fishing toolkit
         characters[i].fishingToolkitEquipped.bait = fields["PVFishingToolkit_" + i].arrayValue.values[0].integerValue;
         characters[i].fishingToolkitEquipped.lure = fields["PVFishingToolkit_" + i].arrayValue.values[1].integerValue;
-
     }
-
     return characters;
 } 
 

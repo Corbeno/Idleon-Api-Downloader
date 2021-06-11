@@ -4,7 +4,6 @@ wsIntercept();
 
 function xhrIntercept() {
     var XHR = XMLHttpRequest.prototype;
-
     var open = XHR.open;
     var send = XHR.send;
     var setRequestHeader = XHR.setRequestHeader;
@@ -45,7 +44,6 @@ function wsIntercept() {
                 //check that the data is char names
                 try{
                     if("0" in jsonData){
-                        // console.log("Ws worked!"); //TODO remove
                         //data is char names, send it to inject.js
                         var send = new CustomEvent("PassCharNameToInject", {detail: jsonData});
                         window.dispatchEvent(send);
