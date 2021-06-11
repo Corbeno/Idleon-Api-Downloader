@@ -27,7 +27,7 @@ function parseData(data){
 
     //obols
     var obolsEquipped = fields.ObolEqO1.arrayValue.values;
-    account.obols = condenseRawArray(obolsEquipped);
+    account.obols = condenseRawArray(obolsEquipped, obolNameMap);
     
     //tasks (TODO add question mark, explained in discord)
     //TaskZZ0 = Current milestone in uncompleted task
@@ -214,7 +214,6 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].currentMap = fields["CurrentMap_" + i].integerValue;
         characters[i].invBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
-        characters[i].obolsEquip = fields["ObolEqO0_" + i].arrayValue.values;
         characters[i].timeAway = fields["PTimeAway_" + i].doubleValue;
         characters[i].strength = fields["PVStatList_" + i].arrayValue.values[0].integerValue;
         characters[i].agility = fields["PVStatList_" + i].arrayValue.values[1].integerValue;
@@ -244,6 +243,10 @@ function fillCharacterData(characters, numChars, fields) {
         var rawFoodNames = equipableNames[2].mapValue.fields;
         var rawFoodCounts = equipableCounts[2].mapValue.fields;
         characters[i].food = condenseTwoRawArrays(rawFoodNames, rawFoodCounts, "name", "count");
+
+        //obols
+        var rawObols = fields["ObolEqO0_" + i].arrayValue.values;
+        characters[i].obols = condenseRawArray(rawObols, obolNameMap);
 
         //statues
         var statueArray = JSON.parse(fields["StatueLevels_" + i].stringValue);
@@ -308,7 +311,7 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1, map2) {
     return r;
 }
 
-function condenseRawArray(rawArray){
+function condenseRawArray(rawArray, map = null){
     var r = [];
     var length = rawArray.length.integerValue;
     if(length == undefined){
@@ -316,7 +319,14 @@ function condenseRawArray(rawArray){
     }
     for(var i = 0; i < length; i++){
         var element = rawArray[i];
-        r.push(element[Object.keys(element)[0]]);
+        var val = element[Object.keys(element)[0]];
+        if(map != null){
+            val = map[val];
+            if(val == null){
+                val = map["NOT_FOUND"];
+            }
+        }
+        r.push(val);
     }
     return r;
 }

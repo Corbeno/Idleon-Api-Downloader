@@ -84,7 +84,7 @@ var templateData = {
             "tools" : {},
             "food" : {},
             "cardsEquip" : {},
-            "obolsEquip" : {},
+            "obols" : {},
             "statueLevels" : {},
             "POBoxUpgrades": {},
             "talentLevels" : {},
