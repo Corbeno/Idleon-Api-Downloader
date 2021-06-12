@@ -192,11 +192,20 @@ function findHighestOfEachClass(characters) {
     }
 
     //go through the map and pick the highest value, adding it to r
-    var r = {};
+    var indexedHighestClasses = {};
     for(var i = 0; i < uniqueClasses.length; i++){
         var addClass = uniqueClasses[i];
         var addLevel = Math.max(...map.get(addClass));
-        r[addClass] = addLevel;
+        indexedHighestClasses[addClass] = addLevel;
+    }
+
+    
+    //go through r and change each key number to its coorosponding class name
+    var r = {};
+    var keys = Object.keys(indexedHighestClasses);
+    for(var i = 0; i < keys.length; i++){
+        var className = classIndexMap[keys[i]];
+        r[className] = indexedHighestClasses[keys[i]];
     }
 
     return r;
@@ -222,11 +231,14 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].level  = fields["PVStatList_" + i].arrayValue.values[4].integerValue;
         characters[i].POBoxUpgrades = JSON.parse(fields["POu_" + i].stringValue);
         characters[i].talentLevels = JSON.parse(fields["SL_" + i].stringValue);
+        characters[i]["test1"] = JSON.parse(fields["EMm0_" + i].stringValue);
+        characters[i]["test2"] = JSON.parse(fields["EMm1_" + i].stringValue);
+        characters[i]["test3"] = JSON.parse(fields["IMm_" + i].stringValue);
 
         //inventory
         var inventoryItemNames = fields["InventoryOrder_" + i].arrayValue.values;
         var inventoryItemCounts = fields["ItemQTY_" + i].arrayValue.values;
-        characters[i].inventory = condenseTwoRawArrays(inventoryItemNames, inventoryItemCounts, "name", "count");
+        characters[i].inventory = condenseTwoRawArrays(inventoryItemNames, inventoryItemCounts, "name", "count", itemMap);
 
         //equipment (0 = armor, 1 = tools, 2 = food)
         var equipableNames = fields["EquipOrder_" + i].arrayValue.values;
@@ -234,11 +246,19 @@ function fillCharacterData(characters, numChars, fields) {
         
         var rawEquipmentNames = equipableNames[0].mapValue.fields;
         var rawEquipmentCounts = equipableCounts[0].mapValue.fields;
-        characters[i].equipment = condenseTwoRawArrays(rawEquipmentNames, rawEquipmentCounts, "name", "count");
+        var plainEquipmentData = condenseTwoRawArrays(rawEquipmentNames, rawEquipmentCounts, "name", "count", itemMap);
+        //add upgrade stone data
+        //IMm_# = players inventory (todo later as it isn't usefull for calculations)
+        //EMm0_# = equips
+        //EMm1_# = tools
+        var equipmentStoneData = JSON.parse(fields["EMm0_" + i].stringValue);
+        characters[i].equipment = addUpgradeStoneData(plainEquipmentData, equipmentStoneData);
 
         var rawToolNames = equipableNames[1].mapValue.fields;
-        var rawToolValues = equipableCounts[1].mapValue.fields;
-        characters[i].tools = condenseTwoRawArrays(rawToolNames, rawToolValues, "name", "count");
+        var rawToolCounts = equipableCounts[1].mapValue.fields;
+        var plainToolData = condenseTwoRawArrays(rawToolNames, rawToolCounts, "name", "count", itemMap);
+        var toolStoneData = JSON.parse(fields["EMm1_" + i].stringValue);
+        characters[i].tools = addUpgradeStoneData(plainToolData, toolStoneData);
 
         var rawFoodNames = equipableNames[2].mapValue.fields;
         var rawFoodCounts = equipableCounts[2].mapValue.fields;
@@ -265,7 +285,16 @@ function fillCharacterData(characters, numChars, fields) {
 
         //skill levels
         var rawSkillLevels = fields["Lv0_" + i].arrayValue.values;
-        characters[i].skillLevels = condenseRawArray(rawSkillLevels);
+        var unmappedSkillLevels = condenseRawArray(rawSkillLevels);
+        var mappedSkillLevels = {};
+        for(var j = 0; j < unmappedSkillLevels.length; j++){
+            var level = parseInt(unmappedSkillLevels[j]);
+            if(level == -1){
+                continue;
+            }
+            mappedSkillLevels[skillIndexMap[j]] = level;
+        }
+        characters[i].skillLevels = mappedSkillLevels;
 
         //star signs
         var rawStarSignData = fields["PVtStarSign_" + i].stringValue;
@@ -286,7 +315,17 @@ function fillCharacterData(characters, numChars, fields) {
     return characters;
 } 
 
-function condenseTwoRawArrays(raw1, raw2, field1, field2, map1, map2) {
+function addUpgradeStoneData(itemList, stoneData){
+    for(var i = 0; i < Object.keys(stoneData).length; i++){
+        var data = stoneData[i];
+        if(data != null && data != undefined){
+            itemList[i]["stoneData"] = stoneData[i];
+        }
+    }
+    return itemList;
+}
+
+function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null) {
     var r = [];
     var length = raw1.length.integerValue;
     if(length == undefined){
@@ -297,10 +336,10 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1, map2) {
         var element2 = raw2[i];
         var val1 = element1[Object.keys(element1)[0]];
         var val2 = element2[Object.keys(element2)[0]]
-        if(map1 != null || map1 != undefined){
+        if(map1 != null){
             val1 = map1[val1];
         }
-        if(map2 != null || map2 != undefined){
+        if(map2 != null){
             val2 = map2[val2];
         }
         r.push({
