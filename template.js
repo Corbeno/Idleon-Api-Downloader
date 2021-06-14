@@ -88,6 +88,7 @@ var templateData = {
             "statueLevels" : {},
             "POBoxUpgrades": {},
             "talentLevels" : {},
+            "starTalentLevels" : {},
             "skillLevels" : {},
             "starSigns" : {},
             "fishingToolkitEquipped" : {

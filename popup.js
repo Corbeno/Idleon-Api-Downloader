@@ -1,6 +1,7 @@
 showRawJSONDownloadButton();
 showLootyCopyButton();
 showCleanJsonDownloadButtion();
+showCalculatorCsvDownloadButton();
 
 chrome.storage.onChanged.addListener(function(changes, namespace){
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
@@ -8,6 +9,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace){
             showRawJSONDownloadButton();
             showLootyCopyButton();
             showCleanJsonDownloadButtion();
+            showCalculatorCsvDownloadButton();
         }
     }
 });
@@ -64,6 +66,27 @@ function showCleanJsonDownloadButtion() {
             a.innerHTML = "download clean JSON (incomplete)";
 
             var container = document.getElementById("cleanJsonDownloadLink");
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            container.appendChild(a);
+        }
+    });
+}
+
+function showCalculatorCsvDownloadButton() {
+    chrome.storage.local.get("data", function(result){
+        if(result.data != null){
+            var cleanJson = parseData(JSON.stringify(result));
+            var csvData = parseToCsv(cleanJson)
+            var data = "text/json;charset=utf-8," + encodeURIComponent(csvData);
+
+            var a = document.createElement("a");
+            a.href = "data:" + data;
+            a.download = "calculator.txt";
+            a.innerHTML = "download Idleon Calculator CSV (incomplete)";
+
+            var container = document.getElementById("csvDownloadLink");
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
             }

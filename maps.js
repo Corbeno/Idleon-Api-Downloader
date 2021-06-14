@@ -15,6 +15,15 @@ Wizard = 32
 Shaman = 33
 */
 var charSubclassMap = {
+    "Journeyman" : "Beginner",
+    "Barbarian" : "Warrior",
+    "Squire" : "Warrior",
+    "Bowman": "Archer",
+    "Hunter" : "Archer",
+    "Shaman" : "Mage",
+    "Wizard" : "Mage"
+};
+var OLDcharSubclassMap = {
     2 : 1,
     8 : 7,
     9 : 7,
@@ -130,7 +139,7 @@ var obolNameMap = {
     "NOT_FOUND" : "None"
 };
 
-//maps stored stamp ID to it's display name
+//maps stored stamp ID to it's display name in game
 var stampIdToDisplayMap = {
     0 : "Sword Stamp",
     1 : "Heart Stamp",

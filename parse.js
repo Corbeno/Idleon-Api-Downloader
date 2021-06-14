@@ -103,9 +103,9 @@ function parseData(data){
     account.minigameHighscores.mining = fields.FamValMinigameHiscores.arrayValue.values[3].integerValue;
 
     //highest item counts
-    account.highestItemCounts.copperOre = findHighestInStorage(account.chest, "Copper Ore");
-    account.highestItemCounts.oakLogs = findHighestInStorage(account.chest, "Oak Logs");
-    account.highestItemCounts.grassLeaf = findHighestInStorage(account.chest, "Grass Leaf");
+    account.highestItemCounts["Copper Ore"] = findHighestInStorage(account.chest, "Copper Ore");
+    account.highestItemCounts["Oak Logs"] = findHighestInStorage(account.chest, "Oak Logs");
+    account.highestItemCounts["Grass Leaf"] = findHighestInStorage(account.chest, "Grass Leaf");
 
     //cards
     var rawCardsData = JSON.parse(fields.Cards0.stringValue);
@@ -138,13 +138,13 @@ function getStarLevelFromCard(cardName, cardLevel) {
 
 //get number of characters that the player has unlocked
 function getNumCharacters(fields) {
-    var r = 0;
-    var maxCharCount = 9; //TODO add constant for this
-    var fieldName = "CharSAVED_"; 
-    for(var i = 0; i < maxCharCount && fields[fieldName + i.toString()]["doubleValue"] != 0; i++){
-        r++;
-    }
-    return r;
+    var r = 0; //TODO FIX THIS
+    // var maxCharCount = 9; //TODO add constant for this
+    // var fieldName = "CharSAVED_"; 
+    // for(var i = 0; i < maxCharCount && fields[fieldName + i.toString()]["doubleValue"] != 0; i++){
+    //     r++;
+    // }
+    return 9;
 }
 
 function findHighestInStorage(chestData, itemName) {
@@ -162,7 +162,7 @@ function findHighestOfEachClass(characters) {
     //create base map of characters
     var baseCharacters = [];
     for(var i = 0; i < characters.length; i++){
-        var charClass = parseInt(characters[i].class);
+        var charClass = characters[i].class;
         var charLevel = parseInt(characters[i].level);
         baseCharacters.push({
             [charClass] : charLevel 
@@ -198,27 +198,16 @@ function findHighestOfEachClass(characters) {
         var addLevel = Math.max(...map.get(addClass));
         indexedHighestClasses[addClass] = addLevel;
     }
-
-    
-    //go through r and change each key number to its coorosponding class name
-    var r = {};
-    var keys = Object.keys(indexedHighestClasses);
-    for(var i = 0; i < keys.length; i++){
-        var className = classIndexMap[keys[i]];
-        r[className] = indexedHighestClasses[keys[i]];
-    }
-
-    return r;
+    return indexedHighestClasses;
 }
 
 //grabs information from fields and inserts it into characters and returns the filled out characters
 //only fills out information based on numChars given
 function fillCharacterData(characters, numChars, fields) {
     for(var i = 0; i < numChars; i++) {
-        characters[i].class = getAnyFieldValue(fields["CharacterClass_" + i]);
+        characters[i].class = classIndexMap[parseInt(getAnyFieldValue(fields["CharacterClass_" + i]))];
         characters[i].money = fields["Money_" + i].integerValue;
         characters[i].AFKtarget = fields["AFKtarget_" + i].stringValue;
-        characters[i].attackLoadout = JSON.parse(fields["AttackLoadout_" + i].stringValue);
         characters[i].cardSetEquip = fields["CSetEq_" + i].stringValue;
         characters[i].currentMap = fields["CurrentMap_" + i].integerValue;
         characters[i].invBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
@@ -230,10 +219,9 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].luck = fields["PVStatList_" + i].arrayValue.values[3].integerValue;
         characters[i].level  = fields["PVStatList_" + i].arrayValue.values[4].integerValue;
         characters[i].POBoxUpgrades = JSON.parse(fields["POu_" + i].stringValue);
-        characters[i].talentLevels = JSON.parse(fields["SL_" + i].stringValue);
-        characters[i]["test1"] = JSON.parse(fields["EMm0_" + i].stringValue);
-        characters[i]["test2"] = JSON.parse(fields["EMm1_" + i].stringValue);
-        characters[i]["test3"] = JSON.parse(fields["IMm_" + i].stringValue);
+        // characters[i]["test1"] = JSON.parse(fields["EMm0_" + i].stringValue);
+        // characters[i]["test2"] = JSON.parse(fields["EMm1_" + i].stringValue);
+        // characters[i]["test3"] = JSON.parse(fields["IMm_" + i].stringValue);
 
         //inventory
         var inventoryItemNames = fields["InventoryOrder_" + i].arrayValue.values;
@@ -308,6 +296,73 @@ function fillCharacterData(characters, numChars, fields) {
         var starSignFinal = [starSignSplit[0], starSignSplit[1]];
         characters[i].starSigns = starSignFinal;
 
+        //talents
+        var unmappedTalents = JSON.parse(fields["SL_" + i].stringValue);
+        var unmappedTalentsKeys = Object.keys(unmappedTalents);
+        var mappedTalents = {};
+        //change keys to their talent name
+        for(var j = 0; j < unmappedTalentsKeys.length; j++){
+            var key = unmappedTalentsKeys[j];
+            mappedTalents[talentMap[parseInt(key)]] = unmappedTalents[key];
+        }
+        //regular talents
+        var talentPages = classTalentMap[characters[i].class];
+        var orderedClassTalents = [];
+        var indexedTalents = {};
+        for(var j = 0; j < talentPages.length; j++){
+            var talents = classTalentPageMap[talentPages[j]];
+            orderedClassTalents = orderedClassTalents.concat(talents);
+            for(var k = 0; k < orderedClassTalents.length; k++){
+                indexedTalents[k] = mappedTalents[orderedClassTalents[k]];
+            }   
+        }
+        characters[i].talentLevels = indexedTalents;
+        //star talents
+        var starTalentList = classTalentPageMap["Star Talents"];
+        var starTalentIndexed = [];
+        for(var j = 0; j < starTalentList.length; j++){
+            if(starTalentList[j] == "FILLER"){
+                starTalentIndexed.push(0);
+            }else{
+                var toPush = mappedTalents[starTalentList[j]];
+                if(toPush == null){
+                    starTalentIndexed.push(0);
+                    //TODO remove
+                    // console.log("Char Name: " + characters[i].name);
+                    // console.log("Talent Name: " + starTalentList[j]);
+                    // console.log("mappedTalents: " + JSON.stringify(mappedTalents));
+                    // console.log("unmapped: " + JSON.stringify(unmappedTalents));
+                    // console.log("");
+                }else{
+                    starTalentIndexed.push(toPush);
+                }
+            }
+        }
+        characters[i].starTalentLevels = starTalentIndexed; 
+
+        //talent attack loadout
+        var unmappedLoadoutRaw = JSON.parse(fields["AttackLoadout_" + i].stringValue);
+        //merge them all into one array
+        var unmappedLoadout = [];
+        for(var j = 0; j < unmappedLoadoutRaw.length; j++){
+            unmappedLoadout = unmappedLoadout.concat(unmappedLoadoutRaw[j]);
+        }
+        var mappedLoadout = [];
+        for(var j = 0; j < unmappedLoadout.length; j++){
+            var talentId = unmappedLoadout[j];
+            if(talentId == "Null"){
+                continue;
+            }
+            mappedLoadout.push(talentMap[talentId]);
+        }
+        //change talent names to their readable form
+        for(var j = 0; j < mappedLoadout.length; j++){
+            var word = mappedLoadout[j];
+            mappedLoadout[j] = word.toLowerCase().split("_").map(capitalize).join(" ");
+        }
+        characters[i].attackLoadout = mappedLoadout;
+        // characters[i].attackLoadout = JSON.parse(fields["AttackLoadout_" + i].stringValue);
+
         //fishing toolkit
         characters[i].fishingToolkitEquipped.bait = fields["PVFishingToolkit_" + i].arrayValue.values[0].integerValue;
         characters[i].fishingToolkitEquipped.lure = fields["PVFishingToolkit_" + i].arrayValue.values[1].integerValue;
@@ -316,10 +371,27 @@ function fillCharacterData(characters, numChars, fields) {
 } 
 
 function addUpgradeStoneData(itemList, stoneData){
+    console.log("Stone Data: " + JSON.stringify(stoneData));
+    console.log("Item List: " + JSON.stringify(itemList));
     for(var i = 0; i < Object.keys(stoneData).length; i++){
         var data = stoneData[i];
         if(data != null && data != undefined){
             itemList[i]["stoneData"] = stoneData[i];
+        }else{
+            //default; add empty data
+            console.log("ADDING BLANK DATA");
+            itemList[i]["stoneData"] = {
+                "Defence" : 0,
+                "WIS" : 0,
+                "STR" : 0,
+                "LUK" : 0,
+                "Weapon_Power" : 0,
+                "AGI" : 0,
+                "Reach" : 0,
+                "Upgrade_Slots_Left" : 0,
+                "Power" : 0,
+                "Speed" : 0
+            }
         }
     }
     return itemList;
@@ -374,3 +446,7 @@ function condenseRawArray(rawArray, map = null){
 function getAnyFieldValue(field){
     return String(field[Object.keys(field)[0]]);
 }
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
