@@ -1,18 +1,44 @@
+showRawJSONCopyButton();
 showRawJSONDownloadButton();
 showLootyCopyButton();
+showCleanJsonCopyButton();
 showCleanJsonDownloadButtion();
-showCalculatorCsvDownloadButton();
+showFamilyCopyButton();
+showGuildCopyButton();
+showCharacterCopyButtons();
 
 chrome.storage.onChanged.addListener(function(changes, namespace){
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
         if(newValue != null){
+            showRawJSONCopyButton();
             showRawJSONDownloadButton();
             showLootyCopyButton();
+            showCleanJsonCopyButton();
             showCleanJsonDownloadButtion();
-            showCalculatorCsvDownloadButton();
+            showFamilyCopyButton();
+            showGuildCopyButton();
+            showCharacterCopyButtons()
         }
     }
 });
+
+
+function showRawJSONCopyButton(){
+    chrome.storage.local.get("data", function(result){
+        if(result.data != null){
+            var container = document.getElementById("rawCopyLink");
+            var a = document.createElement("a");
+            a.innerHTML = "copy";
+            a.addEventListener("click", function(){
+                copyTextToClipboard(JSON.stringify(result.data));
+            });
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            container.appendChild(a);
+        }
+    });
+}
 
 function showRawJSONDownloadButton() {
     chrome.storage.local.get("data", function(result){
@@ -22,7 +48,7 @@ function showRawJSONDownloadButton() {
             var a = document.createElement("a");
             a.href = "data:" + data;
             a.download = "rawData.json";
-            a.innerHTML = "download raw JSON";
+            a.innerHTML = "download";
 
             var container = document.getElementById("rawDownloadLink");
             while (container.hasChildNodes()) {
@@ -33,17 +59,15 @@ function showRawJSONDownloadButton() {
     });
 }
 
-function showLootyCopyButton() {
+function showCleanJsonCopyButton(){
     chrome.storage.local.get("data", function(result){
         if(result.data != null){
-            var lootyString = result.data.saveData.documentChange.document.fields.Cards1.stringValue;
-            var container = document.getElementById("lootyCopyLink");
+            var cleanJson = parseData(JSON.stringify(result));
+            var container = document.getElementById("cleanJsonCopyLink");
             var a = document.createElement("a");
-            a.href = "javascript:;";
-            a.innerHTML = "copy looty string";
+            a.innerHTML = "copy";
             a.addEventListener("click", function(){
-                copyTextToClipboard(lootyString.replace(/\"/g, "\\"));
-                a.innerHTML = "copied to clipboard!";
+                copyTextToClipboard(JSON.stringify(cleanJson));
             });
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
@@ -63,7 +87,7 @@ function showCleanJsonDownloadButtion() {
             var a = document.createElement("a");
             a.href = "data:" + data;
             a.download = "cleanData.json";
-            a.innerHTML = "download clean JSON (incomplete)";
+            a.innerHTML = "download";
 
             var container = document.getElementById("cleanJsonDownloadLink");
             while (container.hasChildNodes()) {
@@ -74,23 +98,90 @@ function showCleanJsonDownloadButtion() {
     });
 }
 
-function showCalculatorCsvDownloadButton() {
+function showLootyCopyButton() {
     chrome.storage.local.get("data", function(result){
         if(result.data != null){
-            var cleanJson = parseData(JSON.stringify(result));
-            var csvData = parseToCsv(cleanJson)
-            var data = "text/json;charset=utf-8," + encodeURIComponent(csvData);
-
+            var lootyString = result.data.saveData.documentChange.document.fields.Cards1.stringValue;
+            var container = document.getElementById("lootyCopyLink");
             var a = document.createElement("a");
-            a.href = "data:" + data;
-            a.download = "calculator.txt";
-            a.innerHTML = "download Idleon Calculator CSV (incomplete)";
-
-            var container = document.getElementById("csvDownloadLink");
+            a.innerHTML = "copy";
+            a.addEventListener("click", function(){
+                copyTextToClipboard(lootyString.replace(/\"/g, "\\"));
+            });
             while (container.hasChildNodes()) {
                 container.removeChild(container.lastChild);
             }
             container.appendChild(a);
+        }
+    });
+}
+
+function showFamilyCopyButton(){
+    chrome.storage.local.get("data", function(result){
+        if(result.data != null){
+            var cleanJson = parseData(JSON.stringify(result));
+            var familyData = getFamilyCsv(cleanJson);
+            var container = document.getElementById("familyCopyLink");
+            var a = document.createElement("a");
+            a.innerHTML = "copy";
+            a.addEventListener("click", function(){
+                copyTextToClipboard(familyData);
+            });
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            container.appendChild(a);
+        }
+    });
+}
+
+function showGuildCopyButton(){
+    chrome.storage.local.get("data", function(result){
+        if(result.data != null){
+            var cleanJson = parseData(JSON.stringify(result));
+            var familyData = getGuildCsv(cleanJson);
+            var container = document.getElementById("guildCopyLink");
+            var a = document.createElement("a");
+            a.innerHTML = "copy";
+            a.addEventListener("click", function(){
+                copyTextToClipboard(familyData);
+            });
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            container.appendChild(a);
+        }
+    });
+}
+
+function showCharacterCopyButtons(){
+    chrome.storage.local.get("data", function(result){
+        if(result.data != null){
+            var cleanJson = parseData(JSON.stringify(result));
+            var numChars = cleanJson.characters.length;
+            for(var i = 0; i < numChars; i++){
+                var charData = getCharacterCsv(cleanJson, i);
+                var container = document.getElementById("char" + i + "CopyLink");
+                var a = document.createElement("a");
+                a.innerHTML = "char" + (i+1);
+                (function (_charData) {
+                    a.addEventListener("click", function(){
+                        copyTextToClipboard(_charData);
+                    });
+                })(charData);
+                console.log(i);
+                a.addEventListener("click", function(charData){
+                    return function(){
+                        copyTextToClipboard(charData);
+                    }
+                }(a));
+                while (container.hasChildNodes()) {
+                    container.removeChild(container.lastChild);
+                }
+                container.appendChild(a);
+
+            }
+
         }
     });
 }
@@ -104,24 +195,4 @@ function copyTextToClipboard(text) {
     copyFrom.blur();
     document.body.removeChild(copyFrom);
   }
-
-//parses the raw json from the game into something more managable for easy modification and addition
-//This is a work in progress and is not intended to work yet
-function parseRawJSON(jsonData) {
-    var fields = jsonData.documentChange.document.fields;
-    var id = jsonData.documentChange.document.name.replace("projects/idlemmo/databases/(default)/documents/_data/","");
-    var r = {"account": {"id" : id}};
-    
-    //chest
-    var chestOrder = fields.ChestOrder.arrayValue.values
-    var chestQuantity = fields.ChestQuantity.arrayValue.values;
-    r.chest = {"numSlots" : chestQuantity.length}
-    for(let i = 0; i < chestQuantity.length; i++){
-        r.chest[i.toString()] = {};
-        r.chest[i.toString()].item = chestOrder[i];
-        r.chest[i.toString()].quantity = chestQuantity[i];
-    }
-
-    return r;
-}
 

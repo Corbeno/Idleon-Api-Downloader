@@ -51,9 +51,9 @@ var templateData = {
         },
         "highestClasses" : {},
         "highestItemCounts" : {
-            "copperOre" : 0,
-            "oakLogs" : 0,
-            "grassLeaf" : 0 
+            "Copper Ore" : 0,
+            "Oak Logs" : 0,
+            "Grass Leaf" : 0 
         },
         "minigameHighscores" : {
             "chopping" : 0,
@@ -93,7 +93,7 @@ var templateData = {
             "starSigns" : {},
             "fishingToolkitEquipped" : {
                 "bait" : "",
-                "lure" : ""
+                "line" : ""
             },
 
             "attackLoadout" : {},

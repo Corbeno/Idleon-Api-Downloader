@@ -1,3 +1,5 @@
+ console.log("injet ran");
+ 
  var s = document.createElement('script');
  s.src = chrome.extension.getURL('injected.js');
  s.onload = function() {

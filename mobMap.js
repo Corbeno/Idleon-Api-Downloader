@@ -1,8 +1,9 @@
 //maps stored mob names to their game display name
+//used for naming cards
 var mobMap = {
     "ForgeA" : "Fire Forge",
     "ForgeB" : "Cinder Forge",
-    "Bandit Bob" : "Bandit Bob",
+    "Bandit_Bob" : "Bandit Bob",
     "SoulCard1" : "Forest Soul",
     "SoulCard2" : "Dune Soul",
     "SoulCard3" : "Rooted Soul",
@@ -55,7 +56,7 @@ var mobMap = {
     "stache" : "Sir Stache",
     "ram" : "Dedotated Ram",
     "bloque" : "Bloque",
-    "mamoth" : "mamooth",
+    "mamoth" : "Mamooth",
     "snowball" : "Snowman",
     "penguin" : "Penguin",
     "thermostat" : "Thermister",
@@ -81,7 +82,7 @@ var mobMap = {
     "babaHour" : "Biggie Hours",
     "babaMummy" : "King Doot",
     "xmasEvent" : "Giftmas Blobulyte",
-    "xmasEvent2" : "Meaning of_Giftmas",
+    "xmasEvent2" : "Meaning of Giftmas",
     "loveEvent" : "Loveulyte",
     "loveEvent2" : "Chocco Box",
     "EasterEvent1" : "Egggulyte",

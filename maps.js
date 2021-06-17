@@ -219,3 +219,91 @@ var stampIdToDisplayMap = {
     2016 : "Talent V Stamp",
     2017 : "Talent S Stamp",    
 };
+
+//maps the star signs ID (index) with their in game name
+var starSignMap = {
+    999 : "None",
+    0 : "The Buff Guy",
+    1 : "Flexo Bendo",
+    2 : "The Book Worm",
+    3 : "The Fuzzy Dice",
+    4 : "Dwarfo Beardus",
+    5 : "Hipster Logger",
+    6 : "Pie Seas",
+    7 : "Shoe Fly",
+    8 : "Blue Hedgehog",
+    9 : "Gum Drop",
+    10 : "Activelius",
+    11 : "Pack Mule",
+    12 : "Ned Kelly",
+    13 : "Robinhood",
+    14 : "Pirate Booty",
+    15 : "Muscle Man",
+    16 : "Fast Frog",
+    17 : "Smart Stooge",
+    18 : "Lucky Larry",
+    19 : "Silly Snoozer",
+    20 : "The Big Comatose",
+    21 : "Miniature Game",
+    22 : "Mount Eaterest",
+    23 : "Bob Build Guy",
+    24 : "The Big Brain",
+    25 : "The OG Skiller",
+    26 : "Grim Reaper",
+    27 : "The Fallen Titan",
+    28 : "The Forsaken",
+    29 : "Mr No Sleep",
+    30 : "Sir Savvy",
+    31 : "All Rounder",
+    32 : "Fatty Doodoo",
+    33 : "Chronus Cosmos"
+}
+
+var fishingBaitMap = {
+    0 : "Fly",
+    1  : "Wormie",
+    2  : "Iron Hook",
+    3  : "Basic Bobber",
+    4  : "Dualhook Prongs",
+    5  : "Pound of Steel",
+    6  : "Pound of Feathers",
+    7  : "Massless Unit",
+    8  : "Literal Elephant",
+    9  : "Valve Circles",
+    10  : "Dynamite",
+    11  : "Not Dynamite",
+    12  : "Triple Threat",
+    13  : "Crash Box",
+    14  : "Fat Albert",
+}
+
+var fishingLineMap = {
+    0  : "Fishing Twine",
+    1  : "Copper Twine",
+    2  : "Silver Twine",
+    3  : "Gold Twine",
+    4  : "Platinum Twine",
+    5  : "Leafy Vines",
+    6  : "Fun Flags",
+    7  : "Electrical Wire",
+    8  : "Wiener Links",
+    9  : "Zeus Gon Fishin",
+    10 : "Needledrop",
+    11 : "Spoons Lol",
+    12 : "Its a Boy",
+    13 : "Its a Girl",
+    14 : "Its Alright"
+}
+
+//this should probably change..
+var cardSetMap = {
+    "None" : "None",
+    "{%_EXP_if_below_Lv_50" : "Blunder Hills",
+    "{%_All_Food_Effect" : "Yum-Yum Desert",
+    "{%_Skill_Efficiency" : "Easy Resources",
+    "{%_Skill_EXP_Gain" : "Medium Resources",
+    "{%_DEF_and_ACC" : "Frostbite Tundra",
+    "{%_Skill_AFK_Gain Rate" : "Hard Resources",
+    "{%_Dmg,_Drop,_and_EXP" : "Bosses n Nightmares",
+    "{%_Drop_Rate" : "Events"
+}
