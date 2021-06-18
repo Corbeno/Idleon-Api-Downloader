@@ -124,18 +124,18 @@ function parseData(data){
 }
 
 function getStarLevelFromCard(cardName, cardLevel) {
-    var list = cardLevelMap[cardName];
+    var base = cardLevelMap[cardName];
     var level = parseInt(cardLevel);
-    var oneStarReq = 1 + list[0];
-    var twoStarReq = oneStarReq + list[1];
-    var threeStarReq = twoStarReq + list[2];
+    var oneStarReq = base;
+    var twoStarReq = base * 4;
+    var threeStarReq = base * 9;
     if(level == 0){
         return "Not Found";
-    }else if(parseInt(cardLevel) >= threeStarReq){
+    }else if(level >= threeStarReq){
         return "3 Star";
-    }else if(parseInt(cardLevel) >= twoStarReq){
+    }else if(level >= twoStarReq){
         return "2 Star";
-    }else if(parseInt(cardLevel) >= oneStarReq){
+    }else if(level >= oneStarReq){
         return "1 Star";
     }else{
         return "Acquired";
