@@ -332,12 +332,6 @@ function fillCharacterData(characters, numChars, fields) {
                 var toPush = mappedTalents[starTalentList[j]];
                 if(toPush == null){
                     starTalentIndexed.push(0);
-                    //TODO remove
-                    // console.log("Char Name: " + characters[i].name);
-                    // console.log("Talent Name: " + starTalentList[j]);
-                    // console.log("mappedTalents: " + JSON.stringify(mappedTalents));
-                    // console.log("unmapped: " + JSON.stringify(unmappedTalents));
-                    // console.log("");
                 }else{
                     starTalentIndexed.push(toPush);
                 }
