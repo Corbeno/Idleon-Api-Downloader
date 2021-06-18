@@ -367,7 +367,6 @@ function fillCharacterData(characters, numChars, fields) {
             mappedLoadout[j] = word.toLowerCase().split("_").map(capitalize).join(" ");
         }
         characters[i].attackLoadout = mappedLoadout;
-        // characters[i].attackLoadout = JSON.parse(fields["AttackLoadout_" + i].stringValue);
 
         //fishing toolkit
         characters[i].fishingToolkitEquipped.bait = fishingBaitMap[parseInt(fields["PVFishingToolkit_" + i].arrayValue.values[0].integerValue)];
@@ -387,7 +386,8 @@ function addUpgradeStoneData(itemList, stoneData){
         "Reach" : 0,
         "Upgrade_Slots_Left" : 0,
         "Power" : 0,
-        "Speed" : 0
+        "Speed" : 0,
+        "UQ1val" : 0,
     }
 
     //add blank data to everything in the list first

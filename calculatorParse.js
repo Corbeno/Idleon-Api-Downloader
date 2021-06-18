@@ -11,34 +11,6 @@ function getCharacterCsv(cleanJson, index){
     return listToString(createCharacterList(cleanJson.characters[index]));
 }
 
-function parseToCsv(cleanJson){ 
-    var charCsvList = [];
-    var charactersData = cleanJson.characters;
-    var accountData = cleanJson.account;
-    //for each character, create a list of strings to turn into a csv
-    // for(var i = 0; i < characters.length; i++){
-    for(var i = 0; i < 2; i++){
-        charCsvList.push(createCharacterList(charactersData[i]));
-    }
-    charCsvList.push(createFamilyList(accountData));
-    charCsvList.push(createGuildList(accountData));
-
-    var csv = "";
-    //take each list and form the csv
-    for(var i = 0; i < charCsvList[0].length; i++){
-        csv += "=SPLIT(\"";
-        for(var j = 0; j < charCsvList.length; j++){
-            csv += charCsvList[j][i];
-            if(j < charCsvList.length-1){
-                csv += ",";
-            }
-        }
-        csv += "\", \",\")\n";
-    }
-    // console.log(csv);
-    return csv;
-}   
-
 function listToString(list){
     var str = "";
     for(var i = 0; i < list.length; i++){
@@ -411,7 +383,7 @@ function createCharacterList(character){
         tmp.push(data["WIS"]);
         tmp.push(data["LUK"]);
         tmp.push(data["Defence"]);
-        tmp.push(undefined); //bonus from equip (need to figure out how its stored?)
+        tmp.push(data["UQ1val"]); //unique stat bonus
         tmp.push(undefined); //empty
         for(var l = 0; l < tmp.length; l++){
             if(tmp[l] == undefined || tmp[l] == null){
