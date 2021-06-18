@@ -16,8 +16,12 @@ function parseData(data){
     r.characters = fillCharacterData(characters, numChars, fields);
 
     //account data
-    var account = templateData.account;
+    r.account = fillAccountData(templateData.account, r.characters, fields);
+    
+    return r;
+}
 
+function fillAccountData(account, characters, fields){
     account.chestBank = fields.MoneyBANK.doubleValue;
 
     //chest
@@ -85,7 +89,7 @@ function parseData(data){
     account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields);
 
     //highest class data
-    account.highestClasses = findHighestOfEachClass(r.characters);
+    account.highestClasses = findHighestOfEachClass(characters);
 
     //guild
     account.guild.bonuses = JSON.parse(fields.Guild.stringValue)[0];
@@ -119,8 +123,7 @@ function parseData(data){
     }
     account.cards = cleanCardData;
 
-    r.account = account;
-    return r;
+    return account;
 }
 
 function getStarLevelFromCard(cardName, cardLevel) {
