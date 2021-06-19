@@ -1,12 +1,11 @@
- console.log("injet ran");
  
- var s = document.createElement('script');
- s.src = chrome.extension.getURL('injected.js');
- s.onload = function() {
-     this.remove();
- };
- (document.head || document.documentElement).appendChild(s);
- chrome.storage.local.set({"data": null})
+var s = document.createElement('script');
+s.src = chrome.extension.getURL('injected.js');
+s.onload = function() {
+    this.remove();
+};
+(document.head || document.documentElement).appendChild(s);
+chrome.storage.local.set({"data": null})
 
 window.addEventListener("PassSaveToInject", function(event) {
     var jsonData = event.detail;

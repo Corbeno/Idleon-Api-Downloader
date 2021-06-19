@@ -1,12 +1,12 @@
 //parses a raw json string of idleon save data and returns a json object that is much more usable
-function parseData(data){
+function parseData(rawJson){
     var r = {};
-    var jsonData = JSON.parse(data);
-    var fields = jsonData.data.saveData.documentChange.document.fields;
-    var charNameData = jsonData.data.charNameData;
+    // var jsonData = JSON.parse(data);
+    var fields = rawJson.saveData.documentChange.document.fields;
+    var charNameData = rawJson.charNameData;
 
     //create each character based on blank template
-    var numChars = Object.keys(jsonData.data.charNameData).length;
+    var numChars = Object.keys(charNameData).length;
     var characters = [];
     for(var i = 0; i < numChars; i++) {
         var newCharacter = JSON.parse(JSON.stringify(templateData.characters)); //easy way of cloning
@@ -202,7 +202,6 @@ function findHighestOfEachClass(characters) {
 //grabs information from fields and inserts it into characters and returns the filled out characters
 //only fills out information based on numChars given
 function fillCharacterData(characters, numChars, fields) {
-    console.log("numChars: " + numChars);
     for(var i = 0; i < numChars; i++) {
         characters[i].class = classIndexMap[parseInt(getAnyFieldValue(fields["CharacterClass_" + i]))];
         characters[i].money = fields["Money_" + i].integerValue;
