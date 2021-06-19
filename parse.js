@@ -123,6 +123,10 @@ function fillAccountData(account, characters, fields){
     }
     account.cards = cleanCardData;
 
+    //bribes
+    var bribes = fields.BribeStatus.arrayValue.values;
+    account.bribes = condenseRawArray(bribes); //TODO add map for bribe names?
+
     return account;
 }
 

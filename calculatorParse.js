@@ -93,8 +93,8 @@ function createFamilyList(account){
     list.push(highScores.fishing);
     list.push(highScores.catching);
 
-    //bribe "Sleeping on the Job"
-    list.push("0"); //TODO
+    //bribe "Sleeping on the Job" (most likely to move)
+    list.push(account.bribes[3]);
     //W2 AFK Gains Merit
     list.push("0"); //TODO
     
@@ -465,6 +465,7 @@ function createCharacterList(character){
         list.push(boxes[k]);
     }
 
+    //Target afk locations
     //default to lowest target. Better to fill something then nothing
     list.push("Blunder Hills - Grasslands");
     list.push("Spore Meadows - Green Mushroom");
