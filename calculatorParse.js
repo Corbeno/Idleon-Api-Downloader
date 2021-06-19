@@ -96,7 +96,9 @@ function createFamilyList(account){
     //bribe "Sleeping on the Job" (most likely to move)
     list.push(account.bribes[3]);
     //W2 AFK Gains Merit
-    list.push("0"); //TODO
+    //this implementation assumes that if the merit is bought, it is bought for all characters
+    //which might not be true always
+    list.push(((account.tasks.meritsOwned.world2[2]) > 0) ? "1" : "0"); 
     
     //cards
     var cards = account.cards;

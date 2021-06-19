@@ -52,7 +52,7 @@ function fillAccountData(account, characters, fields){
     taskData.milestoneProgress.world2 = ZZ0[1];
     taskData.milestoneProgress.world3 = ZZ0[2];
     //meritsOwned
-    var ZZ2 = JSON.parse(fields.TaskZZ3.stringValue);
+    var ZZ2 = JSON.parse(fields.TaskZZ2.stringValue);
     taskData.meritsOwned.world1 = ZZ2[0];
     taskData.meritsOwned.world2 = ZZ2[1];
     taskData.meritsOwned.world3 = ZZ2[2];
