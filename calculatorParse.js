@@ -195,7 +195,7 @@ function createFamilyList(account){
         cards["Pingy"],
         cards["Bunny"],
         cards["Lustre"],
-        cards["Tundra Logs"], //TODO fix?
+        cards["Tundra Logs"],
         cards["Mosquisnow"],
         cards["Flycicle"],
         "Filler",
@@ -326,7 +326,7 @@ function createCharacterList(character){
             list.push(character.talentLevels[j]);
         }
     }
-    skip(list, 75 - j); //TODO make 75 a constant somewhere?
+    skip(list, 75 - j); 
 
     //star talents
     //65 slots
