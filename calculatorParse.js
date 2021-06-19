@@ -186,7 +186,7 @@ function createFamilyList(account){
         cards["Bloodbone"],
         cards["Crystal Cattle"],
 
-        cards["Wispy Lumber"],
+        cards["Wispy Tree"],
         cards["Rooted Soul"],
         cards["Frigid Soul"],
         cards["Squiddy Soul"],
@@ -195,7 +195,7 @@ function createFamilyList(account){
         cards["Pingy"],
         cards["Bunny"],
         cards["Lustre"],
-        cards["Tundra Logs"],
+        cards["Saharan Foal"],
         cards["Mosquisnow"],
         cards["Flycicle"],
         "Filler",
