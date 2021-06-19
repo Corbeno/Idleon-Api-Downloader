@@ -252,12 +252,12 @@ function createFamilyList(account){
     for(var i = 0; i < 28; i++){
         list.push(stamps.combat[i]);
     }
-    //skills (24)
-    for(var i = 0; i < 24; i++){
+    //skills (36)
+    for(var i = 0; i < 36; i++){
         list.push(stamps.skills[i]);
     }
-    //misc (18)
-    for(var i = 0; i < 18; i++){
+    //misc (20)
+    for(var i = 0; i < 20; i++){
         list.push(stamps.misc[i]);
     }
 
