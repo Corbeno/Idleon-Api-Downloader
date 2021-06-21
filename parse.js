@@ -25,7 +25,6 @@ function parseData(rawJson){
 }
 
 function fillGuildMemberData(guildInfo){
-    console.log(guildInfo);
     var keys = Object.keys(guildInfo);
     var cleanMembers = [];
     for(var i = 0; i < keys.length; i++){
@@ -154,6 +153,14 @@ function fillAccountData(account, characters, fields){
     //5 = 
     var refinery = JSON.parse(fields.Refinery.stringValue);
     account.refinery = refinery;
+
+    //quests complete (possibly temporary for use in spreadsheet)
+    var quests = {};
+    for(var i = 0; i < Object.keys(account).length; i++){
+        var lookup = "QuestComplete_" + String(i);
+        quests[lookup] = fields[lookup];
+    }
+    account.quests = quests;
 
     return account;
 }

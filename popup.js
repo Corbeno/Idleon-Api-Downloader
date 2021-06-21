@@ -17,11 +17,13 @@ function updateAllButtons(){
             var cleanJson =  parseData(rawJson);
             var cleanString = JSON.stringify(cleanJson);
             var lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
+            var questsString = JSON.stringify(cleanJson.account.quests);
             showCopyButton("rawCopyLink", rawString);
             showDownloadButton("rawDownloadLink", rawString, "rawData.json")
             showCopyButton("cleanJsonCopyLink", cleanString);
             showDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
             showCopyButton("lootyCopyLink", lootyString);
+            showCopyButton("questsCopyLink", questsString);
         
             //companion data
             var familyCsv = getFamilyCsv(cleanJson);
