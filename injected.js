@@ -39,17 +39,27 @@ function wsIntercept() {
     OrigWebSocket.prototype.send = function(data) {
         if(this.addedListener == undefined){
             this.addEventListener("message", function(event) {
-                var jsonData = JSON.parse(event.data).d.b.d;
+                var request = JSON.parse(event.data).d.b;
+                var jsonData = request.d;
+                var messageIntent = request.p;
 
                 //check that the data is char names
                 try{
-                    if("0" in jsonData){
+                    // console.log(messageIntent);
+                    if(messageIntent.search(/_uid\//) !== -1){
                         //data is char names, send it to inject.js
                         var send = new CustomEvent("PassCharNameToInject", {detail: jsonData});
+                        window.dispatchEvent(send);
+                    }else if(messageIntent.search(/_guild\/[a-zA-Z0-9]*\/m/) !== -1){
+                        //data is guild member information
+                        console.log("guild info: " + JSON.stringify(request));
+                        var send = new CustomEvent("PassGuildInfoToInject", {detail: jsonData});
                         window.dispatchEvent(send);
                     }
                 }catch(e){
                     //ignore
+                    // console.log('ignoring error');
+                    // console.log(e);
                 }
             });
             this.addedListener = true;

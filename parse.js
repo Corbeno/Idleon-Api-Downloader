@@ -127,6 +127,16 @@ function fillAccountData(account, characters, fields){
     var bribes = fields.BribeStatus.arrayValue.values;
     account.bribes = condenseRawArray(bribes); //TODO add map for bribe names?
 
+    //refinery (TODO)
+    //0 =
+    //1 = inventory
+    //2 =
+    //3 = currently refined salt (needing claimed)
+    //4 = 
+    //5 = 
+    var refinery = JSON.parse(fields.Refinery.stringValue);
+    account.refinery = refinery;
+
     return account;
 }
 
