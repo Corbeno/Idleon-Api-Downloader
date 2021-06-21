@@ -47,7 +47,8 @@ var templateData = {
             "level" : {}
         },
         "guild" : {
-            "bonuses" : {}
+            "bonuses" : {},
+            "memberInfo" : {}
         },
         "highestClasses" : {},
         "highestItemCounts" : {

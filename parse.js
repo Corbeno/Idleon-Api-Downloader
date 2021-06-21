@@ -4,6 +4,7 @@ function parseData(rawJson){
     // var jsonData = JSON.parse(data);
     var fields = rawJson.saveData.documentChange.document.fields;
     var charNameData = rawJson.charNameData;
+    var guildInfo = rawJson.guildInfo;
 
     //create each character based on blank template
     var numChars = Object.keys(charNameData).length;
@@ -17,8 +18,25 @@ function parseData(rawJson){
 
     //account data
     r.account = fillAccountData(templateData.account, r.characters, fields);
+
+    r.account.guild.memberInfo = fillGuildMemberData(guildInfo);
     
     return r;
+}
+
+function fillGuildMemberData(guildInfo){
+    console.log(guildInfo);
+    var keys = Object.keys(guildInfo);
+    var cleanMembers = [];
+    for(var i = 0; i < keys.length; i++){
+        var member = guildInfo[keys[i]];
+        cleanMembers.push({
+            "name" : member.a,
+            "level" : member.d,
+            "guildPoints" : member.e
+        });
+    }
+    return cleanMembers;
 }
 
 function fillAccountData(account, characters, fields){
