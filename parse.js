@@ -32,7 +32,8 @@ function fillGuildMemberData(guildInfo){
         cleanMembers.push({
             "name" : member.a,
             "level" : member.d,
-            "guildPoints" : member.e
+            "guildPoints" : member.e,
+            "accountId" : keys[i]
         });
     }
     return cleanMembers;
