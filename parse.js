@@ -48,8 +48,11 @@ function fillAccountData(account, characters, fields){
     account.chest = condenseTwoRawArrays(chestOrder, chestQuantity, "item", "count", itemMap, null);
 
     //obols
-    var obolsEquipped = fields.ObolEqO1.arrayValue.values;
-    account.obols = condenseRawArray(obolsEquipped, obolNameMap);
+    var rawObolNames = fields.ObolEqO1.arrayValue.values;
+    
+    var obolNames = condenseRawArray(rawObolNames, obolNameMap);
+    var obolBonusMap = JSON.parse(fields.ObolEqMAPz1.stringValue);
+    account.obols = formObolData(obolNames, obolBonusMap);
     
     //tasks (TODO add question mark, explained in discord)
     //TaskZZ0 = Current milestone in uncompleted task
@@ -164,6 +167,27 @@ function fillAccountData(account, characters, fields){
     account.quests = quests;
 
     return account;
+}
+
+function formObolData(nameList, bonusesMap) {
+    console.log(nameList);
+    var r = [];
+    //apply all name information
+    for(var name in nameList){
+        r.push({
+            name : nameList[name],
+            bonus: {}
+        });
+    }
+
+    //go through each key and add bonuses if needed
+    var keys = Object.keys(bonusesMap);
+    for(var i = 0; i < keys.length; i++){
+        var index = parseInt(keys[i]);
+        r[index].bonus = bonusesMap[keys[i]];
+    }
+
+    return r;
 }
 
 function getStarLevelFromCard(cardName, cardLevel) {
