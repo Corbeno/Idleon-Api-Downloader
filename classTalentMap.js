@@ -21,6 +21,12 @@ var classTalentMap = {
         "Journeyman"
     ],
 
+    "Maestro" : [
+        "Beginner",
+        "Journeyman",
+        "Maestro"
+    ],
+
     "Warrior" : [
         "Rage Basics",
         "Warrior"
@@ -112,24 +118,24 @@ var classTalentPageMap = {
     "CARDS_GALORE",
     "RARES_EVERYWHERE!",
     ],
-
+    
 "Maestro" : 
     [
     "COIN_TOSS",
-    "_",
-    "_",
-    "_",
-    "_",
+    "SKILLAGE_DAMAGE",
+    "PRINTER_GO_BRRR",
     "TRIPLE_JAB",
-    "_",
-    "_",
-    "_",
-    "_",
-    "_",
-    "_",
-    "_",
-    "_",
-    "_",
+    "ONE_STEP_AHEAD",
+    "LUCKY_CHARMS",
+    "CLEVER_CLOVER_OBOLS",
+    "SKILLIEST_STATUE",
+    "BLISS_N_CHIPS",
+    "COLLOQUIAL_CONTAINERS",
+    "MAESTRO_TRANSFUSION",
+    "CRYSTAL_COUNTDOWN",
+    "LEFT_HAND_OF_LEARNING",
+    "RIGHT_HAND_OF_ACTION",
+    "JMAN_WAS_BETTER",
     ],
 
 "Virtuoso" : 
