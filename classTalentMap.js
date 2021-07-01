@@ -1,14 +1,3 @@
-//Beginner
-//Journeyman
-//warrior
-//barbarian
-//squire
-//archer
-//bowman
-//hunter
-//mage
-//shaman
-//wizard
 
 //maps a class with its talent page(s)
 var classTalentMap = {
@@ -660,23 +649,4 @@ var classTalentPageMap = {
         "SHRINE_ARCHITECT",
         "FILLER"
     ]
-//idk what this is but it was datamined...
-// "Mining" : 
-//     [
-//     "BORED_TO_DEATH",
-//     "BEGINNER_BEST_CLASS",
-//     "STUDIOUS_QUESTER",
-//     "QUEST_CHUNGUS",
-//     "CRYSTALS_4_DAYYS",
-//     "WILL_OF_THE_ELDEST",
-//     "TICK_TOCK",
-//     "STONKS!",
-//     "ROLL_DA_DICE",
-//     "ATTACKS_ON_SIMMER",
-//     "TOILET_PAPER_POSTAGE",
-//     "EXP_CONVERTER",
-//     "GOBLET_OF_HEMOGLOBIN",
-//     "JUST_EXP",
-//     "FROTHY_MALK",
-//     ]
 };
