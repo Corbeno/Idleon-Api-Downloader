@@ -46,50 +46,6 @@ var skillIndexMap = {
     9 : "worship"
 };
 
-var classIndexMap = {
-    1 : "Beginner",
-    2 : "Journeyman",
-    3 : "Maestro",
-    4 : "Virtuoso",
-    5 : "Infinilyte",
-    6 : "Rage Basics",
-    7 : "Warrior",
-    8 : "Barbarian",
-    9 : "Squire",
-    10 : "Blood Berserker",
-    11 : "Death Bringer",
-    12 : "Divine Knight",
-    13 : "Royal Guardian",
-    14 : "Filler",
-    15 : "Filler",
-    16 : "Filler",
-    17 : "Filler",
-    18 : "Calm Basics",
-    19 : "Archer",
-    20 : "Bowman",
-    21 : "Hunter",
-    22 : "Siege Breaker",
-    23 : "Mayheim",
-    24 : "Wind Walker",
-    25 : "Beast Master",
-    26 : "Filler",
-    27 : "Filler",
-    28 : "Filler",
-    29 : "Filler",
-    30 : "Savvy Basics",
-    31 : "Mage",
-    32 : "Wizard",
-    33 : "Shaman",
-    34 : "Elemental Sorcerer",
-    35 : "Spiritual Monk",
-    36 : "Bubonic Conjuror",
-    37 : "Arcane Cultist",
-    38 : "Filler",
-    39 : "Filler",
-    40 : "Filler",
-    41 : "Filler",
-};
-
 var obolNameMap = {
     "ObolAmarokA" : "Granite Obol of Amarok's Stare",
     "ObolBronze0" : "Bronze STR Obol",
@@ -295,7 +251,7 @@ var fishingLineMap = {
     14 : "Its Alright"
 }
 
-//this should probably change..
+//this should probably change.. but it works...
 var cardSetMap = {
     "None" : "None",
     "{%_EXP_if_below_Lv_50" : "Blunder Hills",
