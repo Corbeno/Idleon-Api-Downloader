@@ -1,4 +1,3 @@
-
 xhrIntercept();
 wsIntercept();
 

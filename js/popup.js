@@ -1,3 +1,4 @@
+console.log("popup");
 updateAllButtons();
 chrome.storage.onChanged.addListener(function(changes, namespace){
     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
