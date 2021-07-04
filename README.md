@@ -35,6 +35,8 @@ Whether you are trying to use the extension to paste into a spreadsheet or creat
 
 You can also create an issue right here in Github if you like. Simply create a new issue in the "issues" tab at the top of this page!
 
+If you are having issues directly following an update to Idleon, chances are that I'm already working on the fix. Please be patient, but still feel free to message me or create a Github issue if you would like!
+
 # "How can I help?"
 
 I put this project on Github for a reason! This is my first project with web development, so things are pretty sloppy in that area. If you think you can contribute in any way, please feel free to make a pull request! It would be much appriciated!
