@@ -134,7 +134,7 @@ function fillAccountData(account, characters, fields) {
     var cardKeys = Object.keys(rawCardsData);
     for (var i = 0; i < cardKeys.length; i++) {
         var key = cardKeys[i];
-        var lookup = mobMap[key];
+        var lookup = mapLookup(mobMap, key);
         var count = rawCardsData[key]
         cleanCardData[lookup] = {
             "collected": count,
@@ -174,6 +174,14 @@ function fillAccountData(account, characters, fields) {
     account.looty = lootyList;
 
     return account;
+}
+
+function mapLookup(map, key) {
+    var r = map[key];
+    if (r == undefined) {
+        console.error("Unable to find key: " + key + " in map");
+    }
+    return r;
 }
 
 function formObolData(nameList, bonusesMap) {

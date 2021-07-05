@@ -1,6 +1,7 @@
 // maps stored mob names to their game display name
 // used for naming cards
 var mobMap = {
+    "Blank": "Blank",
     "ForgeA": "Fire Forge",
     "ForgeB": "Cinder Forge",
     "Bandit_Bob": "Bandit Bob",
@@ -167,5 +168,9 @@ var mobMap = {
     "demonPtutorial": "Error",
     "AlienTreetutorial": "Error",
     "Starlight": "Error",
-    "behemoth": "Error"
+    "behemoth": "Error",
+    "SummerEvent1": "Coastiolyte",
+    "SummerEvent2": "Summer Spirit",
+    "shovelY": "Plasti Doug",
+    "crabcakeB": "Mr Blueberry"
 }
