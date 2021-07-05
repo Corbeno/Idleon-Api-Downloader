@@ -177,7 +177,6 @@ function fillAccountData(account, characters, fields) {
 }
 
 function formObolData(nameList, bonusesMap) {
-    console.log(nameList);
     var r = [];
     // apply all name information
     for (var name in nameList) {
