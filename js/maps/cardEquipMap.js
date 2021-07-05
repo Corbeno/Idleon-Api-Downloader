@@ -1,4 +1,6 @@
 var cardEquipMap = {
+    "B": "None",
+
     "mushG": "Green Mushroom (+ Base HP)",
     "mushR": "Red Mushroom (+ Base LUK)",
     "frogG": "Frog (+ Base MP)",
@@ -105,5 +107,9 @@ var cardEquipMap = {
     "sheepB": "Floofie (+% MP regen rate)",
     "snakeY": "Shell Snake (+ Base LUK)",
     "EasterEvent1": "Egggulyte (+% Card Drop Chance)",
-    "EasterEvent2": "Egg Capsule (+% Critical Damage)"
+    "EasterEvent2": "Egg Capsule (+% Critical Damage)",
+    "SummerEvent1": "Coastiolyte TODO",
+    "SummerEvent2": "Summer Spirit TODO",
+    "shovelY": "Plasti Doug TODO",
+    "crabcakeB": "Mr Blueberry TODO"
 };

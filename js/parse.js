@@ -485,10 +485,10 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
         var val1 = element1[Object.keys(element1)[0]];
         var val2 = element2[Object.keys(element2)[0]];
         if (map1 != null) {
-            val1 = map1[val1];
+            val1 = mapLookup(map1, val1);
         }
         if (map2 != null) {
-            val2 = map2[val2];
+            val2 = mapLookup(map2, val2);
         }
         r.push({[field1]: val1, [field2]: val2});
     }
@@ -505,10 +505,7 @@ function condenseRawArray(rawArray, map = null) {
         var element = rawArray[i];
         var val = element[Object.keys(element)[0]];
         if (map != null) {
-            val = map[val];
-            if (val == null) {
-                val = map["NOT_FOUND"];
-            }
+            val = mapLookup(map, val);
         }
         r.push(val);
     }
