@@ -309,7 +309,9 @@ function fillCharacterData(characters, numChars, fields) {
 
         // obols
         var rawObols = fields["ObolEqO0_" + i].arrayValue.values;
-        characters[i].obols = condenseRawArray(rawObols, obolNameMap);
+        var obolNames = condenseRawArray(rawObols, obolNameMap);
+        var obolMap = JSON.parse(fields["ObolEqMAP_" + i].stringValue);
+        characters[i].obols = formObolData(obolNames, obolMap);
 
         // statues
         var statueArray = JSON.parse(fields["StatueLevels_" + i].stringValue);
