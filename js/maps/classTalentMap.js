@@ -622,7 +622,7 @@ var classTalentPageMap = {
         "CRYSTALS_4_DAYYS",
         "WILL_OF_THE_ELDEST",
         "TICK_TOCK",
-        "FILLER",
+        "STONKS!",
         "ROLL_DA_DICE",
         "ATTACKS_ON_SIMMER",
         "TOILET_PAPER_POSTAGE",

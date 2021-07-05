@@ -377,9 +377,9 @@ function fillCharacterData(characters, numChars, fields) {
         for (var j = 0; j < talentPages.length; j++) {
             var talents = classTalentPageMap[talentPages[j]];
             orderedClassTalents = orderedClassTalents.concat(talents);
-            for (var k = 0; k < orderedClassTalents.length; k++) {
-                indexedTalents[k] = mappedTalents[orderedClassTalents[k]];
-            }
+        }
+        for (var k = 0; k < orderedClassTalents.length; k++) {
+            indexedTalents[k] = mappedTalents[orderedClassTalents[k]];
         }
         characters[i].talentLevels = indexedTalents;
         // star talents
