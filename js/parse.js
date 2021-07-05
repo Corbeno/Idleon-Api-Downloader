@@ -483,7 +483,7 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
         var element1 = raw1[i];
         var element2 = raw2[i];
         var val1 = element1[Object.keys(element1)[0]];
-        var val2 = element2[Object.keys(element2)[0]]
+        var val2 = element2[Object.keys(element2)[0]];
         if (map1 != null) {
             val1 = map1[val1];
         }
