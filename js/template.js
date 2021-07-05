@@ -62,7 +62,8 @@ var templateData = {
             "catching": 0,
             "mining": 0
         },
-        "quests": {}
+        "quests": {},
+        "looty": {}
 
     },
     "characters": {

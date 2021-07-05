@@ -166,6 +166,13 @@ function fillAccountData(account, characters, fields) {
     }
     account.quests = quests;
 
+    // looty mc shooty
+    var lootyString = fields.Cards1.stringValue;
+    // remove all quotes and []
+    lootyString = lootyString.replace(/\"|\[|\]/g, "");
+    var lootyList = lootyString.split(",");
+    account.looty = lootyList;
+
     return account;
 }
 
