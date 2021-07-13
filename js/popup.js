@@ -36,6 +36,8 @@ function updateAllButtons() {
             showCopyButton("familyCopyLink", familyCsv);
             showCopyButton("guildCopyLink", guildCsv);
             showCharacterCopyButtons(cleanJson);
+        } else {
+            console.log("not updating buttons as result.data is null");
         }
     });
 }
