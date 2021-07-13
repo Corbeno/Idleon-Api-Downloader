@@ -6,6 +6,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         }
     ] of Object.entries(changes)) {
         if (newValue != null) { // when save data changes, re-parse clean json with new save data and update buttons
+            console.log("detected a change in save data");
             updateAllButtons();
         }
     }
@@ -14,6 +15,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 function updateAllButtons() {
     chrome.storage.local.get("data", function (result) {
         if (result.data != null) { // save data
+            console.log("save data not null. Updating all buttons");
             var rawJson = result.data;
             var rawString = JSON.stringify(rawJson);
             var cleanJson = parseData(rawJson);

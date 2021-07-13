@@ -1,5 +1,6 @@
 // parses a raw json string of idleon save data and returns a json object that is much more usable
 function parseData(rawJson) {
+    console.log("started parsing raw data");
     var r = {};
     // var jsonData = JSON.parse(data);
     var fields = rawJson.saveData.documentChange.document.fields;

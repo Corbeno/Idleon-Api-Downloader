@@ -39,6 +39,7 @@ function checkTempData() {
                         "charNameData": charNameData,
                         "guildInfo": guildInfo
                     }
+                    console.log("saving combined data to chrome local storage");
                     chrome.storage.local.set({"data": combined})
 
                     // remove temp data
