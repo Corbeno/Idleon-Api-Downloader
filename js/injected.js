@@ -1,3 +1,4 @@
+console.log("injected API downloader");
 xhrIntercept();
 wsIntercept();
 
