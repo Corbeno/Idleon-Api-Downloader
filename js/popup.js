@@ -19,12 +19,12 @@ function updateAllButtons() {
             console.log("save data not null. Updating all buttons");
             var rawJson = result.data;
             var rawString = JSON.stringify(rawJson);
+            showCopyButton("rawCopyLink", rawString);
+            showDownloadButton("rawDownloadLink", rawString, "rawData.json")
             var cleanJson = parseData(rawJson);
             var cleanString = JSON.stringify(cleanJson);
             var lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
             var questsString = JSON.stringify(cleanJson.account.quests);
-            showCopyButton("rawCopyLink", rawString);
-            showDownloadButton("rawDownloadLink", rawString, "rawData.json")
             showCopyButton("cleanJsonCopyLink", cleanString);
             showDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
             showCopyButton("lootyCopyLink", lootyString);
