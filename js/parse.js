@@ -55,8 +55,8 @@ function fillAccountData(account, characters, fields) {
     // TaskZZ1 = Completed Task Count
     // TaskZZ2 = merit shop purchases
     // TaskZZ3 = crafts unlocked
-    // TaskZZ4 = ?
-    // TaskZZ5 = ?
+    // TaskZZ4 = total unlock points & unspent merit points
+    // TaskZZ5 = current daily tasks
     var taskData = templateData.account.tasks;
     // unlocked
     var ZZ1 = JSON.parse(fields.TaskZZ1.stringValue);
