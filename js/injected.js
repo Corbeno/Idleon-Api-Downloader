@@ -1,4 +1,3 @@
-console.log("injected API downloader");
 xhrIntercept();
 wsIntercept();
 
@@ -46,11 +45,9 @@ function wsIntercept() {
                 // check that the data is what is needed
                 try {
                     if (messageIntent.search(/_uid\//) !== -1) { // data is char names, send it to inject.js
-                        console.log("found char name data and passing over");
                         var send = new CustomEvent("PassCharNameToInject", {detail: jsonData});
                         window.dispatchEvent(send);
                     } else if (messageIntent.search(/_guild\/[a-zA-Z0-9]*\/m$/) !== -1) { // data is guild member information
-                        console.log("found guild data and passing it over")
                         var send = new CustomEvent("PassGuildInfoToInject", {detail: jsonData});
                         window.dispatchEvent(send);
                     }
