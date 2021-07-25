@@ -18,6 +18,7 @@ function updateAllButtons() {
             var rawString = JSON.stringify(rawJson);
             showCopyButton("rawCopyLink", rawString);
             showDownloadButton("rawDownloadLink", rawString, "rawData.json")
+
             var cleanJson = parseData(rawJson);
             var cleanString = JSON.stringify(cleanJson);
             var lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
@@ -27,7 +28,12 @@ function updateAllButtons() {
             showCopyButton("lootyCopyLink", lootyString);
             showCopyButton("questsCopyLink", questsString);
 
-            // companion data
+            // // companion import data (coming soon! tm)
+            // var companionJson = companionParseData(cleanJson);
+            // var companionString = JSON.stringify(companionJson);
+            // showCopyButton("companionCopyLink", companionString);
+
+            // calculator import data
             var familyCsv = getFamilyCsv(cleanJson);
             var guildCsv = getGuildCsv(cleanJson);
             showCopyButton("familyCopyLink", familyCsv);

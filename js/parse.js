@@ -433,6 +433,13 @@ function fillCharacterData(characters, numChars, fields) {
         // fishing toolkit
         characters[i].fishingToolkitEquipped.bait = fishingBaitMap[parseInt(fields["PVFishingToolkit_" + i].arrayValue.values[0].integerValue)];
         characters[i].fishingToolkitEquipped.line = fishingLineMap[parseInt(fields["PVFishingToolkit_" + i].arrayValue.values[1].integerValue)];
+
+        // equipped bubbles
+        var charEquippedBubbles = JSON.parse(fields.CauldronBubbles.stringValue)[i];
+        characters[i].bubblesEquipped = [
+            mapLookup(largeBubbleMap, charEquippedBubbles[0]),
+            mapLookup(largeBubbleMap, charEquippedBubbles[1])
+        ]
     }
     return characters;
 }

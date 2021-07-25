@@ -318,3 +318,19 @@ var cardSetMap = {
     "{%_Dmg,_Drop,_and_EXP" : "Bosses n Nightmares",
     "{%_Drop_Rate" : "Events"
 }
+
+// maps the weird naming convention of each large bubble to its display name
+var largeBubbleMap = {
+    "_11" : "call_me_bob",
+    "_6" : "sploosh_sploosh",
+    "_3" : "wyoming_blood",
+    "a11" : "call_me_ash",
+    "a7" : "sanic_tools",
+    "a2" : "hammer_hammer",
+    "b11" : "call_me_pope",
+    "b7" : "cookin_roadkill",
+    "b3" : "molto_loggo",
+    "c12" : "big_game_hunter",
+    "c8" : "grind_time",
+    "c3" : "level_up_gift"
+}

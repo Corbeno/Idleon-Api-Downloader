@@ -93,6 +93,7 @@ var templateData = {
         "starTalentLevels": {},
         "skillLevels": {},
         "starSigns": {},
+        "bubblesEquipped": [],
         "fishingToolkitEquipped": {
             "bait": "",
             "line": ""
