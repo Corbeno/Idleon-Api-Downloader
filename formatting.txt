@@ -1,0 +1,5 @@
+This document will outline rules to the "clean JSON" must follow. 
+If you intend on contributing to this project, please follow these rules as best as possible to keep things consistent.
+
+1. Stored numbers will be either integers or doubles (not strings)
+2. Anything stored as its in game name must replace spaces with underscores. Eg. "Efaunt Helmet" becomes "Efaunt_Helmet"
