@@ -1034,5 +1034,6 @@ var itemMap = {
     "GemQ5": "Infinite Forge",
     "GemQ6": "Infinite Forge",
     "GemQ7": "Infinite Forge",
-    "GemQ8": "Infinite Forge"
+    "GemQ8": "Infinite Forge",
+    "Mayo": "Maynaise Bottle"
 }
