@@ -315,7 +315,7 @@ function createFamilyList(account) {
         16
     ];
     for (var i = 0; i < obolOrder.length; i++) {
-        list.push(account.obols[obolOrder[i]]);
+        list.push(account.obols[obolOrder[i]].name);
     }
 
     return list;
