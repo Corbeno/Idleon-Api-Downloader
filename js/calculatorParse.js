@@ -461,29 +461,32 @@ function createCharacterList(character) {
     }
 
     // obols (21)
-    var obols = character.obols;
-    // 1,5,0,3,8,4,16,17,20,15,2,14,18,6,13,7,12,19,9,10,11
-    list.push(obols[1]);
-    list.push(obols[5]);
-    list.push(obols[0]);
-    list.push(obols[3]);
-    list.push(obols[8]);
-    list.push(obols[4]);
-    list.push(obols[16]);
-    list.push(obols[17]);
-    list.push(obols[20]);
-    list.push(obols[15]);
-    list.push(obols[2]);
-    list.push(obols[14]);
-    list.push(obols[18]);
-    list.push(obols[6]);
-    list.push(obols[13]);
-    list.push(obols[7]);
-    list.push(obols[12]);
-    list.push(obols[19]);
-    list.push(obols[9]);
-    list.push(obols[10]);
-    list.push(obols[11]);
+    var obolOrder = [
+        1,
+        5,
+        0,
+        3,
+        8,
+        4,
+        16,
+        17,
+        20,
+        15,
+        2,
+        14,
+        18,
+        6,
+        13,
+        7,
+        12,
+        19,
+        9,
+        10,
+        11
+    ];
+    for (var obolIndex in obolOrder) {
+        list.push(character.obols[obolIndex].name);
+    }
 
     // Post Office Boxes
     var boxes = character.POBoxUpgrades;
