@@ -321,16 +321,16 @@ var cardSetMap = {
 
 // maps_the_weird_naming_convention_of_each_large_bubble_to_its_display_name
 var largeBubbleMap = {
-    "_11" : "call_me_bob",
-    "_6" : "sploosh_sploosh",
-    "_3" : "wyoming_blood",
-    "a11" : "call_me_ash",
-    "a7" : "sanic_tools",
-    "a2" : "hammer_hammer",
-    "b11" : "call_me_pope",
-    "b7" : "cookin_roadkill",
-    "b3" : "molto_loggo",
-    "c12" : "big_game_hunter",
-    "c8" : "grind_time",
-    "c3" : "level_up_gift"
+    "_11" : "Call_Me_Bob",
+    "_6" : "Sploosh_Sploosh",
+    "_3" : "Wyoming_Blood",
+    "a11" : "Call_Me_Ash",
+    "a7" : "Sanic_Tools",
+    "a2" : "Hammer_Hammer",
+    "b11" : "Call_Me_Pope",
+    "b7" : "Cookin_Roadkill",
+    "b3" : "Molto_Loggo",
+    "c12" : "Big_Game_Hunter",
+    "c8" : "Grind_Time",
+    "c3" : "Level_Up_Gift"
 }
