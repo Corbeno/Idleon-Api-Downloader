@@ -12,8 +12,9 @@ function getCharacterCsv(cleanJson, index) {
 
 function listToString(list) {
     var str = "";
+    // also replaces underscores with spaces as everything is originally with underscores
     for (var i = 0; i < list.length; i++) {
-        str += list[i] + "\n";
+        str += String(list[i]).replace(/_/g, " ") + "\n";
     }
     return str;
 }
