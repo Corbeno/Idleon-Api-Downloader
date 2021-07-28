@@ -181,105 +181,6 @@ function fillAccountData(account, characters, fields) {
     return account;
 }
 
-function mapLookup(map, key) {
-    var r = map[key];
-    if (r == undefined) {
-        console.error("Unable to find key: " + key + " in map");
-    }
-    return r;
-}
-
-function formObolData(nameList, bonusesMap) {
-    var r = [];
-    // apply all name information
-    for (var name in nameList) {
-        r.push({
-            name: nameList[name],
-            bonus: {}
-        });
-    }
-
-    // go through each key and add bonuses if needed
-    var keys = Object.keys(bonusesMap);
-    for (var i = 0; i < keys.length; i++) {
-        var index = parseInt(keys[i]);
-        r[index].bonus = bonusesMap[keys[i]];
-    }
-
-    return r;
-}
-
-function getStarLevelFromCard(cardName, cardLevel) {
-    var base = cardLevelMap[cardName];
-    var level = parseInt(cardLevel);
-    var oneStarReq = base;
-    var twoStarReq = base * 4;
-    var threeStarReq = base * 9;
-    if (level == 0) {
-        return "Not Found";
-    } else if (level >= threeStarReq) {
-        return "3 Star";
-    } else if (level >= twoStarReq) {
-        return "2 Star";
-    } else if (level >= oneStarReq) {
-        return "1 Star";
-    } else {
-        return "Acquired";
-    }
-}
-
-function findHighestInStorage(chestData, itemName) {
-    var max = 0;
-    for (var i = 0; i < chestData.length; i++) {
-        var object = chestData[i];
-        if (object.item == itemName && parseInt(object.count) > max) {
-            max = parseInt(object.count);
-        }
-    }
-    return max;
-}
-
-function findHighestOfEachClass(characters) { // create base map of characters
-    var baseCharacters = [];
-    for (var i = 0; i < characters.length; i++) {
-        var charClass = characters[i].class;
-        var charLevel = parseInt(characters[i].level);
-        baseCharacters.push({
-            [charClass]: charLevel
-        });
-        var baseChar = charSubclassMap[charClass];
-        if (baseChar != null) {
-            baseCharacters.push({
-                [baseChar]: charLevel
-            });
-        }
-    }
-
-    var map = new Map();
-    var uniqueClasses = [];
-    for (var i = 0; i < baseCharacters.length; i++) {
-        var charClass = Object.keys(baseCharacters[i])[0];
-        var charLevel = baseCharacters[i][charClass];
-        if (map.has(charClass)) {
-            map.get(charClass).push(charLevel);
-        } else { // create new
-            var arr = [];
-            arr.push(charLevel);
-            map.set(charClass, arr);
-            uniqueClasses.push(charClass);
-        }
-    }
-
-    // go through the map and pick the highest value, adding it to r
-    var indexedHighestClasses = {};
-    for (var i = 0; i < uniqueClasses.length; i++) {
-        var addClass = uniqueClasses[i];
-        var addLevel = Math.max(...map.get(addClass));
-        indexedHighestClasses[addClass] = addLevel;
-    }
-    return indexedHighestClasses;
-}
-
 // grabs information from fields and inserts it into characters and returns the filled out characters
 // only fills out information based on numChars given
 function fillCharacterData(characters, numChars, fields) {
@@ -460,16 +361,95 @@ function fillCharacterData(characters, numChars, fields) {
     return characters;
 }
 
-function turnMapToList(map, toInt = false) {
+function formObolData(nameList, bonusesMap) {
     var r = [];
-    for (var key in Object.keys(map)) {
-        if (toInt) {
-            r.push(parseInt(key));
-        } else {
-            r.push(key);
+    // apply all name information
+    for (var name in nameList) {
+        r.push({
+            name: nameList[name],
+            bonus: {}
+        });
+    }
+
+    // go through each key and add bonuses if needed
+    var keys = Object.keys(bonusesMap);
+    for (var i = 0; i < keys.length; i++) {
+        var index = parseInt(keys[i]);
+        r[index].bonus = bonusesMap[keys[i]];
+    }
+
+    return r;
+}
+
+function getStarLevelFromCard(cardName, cardLevel) {
+    var base = cardLevelMap[cardName];
+    var level = parseInt(cardLevel);
+    var oneStarReq = base;
+    var twoStarReq = base * 4;
+    var threeStarReq = base * 9;
+    if (level == 0) {
+        return "Not Found";
+    } else if (level >= threeStarReq) {
+        return "3 Star";
+    } else if (level >= twoStarReq) {
+        return "2 Star";
+    } else if (level >= oneStarReq) {
+        return "1 Star";
+    } else {
+        return "Acquired";
+    }
+}
+
+function findHighestInStorage(chestData, itemName) {
+    var max = 0;
+    for (var i = 0; i < chestData.length; i++) {
+        var object = chestData[i];
+        if (object.item == itemName && parseInt(object.count) > max) {
+            max = parseInt(object.count);
         }
     }
-    return r;
+    return max;
+}
+
+function findHighestOfEachClass(characters) { // create base map of characters
+    var baseCharacters = [];
+    for (var i = 0; i < characters.length; i++) {
+        var charClass = characters[i].class;
+        var charLevel = parseInt(characters[i].level);
+        baseCharacters.push({
+            [charClass]: charLevel
+        });
+        var baseChar = charSubclassMap[charClass];
+        if (baseChar != null) {
+            baseCharacters.push({
+                [baseChar]: charLevel
+            });
+        }
+    }
+
+    var map = new Map();
+    var uniqueClasses = [];
+    for (var i = 0; i < baseCharacters.length; i++) {
+        var charClass = Object.keys(baseCharacters[i])[0];
+        var charLevel = baseCharacters[i][charClass];
+        if (map.has(charClass)) {
+            map.get(charClass).push(charLevel);
+        } else { // create new
+            var arr = [];
+            arr.push(charLevel);
+            map.set(charClass, arr);
+            uniqueClasses.push(charClass);
+        }
+    }
+
+    // go through the map and pick the highest value, adding it to r
+    var indexedHighestClasses = {};
+    for (var i = 0; i < uniqueClasses.length; i++) {
+        var addClass = uniqueClasses[i];
+        var addLevel = Math.max(...map.get(addClass));
+        indexedHighestClasses[addClass] = addLevel;
+    }
+    return indexedHighestClasses;
 }
 
 function addUpgradeStoneData(itemList, stoneData) {
@@ -506,6 +486,18 @@ function addUpgradeStoneData(itemList, stoneData) {
         itemList[parseInt(key)]["stoneData"] = stoneData[key];
     }
     return itemList;
+}
+
+function turnMapToList(map, toInt = false) {
+    var r = [];
+    for (var key in Object.keys(map)) {
+        if (toInt) {
+            r.push(parseInt(key));
+        } else {
+            r.push(key);
+        }
+    }
+    return r;
 }
 
 function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null, toInt1 = false, toInt2 = false) {
@@ -552,6 +544,15 @@ function condenseRawArray(rawArray, map = null) {
             val = mapLookup(map, val);
         }
         r.push(val);
+    }
+    return r;
+}
+
+// look up an item in a specified map. Useful to find unmapped items easily
+function mapLookup(map, key) {
+    var r = map[key];
+    if (r == undefined) {
+        console.error("Unable to find key: " + key + " in map");
     }
     return r;
 }
