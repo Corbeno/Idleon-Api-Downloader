@@ -214,7 +214,7 @@ function fillCharacterData(characters, numChars, fields) {
 
         var rawEquipmentNames = equipableNames[0].mapValue.fields;
         var rawEquipmentCounts = equipableCounts[0].mapValue.fields;
-        var plainEquipmentData = condenseTwoRawArrays(rawEquipmentNames, rawEquipmentCounts, "name", "count", itemMap);
+        var plainEquipmentData = condenseTwoRawArrays(rawEquipmentNames, rawEquipmentCounts, "name", "count", itemMap, null, false, true);
         // add upgrade stone data
         // IMm_# = players inventory (todo later as it isn't usefull for calculations)
         // EMm0_# = equips
@@ -224,13 +224,13 @@ function fillCharacterData(characters, numChars, fields) {
 
         var rawToolNames = equipableNames[1].mapValue.fields;
         var rawToolCounts = equipableCounts[1].mapValue.fields;
-        var plainToolData = condenseTwoRawArrays(rawToolNames, rawToolCounts, "name", "count", itemMap);
+        var plainToolData = condenseTwoRawArrays(rawToolNames, rawToolCounts, "name", "count", itemMap, null, false, true);
         var toolStoneData = JSON.parse(fields["EMm1_" + i].stringValue);
         characters[i].tools = addUpgradeStoneData(plainToolData, toolStoneData);
 
         var rawFoodNames = equipableNames[2].mapValue.fields;
         var rawFoodCounts = equipableCounts[2].mapValue.fields;
-        characters[i].food = condenseTwoRawArrays(rawFoodNames, rawFoodCounts, "name", "count", itemMap);
+        characters[i].food = condenseTwoRawArrays(rawFoodNames, rawFoodCounts, "name", "count", itemMap, null, false, true);
 
         // obols
         var rawObols = fields["ObolEqO0_" + i].arrayValue.values;
@@ -243,7 +243,7 @@ function fillCharacterData(characters, numChars, fields) {
         var statueItems = [];
         for (var j = 0; j < statueArray.length; j++) {
             statueItems.push({
-                "level": statueArray[j][0],
+                "level": parseInt(statueArray[j][0]),
                 "progress": statueArray[j][1]
             });
         }
