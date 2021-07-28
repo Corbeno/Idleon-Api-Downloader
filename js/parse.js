@@ -129,9 +129,7 @@ function fillAccountData(account, characters, fields) {
     // cards
     var rawCardsData = JSON.parse(fields.Cards0.stringValue);
     var cleanCardData = {};
-    var cardKeys = Object.keys(rawCardsData);
-    for (var i = 0; i < cardKeys.length; i++) {
-        var key = cardKeys[i];
+    for (var key in Object.keys(rawCardsData)) {
         var lookup = mapLookup(mobMap, key);
         var count = rawCardsData[key]
         cleanCardData[lookup] = {
@@ -184,11 +182,16 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].currentMap = parseInt(fields["CurrentMap_" + i].integerValue);
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
         characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
-        characters[i].strength = parseInt(fields["PVStatList_" + i].arrayValue.values[0].integerValue);
-        characters[i].agility = parseInt(fields["PVStatList_" + i].arrayValue.values[1].integerValue);
-        characters[i].wisdom = parseInt(fields["PVStatList_" + i].arrayValue.values[2].integerValue);
-        characters[i].luck = parseInt(fields["PVStatList_" + i].arrayValue.values[3].integerValue);
-        characters[i].level = parseInt(fields["PVStatList_" + i].arrayValue.values[4].integerValue);
+
+        // basic stats
+        var statlist = fields["PVStatList_" + i].arrayValue.values;
+        characters[i].strength = parseInt(statlist[0].integerValue);
+        characters[i].agility = parseInt(statlist[1].integerValue);
+        characters[i].wisdom = parseInt(statlist[2].integerValue);
+        characters[i].luck = parseInt(statlist[3].integerValue);
+        characters[i].level = parseInt(statlist[4].integerValue);
+
+        // personal PO box data
         characters[i].POBoxUpgrades = JSON.parse(fields["POu_" + i].stringValue);
 
         var rawInvBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
