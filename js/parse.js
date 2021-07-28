@@ -54,7 +54,6 @@ function fillAccountData(account, characters, fields) {
     var obolBonusMap = JSON.parse(fields.ObolEqMAPz1.stringValue);
     account.obols = formObolData(obolNames, obolBonusMap);
 
-    // tasks (TODO add question mark, explained in discord)
     // TaskZZ0 = Current milestone in uncompleted task
     // TaskZZ1 = Completed Task Count
     // TaskZZ2 = merit shop purchases
@@ -116,12 +115,6 @@ function fillAccountData(account, characters, fields) {
     account.guild.bonuses = JSON.parse(fields.Guild.stringValue)[0];
 
     // minigame high scores
-    /*
-    0 = chopping
-    1 = fishing
-    2 = catching
-    3 = mining
-    */
     var minigameHighscores = fields.FamValMinigameHiscores.arrayValue.values;
     account.minigameHighscores.chopping = minigameHighscores[0].integerValue;
     account.minigameHighscores.fishing = minigameHighscores[1].integerValue;
@@ -171,7 +164,7 @@ function fillAccountData(account, characters, fields) {
     }
     account.quests = quests;
 
-    // looty mc shooty
+    // looty mc shooty raw display
     var lootyString = fields.Cards1.stringValue;
     // remove all quotes and []
     lootyString = lootyString.replace(/\"|\[|\]/g, "");
@@ -488,6 +481,7 @@ function addUpgradeStoneData(itemList, stoneData) {
     return itemList;
 }
 
+// some lists are stored as maps. This function turns them into actual lists
 function turnMapToList(map, toInt = false) {
     var r = [];
     for (var key in Object.keys(map)) {
@@ -500,6 +494,9 @@ function turnMapToList(map, toInt = false) {
     return r;
 }
 
+// take two raw arrays and get the first (and only) mapped object from each element in the array and combine it with
+// the second specified array in the same manner, but in a new array of maps with fields specified with field1 and field2
+// an optional toInt1 and toInt2 can be specified to ensure field data is an integer
 function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null, toInt1 = false, toInt2 = false) {
     var r = [];
     var length = raw1.length.integerValue;
