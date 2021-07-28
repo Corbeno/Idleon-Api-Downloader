@@ -29,7 +29,12 @@ function fillGuildMemberData(guildInfo) {
     var cleanMembers = [];
     for (var i = 0; i < keys.length; i++) {
         var member = guildInfo[keys[i]];
-        cleanMembers.push({"name": member.a, "level": member.d, "guildPoints": member.e, "accountId": keys[i]});
+        cleanMembers.push({
+            "name": member.a,
+            "level": member.d,
+            "guildPoints": member.e,
+            "accountId": keys[i]
+        });
     }
     return cleanMembers;
 }
@@ -188,7 +193,10 @@ function formObolData(nameList, bonusesMap) {
     var r = [];
     // apply all name information
     for (var name in nameList) {
-        r.push({name: nameList[name], bonus: {}});
+        r.push({
+            name: nameList[name],
+            bonus: {}
+        });
     }
 
     // go through each key and add bonuses if needed
@@ -236,10 +244,14 @@ function findHighestOfEachClass(characters) { // create base map of characters
     for (var i = 0; i < characters.length; i++) {
         var charClass = characters[i].class;
         var charLevel = parseInt(characters[i].level);
-        baseCharacters.push({[charClass]: charLevel});
+        baseCharacters.push({
+            [charClass]: charLevel
+        });
         var baseChar = charSubclassMap[charClass];
         if (baseChar != null) {
-            baseCharacters.push({[baseChar]: charLevel});
+            baseCharacters.push({
+                [baseChar]: charLevel
+            });
         }
     }
 
@@ -262,7 +274,7 @@ function findHighestOfEachClass(characters) { // create base map of characters
     var indexedHighestClasses = {};
     for (var i = 0; i < uniqueClasses.length; i++) {
         var addClass = uniqueClasses[i];
-        var addLevel = Math.max(... map.get(addClass));
+        var addLevel = Math.max(...map.get(addClass));
         indexedHighestClasses[addClass] = addLevel;
     }
     return indexedHighestClasses;
@@ -273,23 +285,25 @@ function findHighestOfEachClass(characters) { // create base map of characters
 function fillCharacterData(characters, numChars, fields) {
     for (var i = 0; i < numChars; i++) {
         characters[i].class = classIndexMap[parseInt(getAnyFieldValue(fields["CharacterClass_" + i]))];
-        characters[i].money = fields["Money_" + i].integerValue;
+        characters[i].money = parseInt(fields["Money_" + i].integerValue);
         characters[i].AFKtarget = fields["AFKtarget_" + i].stringValue;
-        characters[i].currentMap = fields["CurrentMap_" + i].integerValue;
-        characters[i].invBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
+        characters[i].currentMap = parseInt(fields["CurrentMap_" + i].integerValue);
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
-        characters[i].timeAway = fields["PTimeAway_" + i].doubleValue;
-        characters[i].strength = fields["PVStatList_" + i].arrayValue.values[0].integerValue;
-        characters[i].agility = fields["PVStatList_" + i].arrayValue.values[1].integerValue;
-        characters[i].wisdom = fields["PVStatList_" + i].arrayValue.values[2].integerValue;
-        characters[i].luck = fields["PVStatList_" + i].arrayValue.values[3].integerValue;
-        characters[i].level = fields["PVStatList_" + i].arrayValue.values[4].integerValue;
+        characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
+        characters[i].strength = parseInt(fields["PVStatList_" + i].arrayValue.values[0].integerValue);
+        characters[i].agility = parseInt(fields["PVStatList_" + i].arrayValue.values[1].integerValue);
+        characters[i].wisdom = parseInt(fields["PVStatList_" + i].arrayValue.values[2].integerValue);
+        characters[i].luck = parseInt(fields["PVStatList_" + i].arrayValue.values[3].integerValue);
+        characters[i].level = parseInt(fields["PVStatList_" + i].arrayValue.values[4].integerValue);
         characters[i].POBoxUpgrades = JSON.parse(fields["POu_" + i].stringValue);
+
+        var rawInvBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
+        characters[i].invBagsUsed = turnMapToList(rawInvBagsUsed, true);
 
         // inventory
         var inventoryItemNames = fields["InventoryOrder_" + i].arrayValue.values;
         var inventoryItemCounts = fields["ItemQTY_" + i].arrayValue.values;
-        characters[i].inventory = condenseTwoRawArrays(inventoryItemNames, inventoryItemCounts, "name", "count", itemMap);
+        characters[i].inventory = condenseTwoRawArrays(inventoryItemNames, inventoryItemCounts, "name", "count", itemMap, null, false, true);
 
         // equipment (0 = armor, 1 = tools, 2 = food)
         var equipableNames = fields["EquipOrder_" + i].arrayValue.values;
@@ -325,7 +339,9 @@ function fillCharacterData(characters, numChars, fields) {
         var statueArray = JSON.parse(fields["StatueLevels_" + i].stringValue);
         var statueItems = [];
         for (var j = 0; j < statueArray.length; j++) {
-            statueItems.push({"level": statueArray[j][0], "progress": statueArray[j][1]
+            statueItems.push({
+                "level": statueArray[j][0],
+                "progress": statueArray[j][1]
             });
         }
         characters[i].statueLevels = statueItems;
@@ -444,6 +460,18 @@ function fillCharacterData(characters, numChars, fields) {
     return characters;
 }
 
+function turnMapToList(map, toInt = false) {
+    var r = [];
+    for (var key in Object.keys(map)) {
+        if (toInt) {
+            r.push(parseInt(key));
+        } else {
+            r.push(key);
+        }
+    }
+    return r;
+}
+
 function addUpgradeStoneData(itemList, stoneData) {
     var blankData = {
         "Defence": 0,
@@ -480,7 +508,7 @@ function addUpgradeStoneData(itemList, stoneData) {
     return itemList;
 }
 
-function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null) {
+function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null, toInt1 = false, toInt2 = false) {
     var r = [];
     var length = raw1.length.integerValue;
     if (length == undefined) {
@@ -497,7 +525,16 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
         if (map2 != null) {
             val2 = mapLookup(map2, val2);
         }
-        r.push({[field1]: val1, [field2]: val2});
+        if (toInt1) {
+            val1 = parseInt(val1);
+        }
+        if (toInt2) {
+            val2 = parseInt(val2);
+        }
+        r.push({
+            [field1]: val1,
+            [field2]: val2
+        });
     }
     return r;
 }
