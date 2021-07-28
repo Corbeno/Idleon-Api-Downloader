@@ -98,7 +98,7 @@ function fillAccountData(account, characters, fields) {
 
     // forge
     var forgeLevelRaw = fields.ForgeLV.arrayValue.values;
-    account.forge.level = condenseRawArray(forgeLevelRaw);
+    account.forge.level = condenseRawArray(forgeLevelRaw, null, true);
 
     // alchemy
     var alchemyData = fields.CauldronInfo.arrayValue.values;
@@ -133,7 +133,7 @@ function fillAccountData(account, characters, fields) {
     for (var i = 0; i < cardKeys.length; i++) {
         var key = cardKeys[i];
         var lookup = mapLookup(mobMap, key);
-        var count = rawCardsData[key]
+        var count = parseInt(rawCardsData[key]);
         cleanCardData[lookup] = {
             "collected": count,
             "starLevel": getStarLevelFromCard(key, count)
@@ -143,7 +143,7 @@ function fillAccountData(account, characters, fields) {
 
     // bribes
     var bribes = fields.BribeStatus.arrayValue.values;
-    account.bribes = condenseRawArray(bribes);
+    account.bribes = condenseRawArray(bribes, null, true);
     // TODO add map for bribe names?
 
     // refinery (TODO)
@@ -172,7 +172,8 @@ function fillAccountData(account, characters, fields) {
     account.looty = lootyList;
 
     // purchases
-    account.bundlesPurchased = JSON.parse(fields.BundlesReceived.stringValue);
+    var rawBundles = JSON.parse(fields.BundlesReceived.stringValue);
+    account.bundlesPurchased = parseIntMapFields(rawBundles, true);
 
     return account;
 }
@@ -502,6 +503,17 @@ function turnMapToList(map, toInt = false) {
     return r;
 }
 
+// forces each field of a map to be an integer or null
+function parseIntMapFields(map) {
+    var r = {};
+    var keys = Object.keys(map);
+    for(var i = 0; i < keys.length; i++){
+        var key = keys[i];
+        r[key] = parseInt(map[key]);
+    }
+    return r;
+}
+
 // take two raw arrays and get the first (and only) mapped object from each element in the array and combine it with
 // the second specified array in the same manner, but in a new array of maps with fields specified with field1 and field2
 // an optional toInt1 and toInt2 can be specified to ensure field data is an integer
@@ -536,7 +548,7 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
     return r;
 }
 
-function condenseRawArray(rawArray, map = null) {
+function condenseRawArray(rawArray, map = null, toInt = false) {
     var r = [];
     var length = rawArray.length.integerValue;
     if (length == undefined) {
@@ -547,6 +559,9 @@ function condenseRawArray(rawArray, map = null) {
         var val = element[Object.keys(element)[0]];
         if (map != null) {
             val = mapLookup(map, val);
+        }
+        if(toInt) {
+            val = parseInt(val);
         }
         r.push(val);
     }
