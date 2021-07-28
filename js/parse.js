@@ -129,7 +129,9 @@ function fillAccountData(account, characters, fields) {
     // cards
     var rawCardsData = JSON.parse(fields.Cards0.stringValue);
     var cleanCardData = {};
-    for (var key in Object.keys(rawCardsData)) {
+    var cardKeys = Object.keys(rawCardsData);
+    for (var i = 0; i < cardKeys.length; i++) {
+        var key = cardKeys[i];
         var lookup = mapLookup(mobMap, key);
         var count = rawCardsData[key]
         cleanCardData[lookup] = {
@@ -168,6 +170,9 @@ function fillAccountData(account, characters, fields) {
     lootyString = lootyString.replace(/\"|\[|\]/g, "");
     var lootyList = lootyString.split(",");
     account.looty = lootyList;
+
+    // purchases
+    account.bundlesPurchased = JSON.parse(fields.BundlesReceived.stringValue);
 
     return account;
 }
