@@ -45,7 +45,7 @@ function fillAccountData(account, characters, fields) {
     // chest
     var chestOrder = fields.ChestOrder.arrayValue.values;
     var chestQuantity = fields.ChestQuantity.arrayValue.values;
-    account.chest = condenseTwoRawArrays(chestOrder, chestQuantity, "item", "count", itemMap, null);
+    account.chest = condenseTwoRawArrays(chestOrder, chestQuantity, "item", "count", itemMap, null, false, true);
 
     // obols
     var rawObolNames = fields.ObolEqO1.arrayValue.values;
@@ -87,13 +87,13 @@ function fillAccountData(account, characters, fields) {
     var stampData = templateData.account.stamps;
     // combat
     var combatRaw = fields.StampLv.arrayValue.values[0].mapValue.fields;
-    stampData.combat = condenseRawArray(combatRaw);
+    stampData.combat = condenseRawArray(combatRaw, null, true);
     // skills
     var skillsRaw = fields.StampLv.arrayValue.values[1].mapValue.fields;
-    stampData.skills = condenseRawArray(skillsRaw);
+    stampData.skills = condenseRawArray(skillsRaw, null, true);
     // misc
     var miscRaw = fields.StampLv.arrayValue.values[2].mapValue.fields;
-    stampData.misc = condenseRawArray(miscRaw);
+    stampData.misc = condenseRawArray(miscRaw, null, true);
     account.stamps = stampData;
 
     // forge
@@ -102,11 +102,11 @@ function fillAccountData(account, characters, fields) {
 
     // alchemy
     var alchemyData = fields.CauldronInfo.arrayValue.values;
-    account.alchemy.bubbleLevels.power = condenseRawArray(alchemyData[0].mapValue.fields);
-    account.alchemy.bubbleLevels.quick = condenseRawArray(alchemyData[1].mapValue.fields);
-    account.alchemy.bubbleLevels.highIq = condenseRawArray(alchemyData[2].mapValue.fields);
-    account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields);
-    account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields);
+    account.alchemy.bubbleLevels.power = condenseRawArray(alchemyData[0].mapValue.fields, null, true);
+    account.alchemy.bubbleLevels.quick = condenseRawArray(alchemyData[1].mapValue.fields, null, true);
+    account.alchemy.bubbleLevels.highIq = condenseRawArray(alchemyData[2].mapValue.fields, null, true);
+    account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields, null, true);
+    account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
 
     // highest class data
     account.highestClasses = findHighestOfEachClass(characters);
@@ -116,10 +116,10 @@ function fillAccountData(account, characters, fields) {
 
     // minigame high scores
     var minigameHighscores = fields.FamValMinigameHiscores.arrayValue.values;
-    account.minigameHighscores.chopping = minigameHighscores[0].integerValue;
-    account.minigameHighscores.fishing = minigameHighscores[1].integerValue;
-    account.minigameHighscores.catching = minigameHighscores[2].integerValue;
-    account.minigameHighscores.mining = minigameHighscores[3].integerValue;
+    account.minigameHighscores.chopping = parseInt(minigameHighscores[0].integerValue);
+    account.minigameHighscores.fishing = parseInt(minigameHighscores[1].integerValue);
+    account.minigameHighscores.catching = parseInt(minigameHighscores[2].integerValue);
+    account.minigameHighscores.mining = parseInt(minigameHighscores[3].integerValue);
 
     // highest item counts
     account.highestItemCounts["Copper Ore"] = findHighestInStorage(account.chest, "Copper Ore");
