@@ -1,3 +1,4 @@
+//used for mapping equipped cards to their bonus display in idleon calculator
 var cardEquipMap = {
     "B": "None",
 
