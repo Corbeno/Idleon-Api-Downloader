@@ -38,6 +38,10 @@ function updateAllButtons() {
             showCopyButton("familyCopyLink", familyCsv);
             showCopyButton("guildCopyLink", guildCsv);
             showCharacterCopyButtons(cleanJson);
+
+            // guild import data
+            var guildExportCsvString = guildExportCsv(cleanJson);
+            showCopyButton("guildExportCsvCopyLink", guildExportCsvString);
         }
     });
 }
@@ -96,6 +100,7 @@ function showDownloadButton(elementId, dataString, fileName) {
     container.appendChild(a);
 }
 
+//TODO this needs removed?
 function showGuildCopyButton() {
     chrome.storage.local.get("data", function (result) {
         if (result.data != null) {

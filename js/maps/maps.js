@@ -1,6 +1,7 @@
 /*
 Beginner = 1
 Journeyman = 2
+Maestro = 3
 
 Warrior = 7
 Barbarian = 8
@@ -20,6 +21,7 @@ Maps class numbers stored in guild data to their display names
 var classNumberMap = {
     1: "Beginner",
     2: "Journeyman",
+    3: "Maestro",
     7: "warrior",
     8: "Barbarian",
     9: "Squire",
