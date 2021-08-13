@@ -100,26 +100,6 @@ function showDownloadButton(elementId, dataString, fileName) {
     container.appendChild(a);
 }
 
-//TODO this needs removed?
-function showGuildCopyButton() {
-    chrome.storage.local.get("data", function (result) {
-        if (result.data != null) {
-            var cleanJson = parseData(JSON.stringify(result));
-            var familyData = getGuildCsv(cleanJson);
-            var container = document.getElementById("guildCopyLink");
-            var a = document.createElement("a");
-            a.innerHTML = "copy";
-            a.addEventListener("click", function () {
-                copyTextToClipboard(familyData);
-            });
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastChild);
-            }
-            container.appendChild(a);
-        }
-    });
-}
-
 function copyTextToClipboard(text) {
     var copyFrom = document.createElement("textarea");
     copyFrom.textContent = text;
