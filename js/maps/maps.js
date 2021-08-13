@@ -14,6 +14,23 @@ Mage = 31
 Wizard = 32
 Shaman = 33
 */
+/*
+Maps class numbers stored in guild data to their display names
+*/
+var classNumberMap = {
+    1: "Beginner",
+    2: "Journeyman",
+    7: "warrior",
+    8: "Barbarian",
+    9: "Squire",
+    19: "Archer",
+    20: "Bowman",
+    21: "Hunter",
+    31: "Mage",
+    32: "Wizard",
+    33: "Shaman"
+}
+
 var charSubclassMap = {
     "Journeyman": "Beginner",
     "Barbarian": "Warrior",

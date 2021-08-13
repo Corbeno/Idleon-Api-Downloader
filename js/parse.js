@@ -33,7 +33,10 @@ function fillGuildMemberData(guildInfo) {
             "name": member.a,
             "level": member.d,
             "guildPoints": member.e,
-            "accountId": keys[i]
+            "accountId": keys[i],
+            "class": mapLookup(classNumberMap, member.c),
+            "rank": member.g,
+            "wantedPerk": member.f
         });
     }
     return cleanMembers;
@@ -507,7 +510,7 @@ function turnMapToList(map, toInt = false) {
 function parseIntMapFields(map) {
     var r = {};
     var keys = Object.keys(map);
-    for(var i = 0; i < keys.length; i++){
+    for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
         r[key] = parseInt(map[key]);
     }
@@ -560,7 +563,7 @@ function condenseRawArray(rawArray, map = null, toInt = false) {
         if (map != null) {
             val = mapLookup(map, val);
         }
-        if(toInt) {
+        if (toInt) {
             val = parseInt(val);
         }
         r.push(val);
