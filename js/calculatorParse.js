@@ -7,7 +7,11 @@ function getGuildCsv(cleanJson) {
 }
 
 function getCharacterCsv(cleanJson, index) {
-    return listToString(createCharacterList(cleanJson.characters[index]));
+    try{
+        return listToString(createCharacterList(cleanJson.characters[index]));
+    }catch{
+        return null;
+    }
 }
 
 function listToString(list) {

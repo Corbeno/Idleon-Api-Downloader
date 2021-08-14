@@ -3,6 +3,7 @@ function parseData(rawJson) {
     var r = {};
     // var jsonData = JSON.parse(data);
     var fields = rawJson.saveData.documentChange.document.fields;
+
     var charNameData = rawJson.charNameData;
     var guildInfo = rawJson.guildInfo;
 
@@ -19,7 +20,15 @@ function parseData(rawJson) {
     // account data
     r.account = fillAccountData(templateData.account, r.characters, fields);
 
-    r.account.guild.memberInfo = fillGuildMemberData(guildInfo);
+    r.account.guild = fillGuildData(fields, guildInfo);
+
+    return r;
+}
+
+function fillGuildData(fields, guildInfo) {
+    var r = {};
+    r.memberInfo = fillGuildMemberData(guildInfo);
+    r.bonuses = JSON.parse(fields.Guild.stringValue)[0];
 
     return r;
 }
@@ -113,9 +122,6 @@ function fillAccountData(account, characters, fields) {
 
     // highest class data
     account.highestClasses = findHighestOfEachClass(characters);
-
-    // guild
-    account.guild.bonuses = JSON.parse(fields.Guild.stringValue)[0];
 
     // minigame high scores
     var minigameHighscores = fields.FamValMinigameHiscores.arrayValue.values;
@@ -453,7 +459,7 @@ function findHighestOfEachClass(characters) { // create base map of characters
     var indexedHighestClasses = {};
     for (var i = 0; i < uniqueClasses.length; i++) {
         var addClass = uniqueClasses[i];
-        var addLevel = Math.max(... map.get(addClass));
+        var addLevel = Math.max(...map.get(addClass));
         indexedHighestClasses[addClass] = addLevel;
     }
     return indexedHighestClasses;

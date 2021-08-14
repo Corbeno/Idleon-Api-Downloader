@@ -1,5 +1,3 @@
-console.log("guildparse");
-
 // parses clean json and returns a csv string to be pasted into a spreadsheet
 function guildExportCsv(cleanJson) {
     var memberInfo = cleanJson.account.guild.memberInfo;
