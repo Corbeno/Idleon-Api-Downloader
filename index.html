@@ -1,73 +1,159 @@
-<html>
-<style type="text/css">
-    body {
-        margin: 5px;
-        width: 200px;
-        height: 200px;
-    }
-</style>
-
+<html lang="en">
+<head>
+    <title>Idleon Data Downloader</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
 <body>
-    <p>
-        Idleon Data downloader. Created by Corbeno.
-    </p>
-    <p>
-        Simply load the game in browser, and it will detect the save data and provide a download link below!
-        If it isn't working, try refreshing the game window.
+<header>
+    Idleon Data Downloader
+</header>
 
-        If download links are not appearing, make sure your character is in a guild by either creating one, or joining
-        one.
-    </p>
+<div id="loader">
+    <img src="puff.svg" alt="">
+    <div class="loader-text">Waiting for Legends Of Idleon...</div>
+</div>
 
-    <div>
-        <a>Raw JSON </a><a href="#" id="rawCopyLink"></a><a> </a><a id="rawDownloadLink"></a>
-    </div>
-    <div>
-        <a>Clean JSON </a><a href="#" id="cleanJsonCopyLink"></a><a> </a><a id="cleanJsonDownloadLink"></a>
-    </div>
-    <div>
-        <a>Looty String </a><a href="#" id="lootyCopyLink"></a>
-    </div>
-    <div>
-        <a>Quests String </a><a href="#" id="questsCopyLink"></a>
+<div id="content">
+    <div class="json">
+        <span>Raw JSON</span>
+        <a id="rawCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
+        <a id="rawDownloadLink">
+            <img src="./download.svg" alt="download">
+        </a>
     </div>
 
-    <p>Idleon Calculator Import Columns</p>
-
-    <div>
-        <a>Family </a><a href="#" id="familyCopyLink"></a>
-    </div>
-    <div>
-        <a>Guild </a><a href="#" id="guildCopyLink"></a>
-    </div>
-    <div>
-        <a>Characters </a>
-        <a href="#" id="char0CopyLink"></a> <a href="#" id="char1CopyLink"></a> <a href="#" id="char2CopyLink"></a> <a
-            href="#" id="char3CopyLink"></a> <a href="#" id="char4CopyLink"></a> <a href="#" id="char5CopyLink"></a> <a
-            href="#" id="char6CopyLink"></a> <a href="#" id="char7CopyLink"></a> <a href="#" id="char8CopyLink"></a>
+    <div class="json">
+        <span>Formatted JSON</span>
+        <a id="cleanJsonCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
+        <a id="cleanJsonDownloadLink">
+            <img src="./download.svg" alt="download">
+        </a>
     </div>
 
-    <div>
-        <a>Companion (coming soon tm)</a><a href="#" id="companionCopyLink"></a>
-    </div>
-    
-    <div>
-        <a>Guild CSV </a><a href="#" id="guildExportCsvCopyLink"></a>
+    <div class="json">
+        <span>Looty JSON</span>
+        <a id="lootyCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
     </div>
 
-    <script src="js/template.js" type="text/javascript"></script>
-    <script src="js/maps/classTalentMap.js" type="text/javascript"></script>
-    <script src="js/maps/itemMap.js" type="text/javascript"></script>
-    <script src="js/maps/mobMap.js" type="text/javascript"></script>
-    <script src="js/maps/cardLevelMap.js" type="text/javascript"></script>
-    <script src="js/maps/cardEquipMap.js" type="text/javascript"></script>
-    <script src="js/maps/talentMap.js" type="text/javascript"></script>
-    <script src="js/maps/maps.js" type="text/javascript"></script>
-    <script src="js/calculatorParse.js" type="text/javascript"></script>
-    <script src="js/companionParse.js" type="text/javascript"></script>
-    <script src="js/guildParse.js" type="text/javascript"></script>
-    <script src="js/parse.js" type="text/javascript"></script>
-    <script src="js/popup.js" type="text/javascript"></script>
+    <div class="json">
+        <span>Quests String</span>
+        <a id="questsCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
+    </div>
+
+    <div class="sub-header">Idleon Calculator Import Columns</div>
+
+    <div class="json">
+        <span>Family</span>
+        <a id="familyCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
+    </div>
+
+    <div class="json">
+        <span>Guild</span>
+        <a id="guildCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
+    </div>
+
+    <div class="sub-header">Characters</div>
+    <ul class="characters">
+        <li>
+            <span class="character-index">#1</span>
+            <a id="char0CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#2</span>
+            <a id="char1CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#3</span>
+            <a id="char2CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#4</span>
+            <a id="char3CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#5</span>
+            <a id="char4CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#6</span>
+            <a id="char5CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#7</span>
+            <a id="char6CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#8</span>
+            <a id="char7CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+        <li>
+            <span class="character-index">#9</span>
+            <a id="char8CopyLink">
+                <img src="./copy.svg" alt="copy">
+            </a>
+        </li>
+    </ul>
+
+    <div class="json">
+        <span>Companion (Coming Soon)</span>
+        <!--        <a id="companionCopyLink">-->
+        <!--            <img src="./copy.svg" alt="copy">-->
+        <!--        </a>-->
+    </div>
+
+    <div class="json">
+        <span>Guild CSV</span>
+        <a id="guildExportCsvCopyLink">
+            <img src="./copy.svg" alt="copy">
+        </a>
+    </div>
+</div>
+
+<input type="text" id="copy-from" hidden>
+<div id="tooltip">Copied!</div>
+
+
+<script src="js/template.js" type="text/javascript"></script>
+<script src="js/maps/classTalentMap.js" type="text/javascript"></script>
+<script src="js/maps/itemMap.js" type="text/javascript"></script>
+<script src="js/maps/mobMap.js" type="text/javascript"></script>
+<script src="js/maps/cardLevelMap.js" type="text/javascript"></script>
+<script src="js/maps/cardEquipMap.js" type="text/javascript"></script>
+<script src="js/maps/talentMap.js" type="text/javascript"></script>
+<script src="js/maps/maps.js" type="text/javascript"></script>
+<script src="js/calculatorParse.js" type="text/javascript"></script>
+<script src="js/companionParse.js" type="text/javascript"></script>
+<script src="js/guildParse.js" type="text/javascript"></script>
+<script src="js/parse.js" type="text/javascript"></script>
+<script src="js/popup.js" type="text/javascript"></script>
 </body>
 
 </html>
