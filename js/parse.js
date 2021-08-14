@@ -208,7 +208,10 @@ function fillCharacterData(characters, numChars, fields) {
         var bags = Object.keys(rawInvBagsUsed);
         var invBagsUsed = [];
         for (var j = 0; j < bags.length; j++) {
-            invBagsUsed.push({ id: bags[j], name: itemMap['InvBag' + bags[j]] })
+            invBagsUsed.push({
+                id: bags[j],
+                name: itemMap['InvBag' + bags[j]]
+            })
         }
         characters[i].invBagsUsed = invBagsUsed;
 
@@ -376,10 +379,7 @@ function formObolData(nameList, bonusesMap) {
     var r = [];
     // apply all name information
     for (var name in nameList) {
-        r.push({
-            name: nameList[name],
-            bonus: {}
-        });
+        r.push({ name: nameList[name], bonus: {} });
     }
 
     // go through each key and add bonuses if needed
@@ -427,14 +427,10 @@ function findHighestOfEachClass(characters) { // create base map of characters
     for (var i = 0; i < characters.length; i++) {
         var charClass = characters[i].class;
         var charLevel = parseInt(characters[i].level);
-        baseCharacters.push({
-            [charClass]: charLevel
-        });
+        baseCharacters.push({ [charClass]: charLevel });
         var baseChar = charSubclassMap[charClass];
         if (baseChar != null) {
-            baseCharacters.push({
-                [baseChar]: charLevel
-            });
+            baseCharacters.push({ [baseChar]: charLevel });
         }
     }
 
@@ -549,10 +545,7 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
         if (toInt2) {
             val2 = parseInt(val2);
         }
-        r.push({
-            [field1]: val1,
-            [field2]: val2
-        });
+        r.push({ [field1]: val1, [field2]: val2 });
     }
     return r;
 }
