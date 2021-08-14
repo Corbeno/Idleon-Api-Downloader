@@ -207,8 +207,8 @@ function fillCharacterData(characters, numChars, fields) {
         var rawInvBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
         var bags = Object.keys(rawInvBagsUsed);
         var invBagsUsed = [];
-        for (var i = 0; i < bags.length; i++) {
-          invBagsUsed.push({ id: bags[i], name: itemMap['InvBag' + bags[i]] })
+        for (var b = 0; b < bags.length; b++) {
+          invBagsUsed.push({ id: bags[b], name: itemMap['InvBag' + bags[b]] })
         }
         characters[i].invBagsUsed = invBagsUsed;
 
