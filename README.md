@@ -33,7 +33,7 @@ The raw JSON data is really messy and many things about the save data isn't very
 
 Whether you are trying to use the extension to paste into a spreadsheet or creating a whole new tool for people to use, if you are running into any issues please feel free to reach out to me on the official Idleon discord. I appreciate people who find bugs!
 
-You can also create an issue right here in Github if you like. Simply create a new issue in the "issues" tab at the top of this page!
+You can also create an issue right here in Github if you like. Simply create a new issue in the "issues" tab at the top of this page.
 
 If you are having issues directly following an update to Idleon, chances are that I'm already working on the fix. Please be patient, but still feel free to message me or create a Github issue if you would like!
 
@@ -41,6 +41,7 @@ If you use multiple accounts, you might need to play on a character, go back to 
 
 # "How can I help?"
 
-I put this project on Github for a reason! This is my first project with web development, so things are pretty sloppy in that area. If you think you can contribute in any way, please feel free to make a pull request! It would be much appreciated!
+I put this project on Github for a reason! This is my first project with web development, so things are pretty sloppy in that area. If you think you can contribute in any way, please feel free to make a pull request. It would be much appreciated!
 
-I'm really bad with HTML/CSS, so if anybody wants to make the popup window (index.html) nice looking I would really appreciate it.
+# Special Thanks
+[Morta1](https://github.com/Morta1) - For overhauling the frontend to make it look **beautiful**!
