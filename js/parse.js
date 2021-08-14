@@ -29,15 +29,7 @@ function fillGuildMemberData(guildInfo) {
     var cleanMembers = [];
     for (var i = 0; i < keys.length; i++) {
         var member = guildInfo[keys[i]];
-        cleanMembers.push({
-            "name": member.a,
-            "level": member.d,
-            "guildPoints": member.e,
-            "accountId": keys[i],
-            "class": mapLookup(classNumberMap, member.c),
-            "rank": member.g,
-            "wantedPerk": member.f
-        });
+        cleanMembers.push({"name": member.a, "level": member.d, "guildPoints": member.e, "accountId": keys[i]});
     }
     return cleanMembers;
 }
@@ -48,7 +40,7 @@ function fillAccountData(account, characters, fields) {
     // chest
     var chestOrder = fields.ChestOrder.arrayValue.values;
     var chestQuantity = fields.ChestQuantity.arrayValue.values;
-    account.chest = condenseTwoRawArrays(chestOrder, chestQuantity, "item", "count", itemMap, null, false, true);
+    account.chest = condenseTwoRawArrays(chestOrder, chestQuantity, "item", "count", itemMap, null);
 
     // obols
     var rawObolNames = fields.ObolEqO1.arrayValue.values;
@@ -57,6 +49,7 @@ function fillAccountData(account, characters, fields) {
     var obolBonusMap = JSON.parse(fields.ObolEqMAPz1.stringValue);
     account.obols = formObolData(obolNames, obolBonusMap);
 
+    // tasks (TODO add question mark, explained in discord)
     // TaskZZ0 = Current milestone in uncompleted task
     // TaskZZ1 = Completed Task Count
     // TaskZZ2 = merit shop purchases
@@ -90,26 +83,26 @@ function fillAccountData(account, characters, fields) {
     var stampData = templateData.account.stamps;
     // combat
     var combatRaw = fields.StampLv.arrayValue.values[0].mapValue.fields;
-    stampData.combat = condenseRawArray(combatRaw, null, true);
+    stampData.combat = condenseRawArray(combatRaw);
     // skills
     var skillsRaw = fields.StampLv.arrayValue.values[1].mapValue.fields;
-    stampData.skills = condenseRawArray(skillsRaw, null, true);
+    stampData.skills = condenseRawArray(skillsRaw);
     // misc
     var miscRaw = fields.StampLv.arrayValue.values[2].mapValue.fields;
-    stampData.misc = condenseRawArray(miscRaw, null, true);
+    stampData.misc = condenseRawArray(miscRaw);
     account.stamps = stampData;
 
     // forge
     var forgeLevelRaw = fields.ForgeLV.arrayValue.values;
-    account.forge.level = condenseRawArray(forgeLevelRaw, null, true);
+    account.forge.level = condenseRawArray(forgeLevelRaw);
 
     // alchemy
     var alchemyData = fields.CauldronInfo.arrayValue.values;
-    account.alchemy.bubbleLevels.power = condenseRawArray(alchemyData[0].mapValue.fields, null, true);
-    account.alchemy.bubbleLevels.quick = condenseRawArray(alchemyData[1].mapValue.fields, null, true);
-    account.alchemy.bubbleLevels.highIq = condenseRawArray(alchemyData[2].mapValue.fields, null, true);
-    account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields, null, true);
-    account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
+    account.alchemy.bubbleLevels.power = condenseRawArray(alchemyData[0].mapValue.fields);
+    account.alchemy.bubbleLevels.quick = condenseRawArray(alchemyData[1].mapValue.fields);
+    account.alchemy.bubbleLevels.highIq = condenseRawArray(alchemyData[2].mapValue.fields);
+    account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields);
+    account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields);
 
     // highest class data
     account.highestClasses = findHighestOfEachClass(characters);
@@ -118,11 +111,17 @@ function fillAccountData(account, characters, fields) {
     account.guild.bonuses = JSON.parse(fields.Guild.stringValue)[0];
 
     // minigame high scores
+    /*
+    0 = chopping
+    1 = fishing
+    2 = catching
+    3 = mining
+    */
     var minigameHighscores = fields.FamValMinigameHiscores.arrayValue.values;
-    account.minigameHighscores.chopping = parseInt(minigameHighscores[0].integerValue);
-    account.minigameHighscores.fishing = parseInt(minigameHighscores[1].integerValue);
-    account.minigameHighscores.catching = parseInt(minigameHighscores[2].integerValue);
-    account.minigameHighscores.mining = parseInt(minigameHighscores[3].integerValue);
+    account.minigameHighscores.chopping = minigameHighscores[0].integerValue;
+    account.minigameHighscores.fishing = minigameHighscores[1].integerValue;
+    account.minigameHighscores.catching = minigameHighscores[2].integerValue;
+    account.minigameHighscores.mining = minigameHighscores[3].integerValue;
 
     // highest item counts
     account.highestItemCounts["Copper Ore"] = findHighestInStorage(account.chest, "Copper Ore");
@@ -136,7 +135,7 @@ function fillAccountData(account, characters, fields) {
     for (var i = 0; i < cardKeys.length; i++) {
         var key = cardKeys[i];
         var lookup = mapLookup(mobMap, key);
-        var count = parseInt(rawCardsData[key]);
+        var count = rawCardsData[key]
         cleanCardData[lookup] = {
             "collected": count,
             "starLevel": getStarLevelFromCard(key, count)
@@ -146,7 +145,7 @@ function fillAccountData(account, characters, fields) {
 
     // bribes
     var bribes = fields.BribeStatus.arrayValue.values;
-    account.bribes = condenseRawArray(bribes, null, true);
+    account.bribes = condenseRawArray(bribes);
     // TODO add map for bribe names?
 
     // refinery (TODO)
@@ -167,18 +166,106 @@ function fillAccountData(account, characters, fields) {
     }
     account.quests = quests;
 
-    // looty mc shooty raw display
+    // looty mc shooty
     var lootyString = fields.Cards1.stringValue;
     // remove all quotes and []
     lootyString = lootyString.replace(/\"|\[|\]/g, "");
     var lootyList = lootyString.split(",");
     account.looty = lootyList;
 
-    // purchases
-    var rawBundles = JSON.parse(fields.BundlesReceived.stringValue);
-    account.bundlesPurchased = parseIntMapFields(rawBundles, true);
-
     return account;
+}
+
+function mapLookup(map, key) {
+    var r = map[key];
+    if (r == undefined) {
+        console.error("Unable to find key: " + key + " in map");
+    }
+    return r;
+}
+
+function formObolData(nameList, bonusesMap) {
+    var r = [];
+    // apply all name information
+    for (var name in nameList) {
+        r.push({name: nameList[name], bonus: {}});
+    }
+
+    // go through each key and add bonuses if needed
+    var keys = Object.keys(bonusesMap);
+    for (var i = 0; i < keys.length; i++) {
+        var index = parseInt(keys[i]);
+        r[index].bonus = bonusesMap[keys[i]];
+    }
+
+    return r;
+}
+
+function getStarLevelFromCard(cardName, cardLevel) {
+    var base = cardLevelMap[cardName];
+    var level = parseInt(cardLevel);
+    var oneStarReq = base;
+    var twoStarReq = base * 4;
+    var threeStarReq = base * 9;
+    if (level == 0) {
+        return "Not Found";
+    } else if (level >= threeStarReq) {
+        return "3 Star";
+    } else if (level >= twoStarReq) {
+        return "2 Star";
+    } else if (level >= oneStarReq) {
+        return "1 Star";
+    } else {
+        return "Acquired";
+    }
+}
+
+function findHighestInStorage(chestData, itemName) {
+    var max = 0;
+    for (var i = 0; i < chestData.length; i++) {
+        var object = chestData[i];
+        if (object.item == itemName && parseInt(object.count) > max) {
+            max = parseInt(object.count);
+        }
+    }
+    return max;
+}
+
+function findHighestOfEachClass(characters) { // create base map of characters
+    var baseCharacters = [];
+    for (var i = 0; i < characters.length; i++) {
+        var charClass = characters[i].class;
+        var charLevel = parseInt(characters[i].level);
+        baseCharacters.push({[charClass]: charLevel});
+        var baseChar = charSubclassMap[charClass];
+        if (baseChar != null) {
+            baseCharacters.push({[baseChar]: charLevel});
+        }
+    }
+
+    var map = new Map();
+    var uniqueClasses = [];
+    for (var i = 0; i < baseCharacters.length; i++) {
+        var charClass = Object.keys(baseCharacters[i])[0];
+        var charLevel = baseCharacters[i][charClass];
+        if (map.has(charClass)) {
+            map.get(charClass).push(charLevel);
+        } else { // create new
+            var arr = [];
+            arr.push(charLevel);
+            map.set(charClass, arr);
+            uniqueClasses.push(charClass);
+        }
+    }
+
+    // go through the map and pick the highest value, adding it to r
+    var indexedHighestClasses = {};
+    for (var i = 0; i < uniqueClasses.length; i++) {
+        var addClass = uniqueClasses[i];
+        var addLevel = Math.max(... map.get(addClass));
+        indexedHighestClasses[addClass] = addLevel;
+    }
+    return indexedHighestClasses;
 }
 
 // grabs information from fields and inserts it into characters and returns the filled out characters
@@ -186,30 +273,23 @@ function fillAccountData(account, characters, fields) {
 function fillCharacterData(characters, numChars, fields) {
     for (var i = 0; i < numChars; i++) {
         characters[i].class = classIndexMap[parseInt(getAnyFieldValue(fields["CharacterClass_" + i]))];
-        characters[i].money = parseInt(fields["Money_" + i].integerValue);
+        characters[i].money = fields["Money_" + i].integerValue;
         characters[i].AFKtarget = fields["AFKtarget_" + i].stringValue;
-        characters[i].currentMap = parseInt(fields["CurrentMap_" + i].integerValue);
+        characters[i].currentMap = fields["CurrentMap_" + i].integerValue;
+        characters[i].invBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
-        characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
-
-        // basic stats
-        var statlist = fields["PVStatList_" + i].arrayValue.values;
-        characters[i].strength = parseInt(statlist[0].integerValue);
-        characters[i].agility = parseInt(statlist[1].integerValue);
-        characters[i].wisdom = parseInt(statlist[2].integerValue);
-        characters[i].luck = parseInt(statlist[3].integerValue);
-        characters[i].level = parseInt(statlist[4].integerValue);
-
-        // personal PO box data
+        characters[i].timeAway = fields["PTimeAway_" + i].doubleValue;
+        characters[i].strength = fields["PVStatList_" + i].arrayValue.values[0].integerValue;
+        characters[i].agility = fields["PVStatList_" + i].arrayValue.values[1].integerValue;
+        characters[i].wisdom = fields["PVStatList_" + i].arrayValue.values[2].integerValue;
+        characters[i].luck = fields["PVStatList_" + i].arrayValue.values[3].integerValue;
+        characters[i].level = fields["PVStatList_" + i].arrayValue.values[4].integerValue;
         characters[i].POBoxUpgrades = JSON.parse(fields["POu_" + i].stringValue);
-
-        var rawInvBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
-        characters[i].invBagsUsed = turnMapToList(rawInvBagsUsed, true);
 
         // inventory
         var inventoryItemNames = fields["InventoryOrder_" + i].arrayValue.values;
         var inventoryItemCounts = fields["ItemQTY_" + i].arrayValue.values;
-        characters[i].inventory = condenseTwoRawArrays(inventoryItemNames, inventoryItemCounts, "name", "count", itemMap, null, false, true);
+        characters[i].inventory = condenseTwoRawArrays(inventoryItemNames, inventoryItemCounts, "name", "count", itemMap);
 
         // equipment (0 = armor, 1 = tools, 2 = food)
         var equipableNames = fields["EquipOrder_" + i].arrayValue.values;
@@ -217,7 +297,7 @@ function fillCharacterData(characters, numChars, fields) {
 
         var rawEquipmentNames = equipableNames[0].mapValue.fields;
         var rawEquipmentCounts = equipableCounts[0].mapValue.fields;
-        var plainEquipmentData = condenseTwoRawArrays(rawEquipmentNames, rawEquipmentCounts, "name", "count", itemMap, null, false, true);
+        var plainEquipmentData = condenseTwoRawArrays(rawEquipmentNames, rawEquipmentCounts, "name", "count", itemMap);
         // add upgrade stone data
         // IMm_# = players inventory (todo later as it isn't usefull for calculations)
         // EMm0_# = equips
@@ -227,13 +307,13 @@ function fillCharacterData(characters, numChars, fields) {
 
         var rawToolNames = equipableNames[1].mapValue.fields;
         var rawToolCounts = equipableCounts[1].mapValue.fields;
-        var plainToolData = condenseTwoRawArrays(rawToolNames, rawToolCounts, "name", "count", itemMap, null, false, true);
+        var plainToolData = condenseTwoRawArrays(rawToolNames, rawToolCounts, "name", "count", itemMap);
         var toolStoneData = JSON.parse(fields["EMm1_" + i].stringValue);
         characters[i].tools = addUpgradeStoneData(plainToolData, toolStoneData);
 
         var rawFoodNames = equipableNames[2].mapValue.fields;
         var rawFoodCounts = equipableCounts[2].mapValue.fields;
-        characters[i].food = condenseTwoRawArrays(rawFoodNames, rawFoodCounts, "name", "count", itemMap, null, false, true);
+        characters[i].food = condenseTwoRawArrays(rawFoodNames, rawFoodCounts, "name", "count", itemMap);
 
         // obols
         var rawObols = fields["ObolEqO0_" + i].arrayValue.values;
@@ -245,9 +325,7 @@ function fillCharacterData(characters, numChars, fields) {
         var statueArray = JSON.parse(fields["StatueLevels_" + i].stringValue);
         var statueItems = [];
         for (var j = 0; j < statueArray.length; j++) {
-            statueItems.push({
-                "level": parseInt(statueArray[j][0]),
-                "progress": statueArray[j][1]
+            statueItems.push({"level": statueArray[j][0], "progress": statueArray[j][1]
             });
         }
         characters[i].statueLevels = statueItems;
@@ -366,97 +444,6 @@ function fillCharacterData(characters, numChars, fields) {
     return characters;
 }
 
-function formObolData(nameList, bonusesMap) {
-    var r = [];
-    // apply all name information
-    for (var name in nameList) {
-        r.push({
-            name: nameList[name],
-            bonus: {}
-        });
-    }
-
-    // go through each key and add bonuses if needed
-    var keys = Object.keys(bonusesMap);
-    for (var i = 0; i < keys.length; i++) {
-        var index = parseInt(keys[i]);
-        r[index].bonus = bonusesMap[keys[i]];
-    }
-
-    return r;
-}
-
-function getStarLevelFromCard(cardName, cardLevel) {
-    var base = cardLevelMap[cardName];
-    var level = parseInt(cardLevel);
-    var oneStarReq = base;
-    var twoStarReq = base * 4;
-    var threeStarReq = base * 9;
-    if (level == 0) {
-        return "Not Found";
-    } else if (level >= threeStarReq) {
-        return "3 Star";
-    } else if (level >= twoStarReq) {
-        return "2 Star";
-    } else if (level >= oneStarReq) {
-        return "1 Star";
-    } else {
-        return "Acquired";
-    }
-}
-
-function findHighestInStorage(chestData, itemName) {
-    var max = 0;
-    for (var i = 0; i < chestData.length; i++) {
-        var object = chestData[i];
-        if (object.item == itemName && parseInt(object.count) > max) {
-            max = parseInt(object.count);
-        }
-    }
-    return max;
-}
-
-function findHighestOfEachClass(characters) { // create base map of characters
-    var baseCharacters = [];
-    for (var i = 0; i < characters.length; i++) {
-        var charClass = characters[i].class;
-        var charLevel = parseInt(characters[i].level);
-        baseCharacters.push({
-            [charClass]: charLevel
-        });
-        var baseChar = charSubclassMap[charClass];
-        if (baseChar != null) {
-            baseCharacters.push({
-                [baseChar]: charLevel
-            });
-        }
-    }
-
-    var map = new Map();
-    var uniqueClasses = [];
-    for (var i = 0; i < baseCharacters.length; i++) {
-        var charClass = Object.keys(baseCharacters[i])[0];
-        var charLevel = baseCharacters[i][charClass];
-        if (map.has(charClass)) {
-            map.get(charClass).push(charLevel);
-        } else { // create new
-            var arr = [];
-            arr.push(charLevel);
-            map.set(charClass, arr);
-            uniqueClasses.push(charClass);
-        }
-    }
-
-    // go through the map and pick the highest value, adding it to r
-    var indexedHighestClasses = {};
-    for (var i = 0; i < uniqueClasses.length; i++) {
-        var addClass = uniqueClasses[i];
-        var addLevel = Math.max(...map.get(addClass));
-        indexedHighestClasses[addClass] = addLevel;
-    }
-    return indexedHighestClasses;
-}
-
 function addUpgradeStoneData(itemList, stoneData) {
     var blankData = {
         "Defence": 0,
@@ -493,34 +480,7 @@ function addUpgradeStoneData(itemList, stoneData) {
     return itemList;
 }
 
-// some lists are stored as maps. This function turns them into actual lists
-function turnMapToList(map, toInt = false) {
-    var r = [];
-    for (var key in Object.keys(map)) {
-        if (toInt) {
-            r.push(parseInt(key));
-        } else {
-            r.push(key);
-        }
-    }
-    return r;
-}
-
-// forces each field of a map to be an integer or null
-function parseIntMapFields(map) {
-    var r = {};
-    var keys = Object.keys(map);
-    for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        r[key] = parseInt(map[key]);
-    }
-    return r;
-}
-
-// take two raw arrays and get the first (and only) mapped object from each element in the array and combine it with
-// the second specified array in the same manner, but in a new array of maps with fields specified with field1 and field2
-// an optional toInt1 and toInt2 can be specified to ensure field data is an integer
-function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null, toInt1 = false, toInt2 = false) {
+function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = null) {
     var r = [];
     var length = raw1.length.integerValue;
     if (length == undefined) {
@@ -537,21 +497,12 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
         if (map2 != null) {
             val2 = mapLookup(map2, val2);
         }
-        if (toInt1) {
-            val1 = parseInt(val1);
-        }
-        if (toInt2) {
-            val2 = parseInt(val2);
-        }
-        r.push({
-            [field1]: val1,
-            [field2]: val2
-        });
+        r.push({[field1]: val1, [field2]: val2});
     }
     return r;
 }
 
-function condenseRawArray(rawArray, map = null, toInt = false) {
+function condenseRawArray(rawArray, map = null) {
     var r = [];
     var length = rawArray.length.integerValue;
     if (length == undefined) {
@@ -563,19 +514,7 @@ function condenseRawArray(rawArray, map = null, toInt = false) {
         if (map != null) {
             val = mapLookup(map, val);
         }
-        if (toInt) {
-            val = parseInt(val);
-        }
         r.push(val);
-    }
-    return r;
-}
-
-// look up an item in a specified map. Useful to find unmapped items easily
-function mapLookup(map, key) {
-    var r = map[key];
-    if (r == undefined) {
-        console.error("Unable to find key: " + key + " in map");
     }
     return r;
 }

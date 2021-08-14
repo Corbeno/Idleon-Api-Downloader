@@ -1,24 +1,26 @@
 {
-  "manifest_version": 2,
-  "name": "Idleon-Api-Downloader",
-  "version": "0.1",
+    "manifest_version": 2,
+    "name": "Idleon-Api-Downloader",
+    "version": "0.1",
+    
+    "browser_action": {
+        "default_popup": "index.html"
+      },
+    
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs"
+      ],
 
-  "browser_action": {
-    "default_popup": "index.html"
-  },
+    "content_scripts": [
+        {
+            "matches": ["*://*.legendsofidleon.com/*"],
+            "js": ["js/inject.js"],
+            "run_at": "document_start"
+        }
+    ],
 
-  "permissions": [
-    "activeTab",
-    "storage",
-    "tabs"
-  ],
-
-  "content_scripts": [{
-    "matches": ["*://*.legendsofidleon.com/*"],
-    "js": ["js/inject.js"],
-    "run_at": "document_start"
-  }],
-
-  "web_accessible_resources": ["js/injected.js"]
+    "web_accessible_resources": ["js/injected.js"]
 
 }

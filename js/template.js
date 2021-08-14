@@ -1,6 +1,5 @@
 var templateData = {
     "account": {
-        "bundlesPurchased" : {},
         "chest": {},
         "chestBank": 0,
         "obols": {},

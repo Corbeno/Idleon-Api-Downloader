@@ -3,7 +3,8 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (let [key, {
             oldValue,
             newValue
-        }] of Object.entries(changes)) {
+        }
+    ] of Object.entries(changes)) {
         if (newValue != null) { // when save data changes, re-parse clean json with new save data and update buttons
             updateAllButtons();
         }
@@ -38,10 +39,6 @@ function updateAllButtons() {
             showCopyButton("familyCopyLink", familyCsv);
             showCopyButton("guildCopyLink", guildCsv);
             showCharacterCopyButtons(cleanJson);
-
-            // guild import data
-            var guildExportCsvString = guildExportCsv(cleanJson);
-            showCopyButton("guildExportCsvCopyLink", guildExportCsvString);
         }
     });
 }
@@ -98,6 +95,25 @@ function showDownloadButton(elementId, dataString, fileName) {
         container.removeChild(container.lastChild);
     }
     container.appendChild(a);
+}
+
+function showGuildCopyButton() {
+    chrome.storage.local.get("data", function (result) {
+        if (result.data != null) {
+            var cleanJson = parseData(JSON.stringify(result));
+            var familyData = getGuildCsv(cleanJson);
+            var container = document.getElementById("guildCopyLink");
+            var a = document.createElement("a");
+            a.innerHTML = "copy";
+            a.addEventListener("click", function () {
+                copyTextToClipboard(familyData);
+            });
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            container.appendChild(a);
+        }
+    });
 }
 
 function copyTextToClipboard(text) {

@@ -1,7 +1,6 @@
 /*
 Beginner = 1
 Journeyman = 2
-Maestro = 3
 
 Warrior = 7
 Barbarian = 8
@@ -15,24 +14,6 @@ Mage = 31
 Wizard = 32
 Shaman = 33
 */
-/*
-Maps class numbers stored in guild data to their display names
-*/
-var classNumberMap = {
-    1: "Beginner",
-    2: "Journeyman",
-    3: "Maestro",
-    7: "warrior",
-    8: "Barbarian",
-    9: "Squire",
-    19: "Archer",
-    20: "Bowman",
-    21: "Hunter",
-    31: "Mage",
-    32: "Wizard",
-    33: "Shaman"
-}
-
 var charSubclassMap = {
     "Journeyman": "Beginner",
     "Barbarian": "Warrior",
@@ -328,28 +309,28 @@ var fishingLineMap = {
 // this should probably change.. but it works...
 var cardSetMap = {
     "None": "None",
-    "{%_EXP_if_below_Lv_50": "Blunder_Hills",
-    "{%_All_Food_Effect": "Yum-Yum_Desert",
-    "{%_Skill_Efficiency": "Easy_Resources",
-    "{%_Skill_EXP_Gain": "Medium_Resources",
-    "{%_DEF_and_ACC": "Frostbite_Tundra",
-    "{%_Skill_AFK_Gain_Rate": "Hard_Resources",
-    "{%_Dmg,_Drop,_and_EXP": "Bosses_n_Nightmares",
-    "{%_Drop_Rate": "Events"
+    "{%_EXP_if_below_Lv_50" : "Blunder_Hills",
+    "{%_All_Food_Effect" : "Yum-Yum_Desert",
+    "{%_Skill_Efficiency" : "Easy_Resources",
+    "{%_Skill_EXP_Gain" : "Medium_Resources",
+    "{%_DEF_and_ACC" : "Frostbite_Tundra",
+    "{%_Skill_AFK_Gain_Rate" : "Hard_Resources",
+    "{%_Dmg,_Drop,_and_EXP" : "Bosses_n_Nightmares",
+    "{%_Drop_Rate" : "Events"
 }
 
 // maps_the_weird_naming_convention_of_each_large_bubble_to_its_display_name
 var largeBubbleMap = {
-    "_11": "Call_Me_Bob",
-    "_6": "Sploosh_Sploosh",
-    "_3": "Wyoming_Blood",
-    "a11": "Call_Me_Ash",
-    "a7": "Sanic_Tools",
-    "a2": "Hammer_Hammer",
-    "b11": "Call_Me_Pope",
-    "b7": "Cookin_Roadkill",
-    "b3": "Molto_Loggo",
-    "c12": "Big_Game_Hunter",
-    "c8": "Grind_Time",
-    "c3": "Level_Up_Gift"
+    "_11" : "Call_Me_Bob",
+    "_6" : "Sploosh_Sploosh",
+    "_3" : "Wyoming_Blood",
+    "a11" : "Call_Me_Ash",
+    "a7" : "Sanic_Tools",
+    "a2" : "Hammer_Hammer",
+    "b11" : "Call_Me_Pope",
+    "b7" : "Cookin_Roadkill",
+    "b3" : "Molto_Loggo",
+    "c12" : "Big_Game_Hunter",
+    "c8" : "Grind_Time",
+    "c3" : "Level_Up_Gift"
 }
