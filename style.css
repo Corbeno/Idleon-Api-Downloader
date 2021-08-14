@@ -1,0 +1,131 @@
+body {
+    padding: 10px;
+    width: 350px;
+    height: fit-content;
+    background-color: #212121;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 15px;
+}
+
+#loader {
+    display: block;
+    text-align: center;
+}
+
+#loader img {
+    margin: 30px;
+}
+
+#loader .loader-text {;
+    font-size: 14px;
+}
+
+#content {
+    display: none;
+}
+
+header {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.sub-header {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    margin: 20px;
+    font-size: 16px;
+}
+
+.json {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.json > a {
+    margin: 7px;
+}
+
+.json > span {
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.json img {
+    cursor: pointer;
+}
+
+.characters {
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.characters > li img {
+    cursor: pointer;
+}
+
+.characters > li {
+    display: inline;
+    margin: 5px;
+}
+
+.characters .character-index {
+    top: -15px;
+    position: absolute;
+    font-weight: bold;
+}
+
+#tooltip {
+    display: none;
+    position: absolute;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    background-color: #ffffff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.download.icon {
+    color: white;
+    position: absolute;
+    margin-left: 3px;
+    margin-top: 12px;
+    width: 13px;
+    height: 4px;
+    border-radius: 1px;
+    border: solid 1px currentColor;
+    border-top: none;
+}
+
+.download.icon:before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: -9px;
+    width: 1px;
+    height: 10px;
+    background-color: currentColor;
+}
+
+.download.icon:after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: -4px;
+    width: 4px;
+    height: 4px;
+    border-top: solid 1px currentColor;
+    border-right: solid 1px currentColor;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}

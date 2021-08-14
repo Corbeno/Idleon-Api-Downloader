@@ -13,99 +13,110 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 function updateAllButtons() {
     chrome.storage.local.get("data", function (result) {
         if (result.data != null) { // save data
-            var rawJson = result.data;
-            var rawString = JSON.stringify(rawJson);
-            showCopyButton("rawCopyLink", rawString);
-            showDownloadButton("rawDownloadLink", rawString, "rawData.json")
+            const rawJson = result.data;
+            const rawString = JSON.stringify(rawJson);
+            // TODO: RE-WRITE THIS FUNCTION
+            allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
 
-            var cleanJson = parseData(rawJson);
-            var cleanString = JSON.stringify(cleanJson);
-            var lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
-            var questsString = JSON.stringify(cleanJson.account.quests);
-            showCopyButton("cleanJsonCopyLink", cleanString);
-            showDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
-            showCopyButton("lootyCopyLink", lootyString);
-            showCopyButton("questsCopyLink", questsString);
+            const cleanJson = parseData(rawJson);
+            const cleanString = JSON.stringify(cleanJson);
+            const lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
+            const questsString = JSON.stringify(cleanJson.account.quests);
+            // Calculators
+            const familyCsv = getFamilyCsv(cleanJson);
+            const guildCsv = getGuildCsv(cleanJson);
+            const guildExportCsvString = guildExportCsv(cleanJson);
+
+            // Enable copy for everything
+            const elementsArr = [
+              { id: 'rawCopyLink', data: rawString },
+              { id: 'cleanJsonCopyLink', data: cleanString },
+              { id: 'lootyCopyLink', data: lootyString },
+              { id: 'questsCopyLink', data: questsString },
+              { id: 'familyCopyLink', data: familyCsv },
+              { id: 'guildCopyLink', data: guildCsv },
+              { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
+            ];
+            allowCopyClick(elementsArr);
+            allowCharactersCopy(cleanJson);
+
+            // TODO: RE-WRITE THIS FUNCTION
+            allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
 
             // // companion import data (coming soon! tm)
-            // var companionJson = companionParseData(cleanJson);
-            // var companionString = JSON.stringify(companionJson);
+            // const companionJson = companionParseData(cleanJson);
+            // const companionString = JSON.stringify(companionJson);
             // showCopyButton("companionCopyLink", companionString);
 
-            // calculator import data
-            var familyCsv = getFamilyCsv(cleanJson);
-            var guildCsv = getGuildCsv(cleanJson);
-            showCopyButton("familyCopyLink", familyCsv);
-            showCopyButton("guildCopyLink", guildCsv);
-            showCharacterCopyButtons(cleanJson);
-
-            // guild import data
-            var guildExportCsvString = guildExportCsv(cleanJson);
-            showCopyButton("guildExportCsvCopyLink", guildExportCsvString);
+            // Display a loader until the data is ready
+            const content = document.getElementById('content');
+            const loader = document.getElementById('loader');
+            content.style.display = 'block';
+            loader.style.display = 'none';
         }
     });
 }
 
-function showCharacterCopyButtons(cleanJson) {
-    var numChars = cleanJson.characters.length;
-    for (var i = 0; i < numChars; i++) {
-        var charData = getCharacterCsv(cleanJson, i);
-
-        var container = document.getElementById("char" + i + "CopyLink");
-        var a = document.createElement("a");
-        a.innerHTML = "char" + (
-            i + 1
-        );
-        (function (_charData) {
-            a.addEventListener("click", function () {
-                copyTextToClipboard(_charData);
-            });
-        })(charData);
-        a.addEventListener("click", function (charData) {
-            return function () {
-                copyTextToClipboard(charData);
-            }
-        }(a));
-        while (container.hasChildNodes()) {
-            container.removeChild(container.lastChild);
-        }
-        container.appendChild(a);
-
-    }
+function allowCopyClick(elementsIds) {
+    elementsIds.forEach((element) => {
+      const button = document.getElementById(element.id);
+      button.addEventListener("click", function (e) {
+        showTooltip(e, 'Copied!');
+        copyTextToClipboard(element.data);
+      });
+    })
 }
-
-function showCopyButton(elementId, dataString) {
-    var container = document.getElementById(elementId);
-    var a = document.createElement("a");
-    a.innerHTML = "copy";
-    a.addEventListener("click", function () {
-        copyTextToClipboard(dataString);
-    });
-    while (container.hasChildNodes()) {
-        container.removeChild(container.lastChild);
+function allowCharactersCopy(dataString) {
+    const numChars = dataString.characters.length;
+    for (let i = 0; i < numChars; i++) {
+        const charData = getCharacterCsv(dataString, i);
+        const characters = document.querySelectorAll('.characters > li > a');
+        characters[i].addEventListener('click',function (e) {
+          showTooltip(e, 'Copied!');
+          copyTextToClipboard(charData);
+        });
     }
-    container.appendChild(a);
-}
-
-function showDownloadButton(elementId, dataString, fileName) {
-    var data = "text/json;charset=utf-8," + encodeURIComponent(dataString);
-    var a = document.createElement("a");
-    a.href = "data:" + data;
-    a.download = fileName;
-    a.innerHTML = "download";
-    var container = document.getElementById(elementId);
-    while (container.hasChildNodes()) {
-        container.removeChild(container.lastChild);
-    }
-    container.appendChild(a);
 }
 
 function copyTextToClipboard(text) {
-    var copyFrom = document.createElement("textarea");
-    copyFrom.textContent = text;
-    document.body.appendChild(copyFrom);
-    copyFrom.select();
+    const el = document.createElement('textarea');
+    el.value = text;
+    // fix the stutter in the page when adding the new element to the page.
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
     document.execCommand('copy');
-    copyFrom.blur();
-    document.body.removeChild(copyFrom);
+    document.body.removeChild(el);
+}
+
+//TODO: RE-WRITE
+function allowDownloadButton(elementId, dataString, fileName) {
+    const downloadButton = document.getElementById(elementId);
+    const data = "text/json;charset=utf-8," + encodeURIComponent(dataString);
+    downloadButton.setAttribute('download', fileName);
+    downloadButton.setAttribute('href', 'data:'+ data);
+    downloadButton.addEventListener('click', function(e){
+      showTooltip(e, 'Downloaded!');
+    });
+}
+
+function showTooltip(e, text) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.innerText = text;
+    if (e.clientX + 80 > window.innerWidth){
+      tooltip.style.top = e.clientY + 20 + 'px';
+      tooltip.style.left = e.clientX - 60 + 'px';
+    } else if (e.clientY + 50 > window.innerHeight) {
+      tooltip.style.top = e.clientY - 50 + 'px';
+      tooltip.style.left = e.clientX + 20 + 'px';
+    } else {
+      tooltip.style.top = e.clientY + 20 + 'px';
+      tooltip.style.left = e.clientX + 20 + 'px';
+    }
+    tooltip.style.display = 'block';
+    setTimeout(() => {
+      tooltip.style.display = 'none';
+    }, 1000)
 }
