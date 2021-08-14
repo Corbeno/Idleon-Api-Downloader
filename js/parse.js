@@ -203,12 +203,12 @@ function fillCharacterData(characters, numChars, fields) {
         // personal PO box data
         characters[i].POBoxUpgrades = JSON.parse(fields["POu_" + i].stringValue);
 
-        // Added the mapping for inventory bags.
+        // inventory bags used
         var rawInvBagsUsed = JSON.parse(fields["InvBagsUsed_" + i].stringValue);
         var bags = Object.keys(rawInvBagsUsed);
         var invBagsUsed = [];
-        for (var b = 0; b < bags.length; b++) {
-            invBagsUsed.push({ id: bags[b], name: itemMap['InvBag' + bags[b]] })
+        for (var j = 0; j < bags.length; j++) {
+            invBagsUsed.push({ id: bags[j], name: itemMap['InvBag' + bags[j]] })
         }
         characters[i].invBagsUsed = invBagsUsed;
 
