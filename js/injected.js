@@ -45,14 +45,10 @@ function wsIntercept() {
                 // check that the data is what is needed
                 try {
                     if (messageIntent.search(/_uid\//) !== -1) { // data is char names, send it to inject.js
-                        var send = new CustomEvent("PassCharNameToInject", {
-                            detail: jsonData
-                        });
+                        var send = new CustomEvent("PassCharNameToInject", {detail: jsonData});
                         window.dispatchEvent(send);
                     } else if (messageIntent.search(/_guild\/[a-zA-Z0-9]*\/m$/) !== -1) { // data is guild member information
-                        var send = new CustomEvent("PassGuildInfoToInject", {
-                            detail: jsonData
-                        });
+                        var send = new CustomEvent("PassGuildInfoToInject", {detail: jsonData});
                         window.dispatchEvent(send);
                     }
                 } catch (e) { // ignore
@@ -79,9 +75,7 @@ function parseRequest(request) { // remove up to and including new line
         try {
             var jsonData = JSON.parse(data[i]);
             if (jsonData["documentChange"]["document"]["name"].includes("projects/idlemmo/databases/(default)/documents/_data/")) { // the data is needed, so pass it on to inject.js
-                var event = new CustomEvent("PassSaveToInject", {
-                    detail: jsonData
-                });
+                var event = new CustomEvent("PassSaveToInject", {detail: jsonData});
                 window.dispatchEvent(event);
             }
         } catch (e) {

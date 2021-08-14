@@ -453,7 +453,7 @@ function findHighestOfEachClass(characters) { // create base map of characters
     var indexedHighestClasses = {};
     for (var i = 0; i < uniqueClasses.length; i++) {
         var addClass = uniqueClasses[i];
-        var addLevel = Math.max(...map.get(addClass));
+        var addLevel = Math.max(... map.get(addClass));
         indexedHighestClasses[addClass] = addLevel;
     }
     return indexedHighestClasses;
