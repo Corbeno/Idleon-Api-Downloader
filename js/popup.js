@@ -12,85 +12,87 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 
 function updateAllButtons() {
     chrome.storage.local.get("data", function (result) {
-        // Once the raw JSON is obtained, parse all needed data
-        // then remove any buttons where the data fails to parse
-        const content = document.getElementById('content');
-        const loader = document.getElementById('loader');
-        content.style.display = 'block';
-        loader.style.display = 'none';
+        if (result.data != null) {
+            // Once the raw JSON is obtained, parse all needed data
+            // then remove any buttons where the data fails to parse
+            const content = document.getElementById('content');
+            const loader = document.getElementById('loader');
+            content.style.display = 'block';
+            loader.style.display = 'none';
 
-        // raw data
-        const rawJson = result.data;
-        const rawString = JSON.stringify(rawJson);
+            // raw data
+            const rawJson = result.data;
+            const rawString = JSON.stringify(rawJson);
 
-        // custom clean json
-        const cleanJson = parseAnyData(parseData, rawJson);
-        // cleanJson = null;
-        const cleanString = JSON.stringify(cleanJson);
+            // custom clean json
+            const cleanJson = parseAnyData(parseData, rawJson);
+            // cleanJson = null;
+            const cleanString = JSON.stringify(cleanJson);
 
-        //for looty spreadsheet
-        const lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
+            //for looty spreadsheet
+            const lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
 
-        // for quests spreadsheet
-        var questsString = null;
-        if (cleanJson != null) {
-            questsString = JSON.stringify(cleanJson.account.quests);
-        }
-
-        // for idleon calculator spreadsheet
-        const familyCsv = parseAnyData(getFamilyCsv, cleanJson);
-        const guildCsv = parseAnyData(getGuildCsv, cleanJson);
-
-        // for guild spreadsheet
-        const guildExportCsvString = parseAnyData(guildExportCsv, cleanJson);
-
-        // // companion import data (coming soon! tm)
-        // const companionJson = companionParseData(cleanJson);
-        // const companionString = JSON.stringify(companionJson);
-
-        const buttons = [
-            { id: 'rawCopyLink', data: rawString },
-            { id: 'cleanJsonCopyLink', data: cleanString },
-            { id: 'lootyCopyLink', data: lootyString },
-            { id: 'questsCopyLink', data: questsString },
-            { id: 'familyCopyLink', data: familyCsv },
-            { id: 'guildCopyLink', data: guildCsv },
-            { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
-        ];
-
-        // add each character button to buttons
-        for (let i = 0; i < 9; i++) {
-            const charData = getCharacterCsv(cleanJson, i);
-            const characters = document.querySelectorAll('.characters > li > a');
-            buttons.push({ id: characters[i].id, data: charData })
-        }
-
-        // hide every button
-        for (var buttonElement of buttons) {
-            var button = document.getElementById(buttonElement.id);
-            button.style.display = "none";
-        }
-
-        // only show buttons with non-empty data
-        buttons.forEach((buttonElement) => {
-            const button = document.getElementById(buttonElement.id);
-            var data = buttonElement.data;
-            if (data == null || data == undefined || data == "null") {
-                console.error("Unable to display " + buttonElement.id + " probably due to a parsing error.");
-                button.innerHTML = "Err"
-                button.style.display = "";
-                return;
+            // for quests spreadsheet
+            var questsString = null;
+            if (cleanJson != null) {
+                questsString = JSON.stringify(cleanJson.account.quests);
             }
-            button.style.display = ""; // default display value
-            button.addEventListener("click", function (e) {
-                showTooltip(e, 'Copied!');
-                copyTextToClipboard(buttonElement.data);
-            });
-        });
 
-        // TODO: RE-WRITE THIS FUNCTION
-        allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
-        allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
+            // for idleon calculator spreadsheet
+            const familyCsv = parseAnyData(getFamilyCsv, cleanJson);
+            const guildCsv = parseAnyData(getGuildCsv, cleanJson);
+
+            // for guild spreadsheet
+            const guildExportCsvString = parseAnyData(guildExportCsv, cleanJson);
+
+            // // companion import data (coming soon! tm)
+            // const companionJson = companionParseData(cleanJson);
+            // const companionString = JSON.stringify(companionJson);
+
+            const buttons = [
+                { id: 'rawCopyLink', data: rawString },
+                { id: 'cleanJsonCopyLink', data: cleanString },
+                { id: 'lootyCopyLink', data: lootyString },
+                { id: 'questsCopyLink', data: questsString },
+                { id: 'familyCopyLink', data: familyCsv },
+                { id: 'guildCopyLink', data: guildCsv },
+                { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
+            ];
+
+            // add each character button to buttons
+            for (let i = 0; i < 9; i++) {
+                const charData = getCharacterCsv(cleanJson, i);
+                const characters = document.querySelectorAll('.characters > li > a');
+                buttons.push({ id: characters[i].id, data: charData })
+            }
+
+            // hide every button
+            for (var buttonElement of buttons) {
+                var button = document.getElementById(buttonElement.id);
+                button.style.display = "none";
+            }
+
+            // only show buttons with non-empty data
+            buttons.forEach((buttonElement) => {
+                const button = document.getElementById(buttonElement.id);
+                var data = buttonElement.data;
+                if (data == null || data == undefined || data == "null") {
+                    console.error("Unable to display " + buttonElement.id + " probably due to a parsing error.");
+                    button.innerHTML = "Err"
+                    button.style.display = "";
+                    return;
+                }
+                button.style.display = ""; // default display value
+                button.addEventListener("click", function (e) {
+                    showTooltip(e, 'Copied!');
+                    copyTextToClipboard(buttonElement.data);
+                });
+            });
+
+            // TODO: RE-WRITE THIS FUNCTION
+            allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
+            allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
+        }
     });
 }
 
