@@ -15,6 +15,26 @@ function parseData(rawJson) {
         newCharacter.name = charNameData[i];
         characters.push(newCharacter);
     }
+
+    const fieldsPrint = JSON.parse(fields.Print.stringValue);
+    const printData = fieldsPrint.slice(5, fieldsPrint.length); // REMOVE 5 '0' ELEMENTS
+    const chunk = 14; // # OF SAMPLE SLOTS OF ONE CHARACTER
+    let charsIterator = 0;
+    for (var z = 0; charsIterator < 9; z += chunk) {
+        let tempArray = printData.slice(z, z + chunk);
+        characters[charsIterator] = {
+            ...characters[charsIterator],
+            printer: [
+                {
+                    item: itemMap[tempArray[10]],
+                    amount: tempArray[11]
+                },
+                { item: itemMap[tempArray[12]], amount: tempArray[13] }
+            ]
+        };
+        charsIterator++;
+    }
+
     r.characters = fillCharacterData(characters, numChars, fields);
 
     // account data
