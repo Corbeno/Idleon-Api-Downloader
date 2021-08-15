@@ -1,16 +1,19 @@
-updateAllButtons();
+let allChanges = {};
+let isRunning = false;
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (let [key, {
         oldValue,
         newValue
     }] of Object.entries(changes)) {
-        if (newValue != null) { // when save data changes, re-parse clean json with new save data and update buttons
+        Object.keys(changes).forEach((change) => allChanges[change] = true);
+        if (Object.keys(allChanges).length === 3 && !isRunning) { // when save data changes, re-parse clean json with new save data and update buttons
             updateAllButtons();
         }
     }
 });
 
 function updateAllButtons() {
+    isRunning = true;
     chrome.storage.local.get("data", function (result) {
         if (result.data != null) {
             // Once the raw JSON is obtained, parse all needed data
@@ -33,7 +36,7 @@ function updateAllButtons() {
             const lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
 
             // for quests spreadsheet
-            var questsString = null;
+            let questsString = null;
             if (cleanJson != null) {
                 questsString = JSON.stringify(cleanJson.account.quests);
             }
@@ -58,40 +61,27 @@ function updateAllButtons() {
                 { id: 'guildCopyLink', data: guildCsv },
                 { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
             ];
-
-            // add each character button to buttons
-            for (let i = 0; i < 9; i++) {
-                const charData = getCharacterCsv(cleanJson, i);
-                const characters = document.querySelectorAll('.characters > li > a');
-                buttons.push({ id: characters[i].id, data: charData })
-            }
-
-            // hide every button
-            for (var buttonElement of buttons) {
-                var button = document.getElementById(buttonElement.id);
-                button.style.display = "none";
-            }
-
             // only show buttons with non-empty data
             buttons.forEach((buttonElement) => {
                 const button = document.getElementById(buttonElement.id);
-                var data = buttonElement.data;
-                if (data == null || data == undefined || data == "null") {
-                    console.error("Unable to display " + buttonElement.id + " probably due to a parsing error.");
-                    button.innerHTML = "Err"
-                    button.style.display = "";
+                const data = buttonElement.data;
+                if (data === null || data === undefined || data === "null") {
+                    console.info("Unable to display " + buttonElement.id + " probably due to a parsing error.");
+                    const img = document.createElement('img');
+                    img.src = 'assets/error.svg';
+                    img.alt = 'parsing error';
+                    button.appendChild(img);
                     return;
                 }
-                button.style.display = ""; // default display value
                 button.addEventListener("click", function (e) {
                     showTooltip(e, 'Copied!');
                     copyTextToClipboard(buttonElement.data);
                 });
             });
 
-            // TODO: RE-WRITE THIS FUNCTION
             allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
             allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
+            isRunning = false;
         }
     });
 }
@@ -118,7 +108,6 @@ function copyTextToClipboard(text) {
     document.body.removeChild(el);
 }
 
-//TODO: RE-WRITE
 function allowDownloadButton(elementId, dataString, fileName) {
     const downloadButton = document.getElementById(elementId);
     const data = "text/json;charset=utf-8," + encodeURIComponent(dataString);
