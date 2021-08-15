@@ -66,12 +66,6 @@ function updateAllButtons() {
                 buttons.push({ id: characters[i].id, data: charData })
             }
 
-            // hide every button
-            for (var buttonElement of buttons) {
-                var button = document.getElementById(buttonElement.id);
-                button.style.display = "none";
-            }
-
             // only show buttons with non-empty data
             buttons.forEach((buttonElement) => {
                 const button = document.getElementById(buttonElement.id);
