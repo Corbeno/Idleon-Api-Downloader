@@ -75,20 +75,21 @@ function updateAllButtons() {
             // only show buttons with non-empty data
             buttons.forEach((buttonElement) => {
                 const button = document.getElementById(buttonElement.id);
-                var data = buttonElement.data;
-                if (data == null || data == undefined || data == "null") {
-                    console.error("Unable to display " + buttonElement.id + " probably due to a parsing error.");
-                    button.innerHTML = "Err"
-                    button.style.display = "";
+                const data = buttonElement.data;
+                if (data === null || data === undefined || data === "null") {
+                    console.info("Unable to display " + buttonElement.id + " probably due to a parsing error.");
+                    const img = document.createElement('img');
+                    img.src = 'assets/error.svg';
+                    img.alt = 'parsing error';
+                    button.appendChild(img);
                     return;
                 }
-                button.style.display = ""; // default display value
                 button.addEventListener("click", function (e) {
                     showTooltip(e, 'Copied!');
                     copyTextToClipboard(buttonElement.data);
                 });
             });
-
+            
             // TODO: RE-WRITE THIS FUNCTION
             allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
             allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
