@@ -30,6 +30,12 @@ function fillGuildData(fields, guildInfo) {
     r.memberInfo = fillGuildMemberData(guildInfo);
     r.bonuses = JSON.parse(fields.Guild.stringValue)[0];
 
+    var total = 0;
+    for(var member of r.memberInfo){
+        total += member.guildPoints;
+    }
+    r.totalGP = total;
+
     return r;
 }
 
