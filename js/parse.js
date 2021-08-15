@@ -5,7 +5,6 @@ function parseData(rawJson) {
     var fields = rawJson.saveData.documentChange.document.fields;
 
     var charNameData = rawJson.charNameData;
-    var guildInfo = rawJson.guildInfo;
 
     // create each character based on blank template
     var numChars = Object.keys(charNameData).length;
@@ -40,7 +39,8 @@ function parseData(rawJson) {
     // account data
     r.account = fillAccountData(templateData.account, r.characters, fields);
 
-    r.account.guild = fillGuildData(fields, guildInfo);
+    // currently left out of fillAccountData as it needs rawJson.guildInfo
+    r.account.guild = fillGuildData(fields, rawJson.guildInfo);
 
     return r;
 }
@@ -214,7 +214,7 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].class = classIndexMap[parseInt(getAnyFieldValue(fields["CharacterClass_" + i]))];
         characters[i].money = parseInt(fields["Money_" + i].integerValue);
         characters[i].AFKtarget = fields["AFKtarget_" + i].stringValue;
-        characters[i].currentMap = parseInt(fields["CurrentMap_" + i].integerValue);
+        characters[i].currentMap = parseInt(getAnyFieldValue(fields["CurrentMap_" + i]));
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
         characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
 

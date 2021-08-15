@@ -3,6 +3,8 @@ var itemMap = {
     "Blank": "None",
     "LockedInvSpace": "LockedInvSpace",
 
+    "Trash": "Broken_Weapon", // unsure if this is correct. Probably will change in future updates
+
     "Copper": "Copper_Ore",
     "Iron": "Iron_Ore",
     "Gold": "Gold_Ore",
