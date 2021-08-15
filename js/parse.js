@@ -34,7 +34,7 @@ function fillGuildData(fields, guildInfo) {
     for(var member of r.memberInfo){
         total += member.guildPoints;
     }
-    r.totalGP = total;
+    r.totalGuildPoints = total;
 
     return r;
 }
