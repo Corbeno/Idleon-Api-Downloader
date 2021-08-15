@@ -194,7 +194,7 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].class = classIndexMap[parseInt(getAnyFieldValue(fields["CharacterClass_" + i]))];
         characters[i].money = parseInt(fields["Money_" + i].integerValue);
         characters[i].AFKtarget = fields["AFKtarget_" + i].stringValue;
-        characters[i].currentMap = parseInt(fields["CurrentMap_" + i].integerValue);
+        characters[i].currentMap = parseInt(getAnyFieldValue(fields["CurrentMap_" + i]));
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
         characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
 
