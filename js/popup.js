@@ -61,6 +61,13 @@ function updateAllButtons() {
                 { id: 'guildCopyLink', data: guildCsv },
                 { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
             ];
+
+            for (let i = 0; i < 9; i++) {
+              const charData = getCharacterCsv(cleanJson, i);
+              const characters = document.querySelectorAll('.characters > li > a');
+              buttons.push({ id: characters[i].id, data: charData })
+            }
+
             // only show buttons with non-empty data
             buttons.forEach((buttonElement) => {
                 const button = document.getElementById(buttonElement.id);
