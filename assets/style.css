@@ -94,6 +94,11 @@ header {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
+.copy:not(:only-child),
+.download:not(:only-child) {
+    display: none;
+}
+
 
 .download.icon {
     color: white;
