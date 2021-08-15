@@ -5,7 +5,6 @@ function parseData(rawJson) {
     var fields = rawJson.saveData.documentChange.document.fields;
 
     var charNameData = rawJson.charNameData;
-    var guildInfo = rawJson.guildInfo;
 
     // create each character based on blank template
     var numChars = Object.keys(charNameData).length;
@@ -20,7 +19,8 @@ function parseData(rawJson) {
     // account data
     r.account = fillAccountData(templateData.account, r.characters, fields);
 
-    r.account.guild = fillGuildData(fields, guildInfo);
+    // currently left out of fillAccountData as it needs rawJson.guildInfo
+    r.account.guild = fillGuildData(fields, rawJson.guildInfo);
 
     return r;
 }
