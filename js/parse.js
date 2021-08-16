@@ -380,7 +380,7 @@ function fillCharacterData(characters, numChars, fields) {
 
         // crafting material in production
         const anvilCraftsMapping = fields[`AnvilPAselect_${i}`].arrayValue.values;
-        const selectedProducts = anvilCraftsMapping.map(({integerValue}) => mapLookup(itemMap, `CraftMat${integerValue}`));
+        const selectedProducts = anvilCraftsMapping.sort((a, b) => a.integerValue - b.integerValue).map(({integerValue}) => mapLookup(itemMap, `CraftMat${integerValue}`));
         characters[i].anvil = {
             selected: selectedProducts
         };
