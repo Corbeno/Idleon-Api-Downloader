@@ -377,6 +377,13 @@ function fillCharacterData(characters, numChars, fields) {
             mapLookup(largeBubbleMap, charEquippedBubbles[0]),
             mapLookup(largeBubbleMap, charEquippedBubbles[1])
         ]
+
+        // crafting material in production
+        const anvilCraftsMapping = fields[`AnvilPAselect_${i}`].arrayValue.values;
+        const selectedProducts = anvilCraftsMapping.map(({integerValue}) => mapLookup(itemMap, `CraftMat${integerValue}`));
+        characters[i].anvil = {
+            selected: selectedProducts
+        };
     }
     return characters;
 }
