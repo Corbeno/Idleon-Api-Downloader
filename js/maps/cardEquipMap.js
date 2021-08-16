@@ -108,8 +108,8 @@ var cardEquipMap = {
     "snakeY": "Shell Snake (+ Base LUK)",
     "EasterEvent1": "Egggulyte (+% Card Drop Chance)",
     "EasterEvent2": "Egg Capsule (+% Critical Damage)",
-    "SummerEvent1": "Coastiolyte +% Fishing Away Gains",
-    "SummerEvent2": "Summer Spirit +% Catching EXP",
-    "shovelY": "Plasti Doug + Base Defence",
-    "crabcakeB": "Mr Blueberry +% Total Drop Rate"
+    "SummerEvent1": "Coastiolyte (+% Fishing Away Gains)",
+    "SummerEvent2": "Summer Spirit (+% Catching EXP)",
+    "shovelY": "Plasti Doug (+ Base Defence)",
+    "crabcakeB": "Mr Blueberry (+% Total Drop Rate)"
 };
