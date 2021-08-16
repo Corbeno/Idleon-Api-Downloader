@@ -379,17 +379,28 @@ function fillCharacterData(characters, numChars, fields) {
             mapLookup(largeBubbleMap, charEquippedBubbles[1])
         ];
 
+        // printer
         const fieldsPrint = JSON.parse(fields.Print.stringValue);
         const printData = fieldsPrint.slice(5, fieldsPrint.length); // REMOVE 5 '0' ELEMENTS
-        const chunk = 14; // # OF SAMPLE SLOTS OF ONE CHARACTER
+        // There are 14 items per character
+        // Every 2 items represent an item and it's value in the printer.
+        // The first 5 pairs represent the stored samples in the printer.
+        // The last 2 pairs represent the samples in production.
+        const chunk = 14; 
         const relevantPrinterData = printData.slice(i * chunk, (i * chunk + chunk));
-        characters[i].printer = [
-            {
-                item: itemMap[relevantPrinterData[10]],
-                amount: relevantPrinterData[11]
-            },
-            { item: itemMap[relevantPrinterData[12]], amount: relevantPrinterData[13] }
-        ];
+        const printerMapping = relevantPrinterData.reduce((result, printItem, index, array) => {
+            if (index % 2 === 0){
+                const sample = array.slice(index, index + 2)
+                .map((item, index) => index === 0 ? mapLookup(itemMap, item) : item);
+                if (index < 10){
+                    result.stored.push({item: sample[0], value: sample[1]});
+                } else {
+                    result.selected.push({item: sample[0], value: sample[1]});
+                }
+            }
+            return result;
+        }, { stored: [], selected: [] });
+        characters[i].printer = printerMapping;
     }
     return characters;
 }
