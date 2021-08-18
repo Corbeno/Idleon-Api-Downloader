@@ -155,15 +155,8 @@ function fillAccountData(account, characters, fields) {
     account.bribes = condenseRawArray(bribes, null, true);
     // TODO add map for bribe names?
 
-    // refinery (TODO)
-    // 0 =
-    // 1 = inventory
-    // 2 =
-    // 3 = currently refined salt (needing claimed)
-    // 4 =
-    // 5 =
-    var refinery = JSON.parse(fields.Refinery.stringValue);
-    account.refinery = refinery;
+    // refinery
+    account.refinery = createRefineryData(fields);
 
     // quests complete (possibly temporary for use in spreadsheet)
     var quests = {};
@@ -185,6 +178,43 @@ function fillAccountData(account, characters, fields) {
     account.bundlesPurchased = parseIntMapFields(rawBundles, true);
 
     return account;
+}
+
+function createRefineryData(fields) {
+    // 0 =
+    // 1 = inventory
+    // 2 =
+    // 3 = redox salt 
+        // 3[0] = refined (unclaimed)
+        // 3[1] = rank
+        // 3[2] = ???
+        // 3[3] = on/off 
+        // 3[4] = auto-refine percent
+    // 4 = explosive salt
+    // 5 = spontaneity salt
+    // 6 = dioxide salt
+    // 7 = red salt
+    // 8 = red salt 2
+    var rawRefinery = JSON.parse(fields.Refinery.stringValue);
+    var refinery = {};
+    refinery.salts = {};
+    
+    //this is how they are named in the template file
+    var salts = ["redox", "explosive", "spontaneity", "dioxide", "red", "red2"];
+    salts.forEach((salt, i) => {
+        // redox starts at index 3, so it has such an offset
+        var rawSalt = rawRefinery[i+3];
+        refinery.salts[salt] = {
+            "refined": rawSalt[0],
+            "rank": rawSalt[1],
+            "state": ((rawSalt[3] == 1) ? "on" : "off"),
+            "autoPercent": rawSalt[4]
+        }
+
+        //TODO add refinery storage
+    })
+
+    return refinery;
 }
 
 // grabs information from fields and inserts it into characters and returns the filled out characters

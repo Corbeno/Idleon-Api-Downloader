@@ -64,7 +64,18 @@ var templateData = {
             "mining": 0
         },
         "quests": {},
-        "looty": {}
+        "looty": {},
+        "refinery": {
+            "storage": [],
+            "salts": {
+                "redox": {},
+                "explosive": {},
+                "spontaneity": {},
+                "dioxide": {},
+                "red": {},
+                "red2": {}
+            }
+        }
 
     },
     "characters": {
