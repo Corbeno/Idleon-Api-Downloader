@@ -110,6 +110,10 @@ var templateData = {
             "bait": "",
             "line": ""
         },
+        "anvil": {
+            "production": {},
+            "upgrades": {}
+        },
 
         "attackLoadout": {},
         "invBagsUsed": {},

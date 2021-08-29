@@ -407,6 +407,26 @@ function fillCharacterData(characters, numChars, fields) {
             mapLookup(largeBubbleMap, charEquippedBubbles[0]),
             mapLookup(largeBubbleMap, charEquippedBubbles[1])
         ]
+
+        // anvil
+        var rawAnvil = fields["AnvilPA_" + i].arrayValue.values;
+        // [0-13] of rawAnvil are each anvil product
+        // of each product...
+        // 0 = amount to be produced (claimed)
+        // 1 = amount of xp gained when claimed
+        // 2 = current progress? (idk need more proof but also kinda useless)
+        // 3 = ???
+        var anvilProducts = [];
+        for(var j = 0; j < rawAnvil.length; j++){
+            var rawProductStats = rawAnvil[j].mapValue.fields;
+            anvilProducts.push({
+                "produced": parseInt(getAnyFieldValue(rawProductStats[0])),
+                "xp": parseInt(getAnyFieldValue(rawProductStats[1]))
+            });
+        }
+        characters[i].anvil.production = anvilProducts;
+        // TODO anvil stats (data isn't very clear, might need to ask)
+
     }
     return characters;
 }
