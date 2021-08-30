@@ -434,6 +434,8 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].anvil.production = anvilProducts;
         // TODO anvil stats (data isn't very clear, might need to ask)
 
+        // insta revives
+        characters[i].instaRevives = parseInt(getAnyFieldValue(fields["PVInstaRevives_" + i]));
     }
     return characters;
 }

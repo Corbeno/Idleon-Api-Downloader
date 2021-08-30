@@ -92,6 +92,7 @@ var templateData = {
         "cardSetEquip": "",
         "currentMap": "",
         "timeAway": "",
+        "instaRevives": 0,
 
         "inventory": [],
 
