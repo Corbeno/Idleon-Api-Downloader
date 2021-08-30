@@ -234,6 +234,9 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].currentMap = parseInt(getAnyFieldValue(fields["CurrentMap_" + i]));
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
         characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
+        characters[i].instaRevives = parseInt(getAnyFieldValue(fields["PVInstaRevives_" + i]));
+        characters[i].gender = parseInt(getAnyFieldValue(fields["PVGender_" + i]));
+        characters[i].minigamePlays = parseInt(getAnyFieldValue(fields["PVMinigamePlays_" + i]));
 
         // basic stats
         var statlist = fields["PVStatList_" + i].arrayValue.values;
@@ -433,15 +436,6 @@ function fillCharacterData(characters, numChars, fields) {
         }
         characters[i].anvil.production = anvilProducts;
         // TODO anvil stats (data isn't very clear, might need to ask)
-
-        // insta revives
-        characters[i].instaRevives = parseInt(getAnyFieldValue(fields["PVInstaRevives_" + i]));
-
-        // gender (TODO map gender number to display name)
-        characters[i].gender = parseInt(getAnyFieldValue(fields["PVGender_" + i]));
-
-        // minigame plays
-        characters[i].minigamePlays = parseInt(getAnyFieldValue(fields["PVMinigamePlays_" + i]));
     }
     return characters;
 }
