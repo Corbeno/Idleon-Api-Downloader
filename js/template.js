@@ -75,7 +75,8 @@ var templateData = {
                 "red": {},
                 "red2": {}
             }
-        }
+        },
+        "anvilCraftsUnlocked": {}
 
     },
     "characters": {

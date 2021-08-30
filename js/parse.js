@@ -177,6 +177,13 @@ function fillAccountData(account, characters, fields) {
     var rawBundles = JSON.parse(fields.BundlesReceived.stringValue);
     account.bundlesPurchased = parseIntMapFields(rawBundles, true);
 
+    // anvil crafts unlocked
+    // currently 0 = unlocked, -1 = locked. Might change to a better value
+    var rawAnvil = JSON.parse(fields.AnvilCraftStatus.stringValue);
+    account.anvilCraftsUnlocked.tab1 = rawAnvil[0];
+    account.anvilCraftsUnlocked.tab2 = rawAnvil[1];
+    account.anvilCraftsUnlocked.tab3 = rawAnvil[2];
+
     return account;
 }
 
