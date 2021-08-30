@@ -436,6 +436,9 @@ function fillCharacterData(characters, numChars, fields) {
 
         // insta revives
         characters[i].instaRevives = parseInt(getAnyFieldValue(fields["PVInstaRevives_" + i]));
+
+        // gender (TODO map gender number to display name)
+        characters[i].gender = parseInt(getAnyFieldValue(fields["PVGender_" + i]));
     }
     return characters;
 }

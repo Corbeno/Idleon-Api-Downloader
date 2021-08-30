@@ -93,6 +93,7 @@ var templateData = {
         "currentMap": "",
         "timeAway": "",
         "instaRevives": 0,
+        "gender": 0,
 
         "inventory": [],
 
