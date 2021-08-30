@@ -439,6 +439,9 @@ function fillCharacterData(characters, numChars, fields) {
 
         // gender (TODO map gender number to display name)
         characters[i].gender = parseInt(getAnyFieldValue(fields["PVGender_" + i]));
+
+        // minigame plays
+        characters[i].minigamePlays = parseInt(getAnyFieldValue(fields["PVMinigamePlays_" + i]));
     }
     return characters;
 }

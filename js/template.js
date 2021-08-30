@@ -94,6 +94,7 @@ var templateData = {
         "timeAway": "",
         "instaRevives": 0,
         "gender": 0,
+        "minigamePlays": 0,
 
         "inventory": [],
 
