@@ -45,9 +45,9 @@ function updateAllButtons() {
             // for guild spreadsheet
             const guildExportCsvString = parseAnyData(guildExportCsv, cleanJson);
 
-            // // companion import data (coming soon! tm)
-            // const companionJson = companionParseData(cleanJson);
-            // const companionString = JSON.stringify(companionJson);
+            // companion import data (coming soon! tm)
+            const companionJson = companionParseData(cleanJson);
+            const companionString = JSON.stringify(companionJson);
 
             const buttons = [
                 { id: 'rawCopyLink', data: rawString },
@@ -56,6 +56,7 @@ function updateAllButtons() {
                 { id: 'questsCopyLink', data: questsString },
                 { id: 'familyCopyLink', data: familyCsv },
                 { id: 'guildCopyLink', data: guildCsv },
+                { id: 'companionCopyLink', data: companionString },
                 { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
             ];
 
