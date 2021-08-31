@@ -184,6 +184,19 @@ function fillAccountData(account, characters, fields) {
     account.anvilCraftsUnlocked.tab2 = rawAnvil[1];
     account.anvilCraftsUnlocked.tab3 = rawAnvil[2];
 
+    // cogs
+    var rawCogPositions = JSON.parse(getAnyFieldValue(fields.CogO));
+    var rawCogData = JSON.parse(getAnyFieldValue(fields.CogM));
+    var cogs = [];
+    console.log(rawCogData);
+    Object.keys(rawCogPositions).forEach((cogName, i) => {
+        cogs.push({
+            "name": rawCogPositions[cogName],
+            "data": rawCogData[i] || "none"
+        })
+    });
+    account.cogs = cogs;
+
     return account;
 }
 
@@ -219,7 +232,7 @@ function createRefineryData(fields) {
         }
 
         //TODO add refinery storage
-    })
+    });
 
     return refinery;
 }
@@ -233,7 +246,7 @@ function fillCharacterData(characters, numChars, fields) {
         characters[i].AFKtarget = fields["AFKtarget_" + i].stringValue;
         characters[i].currentMap = parseInt(getAnyFieldValue(fields["CurrentMap_" + i]));
         characters[i].npcDialogue = JSON.parse(fields["NPCdialogue_" + i].stringValue);
-        characters[i].timeAway = parseInt(fields["PTimeAway_" + i].doubleValue);
+        characters[i].timeAway = parseInt(getAnyFieldValue(fields["PTimeAway_" + i]));
         characters[i].instaRevives = parseInt(getAnyFieldValue(fields["PVInstaRevives_" + i]));
         characters[i].gender = parseInt(getAnyFieldValue(fields["PVGender_" + i]));
         characters[i].minigamePlays = parseInt(getAnyFieldValue(fields["PVMinigamePlays_" + i]));
