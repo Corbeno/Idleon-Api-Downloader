@@ -98,7 +98,8 @@ function parseAnyData(func, data) {
     try {
         return func(data);
     } catch (e) {
-        console.error("Unable to parse function. Error was: " + e);
+        console.error("Unable to parse function. Printing stack trace");
+        console.error(e.stack);
         return null;
     }
 }

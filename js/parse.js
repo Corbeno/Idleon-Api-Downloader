@@ -640,7 +640,7 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
 
 function condenseRawArray(rawArray, map = null, toInt = false) {
     var r = [];
-    var length = parseInt(rawArray.length.integerValue);
+    var length = rawArray.length.integerValue;
     if (length == undefined) {
         length = rawArray.length;
     }
