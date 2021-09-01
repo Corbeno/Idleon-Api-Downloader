@@ -143,9 +143,12 @@ function fillAccountData(account, characters, fields) {
         var key = cardKeys[i];
         var lookup = mapLookup(mobMap, key);
         var count = parseInt(rawCardsData[key]);
+        var starLevel = getStarLevelFromCard(key, count);
+        console.log(starLevel);
         cleanCardData[lookup] = {
             "collected": count,
-            "starLevel": getStarLevelFromCard(key, count)
+            "starLevel": starLevel[0],
+            "starLevelNumeric": starLevel[1]
         };
     }
     account.cards = cleanCardData;
@@ -476,16 +479,18 @@ function getStarLevelFromCard(cardName, cardLevel) {
     var oneStarReq = base;
     var twoStarReq = base * 4;
     var threeStarReq = base * 9;
+    
+    //(0: unobtained, 1: obtained, 2: bronze, 3: silver, 4: gold)
     if (level == 0) {
-        return "Not Found";
+        return ["Not Found", 0];
     } else if (level >= threeStarReq) {
-        return "3 Star";
+        return ["3 Star", 4];
     } else if (level >= twoStarReq) {
-        return "2 Star";
+        return ["2 Star", 3];
     } else if (level >= oneStarReq) {
-        return "1 Star";
+        return ["1 Star", 2];
     } else {
-        return "Acquired";
+        return ["Acquired", 1];
     }
 }
 

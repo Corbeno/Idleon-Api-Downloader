@@ -2,13 +2,10 @@
 function companionParseData(cleanData) {
     var r = {};
     r.alchemy = parseCompanionAlchemy(cleanData);
-
     r.cards = parseCompanionCards(cleanData);
-
     r.chars = [];
     r.checklist = {};
     r.starSigns = {};
-    r.tasks = {};
     r.version = "0.2.3"; // unsure if this should be hardcoded
     return r;
 }
@@ -20,7 +17,7 @@ function parseCompanionCards(clean) {
         // TODO this should probably be changed to use underscores in clean parse,
         // but I'm too lazy right now to do so..
         var newKey = cardName.replace(" ", "_");
-        r[newKey] = parseInt(rawCards[cardName].collected);
+        r[newKey] = parseInt(rawCards[cardName].starLevelNumeric);
     }
 
     return r;
@@ -28,13 +25,23 @@ function parseCompanionCards(clean) {
 
 function parseCompanionAlchemy(clean) {
     var r = {
-        "alchemy":{
-            "upgrades":{
-                "Orange":[],
-                "Green":[],
-                "Purple":[]
-            },
-            "vials":[]
-            },
+        "upgrades":{
+            "Orange": [],
+            "Green": [],
+            "Purple": [],
+            "Yellow": []
+        },
+        "vials":[]
     };
+    
+    var alchemy = clean.account.alchemy;
+    r.upgrades.Orange = alchemy.bubbleLevels.power;
+    r.upgrades.Green = alchemy.bubbleLevels.quick;
+    r.upgrades.Purple = alchemy.bubbleLevels.highIq;
+    r.upgrades.Yellow = alchemy.bubbleLevels.kazam;
+    
+    //TODO add proper vials with their names (need to change how they are stored in clean JSON)
+    r.vials = alchemy.vialLevels;
+    
+    return r;
 }
