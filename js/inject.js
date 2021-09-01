@@ -33,6 +33,11 @@ function checkTempData() {
             var charNameData = secondResult.charNameData;
             chrome.storage.local.get("guildInfo", function (thirdResult) {
                 var guildInfo = thirdResult.guildInfo;
+                // var guildDataFromSave = JSON.parse(saveData).documentChange.document.fields.OptLacc.arrayValue.values[37].stringValue;
+                // if(guildInfo == null && guildDataFromSave == ""){
+                //     console.log("NOT IN GUILD"); //this doesn't work yet :(
+                //     guildInfo = {};
+                // }
                 if (saveData != null && charNameData != null && guildInfo != null) { // send combined data to actual storage for popup.js to use
                     var combined = {
                         "saveData": saveData,
