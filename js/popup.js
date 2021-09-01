@@ -26,7 +26,9 @@ function updateAllButtons() {
 
             // custom clean json
             const cleanJson = parseAnyData(parseData, rawJson);
-            // cleanJson = null;
+            if (cleanJson == null || cleanJson == undefined) {
+                console.error("Error parsing cleanJson");
+            }
             const cleanString = JSON.stringify(cleanJson);
 
             //for looty spreadsheet
@@ -84,7 +86,7 @@ function updateAllButtons() {
                     copyTextToClipboard(buttonElement.data);
                 });
             });
-            
+
             // TODO: RE-WRITE THIS FUNCTION
             allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
             allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
