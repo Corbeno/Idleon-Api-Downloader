@@ -196,7 +196,6 @@ function fillAccountData(account, characters, fields) {
     var rawCogPositions = JSON.parse(getAnyFieldValue(fields.CogO));
     var rawCogData = JSON.parse(getAnyFieldValue(fields.CogM));
     var cogs = [];
-    console.log(rawCogData);
     Object.keys(rawCogPositions).forEach((cogName, i) => {
         cogs.push({
             "name": rawCogPositions[cogName],
@@ -319,12 +318,12 @@ function fillCharacterData(characters, numChars, fields) {
 
         // statues
         var statueArray = JSON.parse(fields["StatueLevels_" + i].stringValue);
-        var statueItems = [];
+        var statueItems = {};
         for (var j = 0; j < statueArray.length; j++) {
-            statueItems.push({
+            statueItems[statueNameMap[j]] = {
                 "level": parseInt(statueArray[j][0]),
-                "progress": statueArray[j][1]
-            });
+                // "progress": statueArray[j][1] //taken out for companion. Not too important
+            };
         }
         characters[i].statueLevels = statueItems;
 

@@ -49,7 +49,6 @@ function parseCompanionionChars(clean) {
     var r = [];
     var chars = clean.characters;
     for (var char of chars) {
-        console.log(JSON.stringify(char));
         r.push({
             "class": char.class,
             "level": char.level,
@@ -66,27 +65,7 @@ function parseCompanionionChars(clean) {
                 "Construction": char.skillLevels.construction,
                 "Worship": char.skillLevels.worship
             },
-            "statues": {
-                "Power": 0,
-                "Speed": 0,
-                "Mining": 0,
-                "Feasty": 0,
-                "Health": 0,
-                "Kachow": 0,
-                "Lumberbob": 0,
-                "Thicc Skin": 0,
-                "Oceanman": 0,
-                "Ol Reliable": 0,
-                "Exp Book": 0,
-                "Anvil": 0,
-                "Cauldron": 0,
-                "Beholder": 0,
-                "Bullseye": 0,
-                "Box": 0,
-                "EhExPee": 0,
-                "Seesaw": 0,
-                "Twosoul": 0
-            },
+            "statues": char.statueLevels,
             "constellations": {
 
             },

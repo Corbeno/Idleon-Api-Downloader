@@ -398,3 +398,25 @@ var vialNameMap = {
     39: "Spook Pint",
     40: "Goosey Glug"
 }
+
+var statueNameMap = {
+    0: "Power",
+    1: "Speed",
+    2: "Mining",
+    3: "Feasty",
+    4: "Health",
+    5: "Kachow",
+    6: "Lumberbob",
+    7: "Thicc Skin",
+    8: "Oceanman",
+    9: "Ol Reliable",
+    10: "Exp Book",
+    11: "Anvil",
+    12: "Cauldron",
+    13: "Beholder",
+    14: "Bullseye",
+    15: "Box",
+    16: "EhExPee",
+    17: "Seesaw",
+    18: "Twosoul",
+}
