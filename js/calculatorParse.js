@@ -462,9 +462,10 @@ function createCharacterList(character) {
 
     // statues
     // only do first 15
-    var statues = character.statueLevels
+    var statues = character.statueLevels;
+    var statueKeys = Object.keys(statues);
     for (var k = 0; k < 15; k++) {
-        list.push(statues[k].level);
+        list.push(statues[statueKeys[k]]);
     }
 
     // obols (21)
