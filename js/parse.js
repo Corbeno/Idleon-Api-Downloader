@@ -320,10 +320,7 @@ function fillCharacterData(characters, numChars, fields) {
         var statueArray = JSON.parse(fields["StatueLevels_" + i].stringValue);
         var statueItems = {};
         for (var j = 0; j < statueArray.length; j++) {
-            statueItems[statueNameMap[j]] = {
-                "level": parseInt(statueArray[j][0]),
-                // "progress": statueArray[j][1] //taken out for companion. Not too important
-            };
+            statueItems[statueNameMap[j]] = parseInt(statueArray[j][0]);
         }
         characters[i].statueLevels = statueItems;
 
