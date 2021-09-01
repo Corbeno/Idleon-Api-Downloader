@@ -25,23 +25,22 @@ function parseCompanionCards(clean) {
 
 function parseCompanionAlchemy(clean) {
     var r = {
-        "upgrades":{
+        "upgrades": {
             "Orange": [],
             "Green": [],
             "Purple": [],
             "Yellow": []
         },
-        "vials":[]
+        "vials": []
     };
-    
+
     var alchemy = clean.account.alchemy;
     r.upgrades.Orange = alchemy.bubbleLevels.power;
     r.upgrades.Green = alchemy.bubbleLevels.quick;
     r.upgrades.Purple = alchemy.bubbleLevels.highIq;
     r.upgrades.Yellow = alchemy.bubbleLevels.kazam;
-    
-    //TODO add proper vials with their names (need to change how they are stored in clean JSON)
+
     r.vials = alchemy.vialLevels;
-    
+
     return r;
 }

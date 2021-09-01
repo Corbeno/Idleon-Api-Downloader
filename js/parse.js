@@ -118,7 +118,6 @@ function fillAccountData(account, characters, fields) {
     account.alchemy.bubbleLevels.quick = condenseRawArray(alchemyData[1].mapValue.fields, null, true);
     account.alchemy.bubbleLevels.highIq = condenseRawArray(alchemyData[2].mapValue.fields, null, true);
     account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields, null, true);
-    //account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
     var rawVials = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
     var cleanVials = {};
     console.log(rawVials);
