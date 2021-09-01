@@ -120,9 +120,8 @@ function fillAccountData(account, characters, fields) {
     account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields, null, true);
     var rawVials = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
     var cleanVials = {};
-    console.log(rawVials);
-    for (var i = 0; i < rawVials.length; i++) {
-        console.log("re: " + i);
+    // NOTE: It's (rawVials.length - 1) as there is an unknown vial stored in the data that should be ignored
+    for (var i = 0; i < rawVials.length - 1; i++) {
         cleanVials[vialNameMap[i]] = rawVials[i];
     }
     account.alchemy.vialLevels = cleanVials;
@@ -641,7 +640,7 @@ function condenseTwoRawArrays(raw1, raw2, field1, field2, map1 = null, map2 = nu
 
 function condenseRawArray(rawArray, map = null, toInt = false) {
     var r = [];
-    var length = rawArray.length.integerValue;
+    var length = parseInt(rawArray.length.integerValue);
     if (length == undefined) {
         length = rawArray.length;
     }
