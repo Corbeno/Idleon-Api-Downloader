@@ -118,7 +118,15 @@ function fillAccountData(account, characters, fields) {
     account.alchemy.bubbleLevels.quick = condenseRawArray(alchemyData[1].mapValue.fields, null, true);
     account.alchemy.bubbleLevels.highIq = condenseRawArray(alchemyData[2].mapValue.fields, null, true);
     account.alchemy.bubbleLevels.kazam = condenseRawArray(alchemyData[3].mapValue.fields, null, true);
-    account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
+    //account.alchemy.vialLevels = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
+    var rawVials = condenseRawArray(alchemyData[4].mapValue.fields, null, true);
+    var cleanVials = {};
+    console.log(rawVials);
+    for (var i = 0; i < rawVials.length; i++) {
+        console.log("re: " + i);
+        cleanVials[vialNameMap[i]] = rawVials[i];
+    }
+    account.alchemy.vialLevels = cleanVials;
 
     // highest class data
     account.highestClasses = findHighestOfEachClass(characters);
@@ -144,7 +152,6 @@ function fillAccountData(account, characters, fields) {
         var lookup = mapLookup(mobMap, key);
         var count = parseInt(rawCardsData[key]);
         var starLevel = getStarLevelFromCard(key, count);
-        console.log(starLevel);
         cleanCardData[lookup] = {
             "collected": count,
             "starLevel": starLevel[0],
@@ -208,11 +215,11 @@ function createRefineryData(fields) {
     // 1 = inventory
     // 2 =
     // 3 = redox salt 
-        // 3[0] = refined (unclaimed)
-        // 3[1] = rank
-        // 3[2] = ???
-        // 3[3] = on/off 
-        // 3[4] = auto-refine percent
+    // 3[0] = refined (unclaimed)
+    // 3[1] = rank
+    // 3[2] = ???
+    // 3[3] = on/off 
+    // 3[4] = auto-refine percent
     // 4 = explosive salt
     // 5 = spontaneity salt
     // 6 = dioxide salt
@@ -221,12 +228,12 @@ function createRefineryData(fields) {
     var rawRefinery = JSON.parse(fields.Refinery.stringValue);
     var refinery = {};
     refinery.salts = {};
-    
+
     //this is how they are named in the template file
     var salts = ["redox", "explosive", "spontaneity", "dioxide", "red", "red2"];
     salts.forEach((salt, i) => {
         // redox starts at index 3, so it has such an offset
-        var rawSalt = rawRefinery[i+3];
+        var rawSalt = rawRefinery[i + 3];
         refinery.salts[salt] = {
             "refined": rawSalt[0],
             "rank": rawSalt[1],
@@ -443,7 +450,7 @@ function fillCharacterData(characters, numChars, fields) {
         // 2 = current progress? (idk need more proof but also kinda useless)
         // 3 = ???
         var anvilProducts = [];
-        for(var j = 0; j < rawAnvil.length; j++){
+        for (var j = 0; j < rawAnvil.length; j++) {
             var rawProductStats = rawAnvil[j].mapValue.fields;
             anvilProducts.push({
                 "produced": parseInt(getAnyFieldValue(rawProductStats[0])),
@@ -479,7 +486,7 @@ function getStarLevelFromCard(cardName, cardLevel) {
     var oneStarReq = base;
     var twoStarReq = base * 4;
     var threeStarReq = base * 9;
-    
+
     //(0: unobtained, 1: obtained, 2: bronze, 3: silver, 4: gold)
     if (level == 0) {
         return ["Not Found", 0];

@@ -7,9 +7,9 @@ function getGuildCsv(cleanJson) {
 }
 
 function getCharacterCsv(cleanJson, index) {
-    try{
+    try {
         return listToString(createCharacterList(cleanJson.characters[index]));
-    }catch{
+    } catch {
         return null;
     }
 }
@@ -287,8 +287,10 @@ function createFamilyList(account) {
     }
 
     // vials (41)
+    var vials = alchemy.vialLevels;
+    var vialKeys = Object.keys(vials);
     for (var i = 0; i < 41; i++) {
-        list.push(alchemy.vialLevels[i]);
+        list.push(vials[vialKeys[i]]);
     }
 
     // obols
