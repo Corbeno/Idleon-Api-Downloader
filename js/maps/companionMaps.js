@@ -1,4 +1,4 @@
-var companionItemList = [
+var companionItemList = [ //TODO this needs updated!
   "Inventory Bag U",
   "Inventory Bag V",
   "Inventory Bag W",

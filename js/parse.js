@@ -274,10 +274,7 @@ function fillCharacterData(characters, numChars, fields) {
         var bags = Object.keys(rawInvBagsUsed);
         var invBagsUsed = [];
         for (var j = 0; j < bags.length; j++) {
-            invBagsUsed.push({
-                id: bags[j],
-                name: itemMap['InvBag' + bags[j]]
-            })
+            invBagsUsed.push(itemMap['InvBag' + bags[j]]);
         }
         characters[i].invBagsUsed = invBagsUsed;
 
