@@ -34,6 +34,7 @@ function parseCompanionAlchemy(clean) {
         "vials": []
     };
 
+    //TODO move these above into the r declaration...
     var alchemy = clean.account.alchemy;
     r.upgrades.Orange = alchemy.bubbleLevels.power;
     r.upgrades.Green = alchemy.bubbleLevels.quick;
@@ -78,5 +79,10 @@ function parseCompanionionChars(clean) {
 }
 
 function parseCompanionStatues(clean) {
+
+}
+
+// look through companionItemList and determine if that item exists or not in 
+function parseCompanionItems(clean) {
 
 }

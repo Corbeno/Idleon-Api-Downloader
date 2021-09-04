@@ -1,4 +1,4 @@
-var  a = [
+var companionItemList = [
   "Inventory Bag U",
   "Inventory Bag V",
   "Inventory Bag W",
