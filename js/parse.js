@@ -278,6 +278,9 @@ function fillCharacterData(characters, numChars, fields) {
         }
         characters[i].invBagsUsed = invBagsUsed;
 
+        // carry capacity bags used
+        characters[i].carryCapacityBagsUsed = formCarryCapacityData(fields, i);
+
         // inventory
         var inventoryItemNames = fields["InventoryOrder_" + i].arrayValue.values;
         var inventoryItemCounts = fields["ItemQTY_" + i].arrayValue.values;
@@ -452,6 +455,32 @@ function fillCharacterData(characters, numChars, fields) {
         // TODO anvil stats (data isn't very clear, might need to ask)
     }
     return characters;
+}
+
+function formCarryCapacityData(fields, charIndex) {
+    let r = [];
+    // maps values stored in "MaxCarryCap_# to their coorsponding carryCapacityMaps mapping  
+    let carryCapsToUse = {
+        "Mining": miningCarryCapMap,
+        "Chopping": choppingCarryCapMap,
+        "Fishing": fishingCarryCapMap,
+        "Bugs": catchingCarryCapMap,
+        "Souls": worshipCarryCapMap,
+        "Critters": trappingCarryCapMap,
+        "Foods": foodCarryCapMap,
+        "bCraft": materialCarryCapMap
+    }
+    for (let fieldKey of Object.keys(carryCapsToUse)) {
+        let map = carryCapsToUse[fieldKey];
+        let storedValue = parseInt(JSON.parse(fields["MaxCarryCap_" + charIndex].stringValue)[fieldKey]);
+        //loop through each value in map, and add the bag to r if its less or equal to the value
+        for (let mapKey of Object.keys(map)) {
+            if (storedValue <= mapKey) {
+                r.push(mapLookup(itemMap, map[mapKey]));
+            }
+        }
+    }
+    return r;
 }
 
 function formObolData(nameList, bonusesMap) {

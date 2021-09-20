@@ -54,7 +54,7 @@ function parseCompanionionChars(clean) {
             "class": char.class,
             "level": char.level,
             "name": char.name,
-            "items": {}, //TODO
+            "items": parseCompanionCharItems(char),
             "skills": {
                 "Mining": char.skillLevels.mining,
                 "Smithing": char.skillLevels.smithing,
@@ -66,7 +66,7 @@ function parseCompanionionChars(clean) {
                 "Construction": char.skillLevels.construction,
                 "Worship": char.skillLevels.worship
             },
-            "statues": char.statueLevels,
+            "statues": parseCompanionCharStatues(char),
             "constellations": {
 
             },
@@ -78,11 +78,31 @@ function parseCompanionionChars(clean) {
     return r;
 }
 
-function parseCompanionStatues(clean) {
+function parseCompanionCharStatues(char) {
 
 }
 
-// look through companionItemList and determine if that item exists or not in 
-function parseCompanionItems(clean) {
+// look through companion lists and determine if that item exists or not in the clean json
+function parseCompanionCharItems(char) {
+    let r = {};
 
+    // inventory bag upgrades
+    for (let invPouchName of companionCharInventoryPouchList) {
+        if (char.invBagsUsed.includes(invPouchName)) {
+            r[invPouchName] = true;
+        } else {
+            r[invPouchName] = false;
+        }
+    }
+
+    // material pouches
+    for (let materialPouchName of companionCharMaterialPouchList) {
+        if (char.carryCapacityBagsUsed.includes(materialPouchName)) {
+            r[materialPouchName] = true;
+        } else {
+            r[materialPouchName] = false;
+        }
+    }
+
+    return r;
 }

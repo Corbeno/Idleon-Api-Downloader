@@ -918,7 +918,7 @@ var itemMap = {
     "InvBag24": "Inventory Bag Y",
     "InvBag25": "Inventory Bag Z",
     "InvBag100": "Snakeskinventory Bag",
-    "InvBag101": "Totally Normal and not fake Bag",
+    "InvBag101": "Totally Normal And Not Fake Bag",
     "InvBag102": "Blunderbag",
     "InvBag103": "Sandy Satchel",
     "InvBag104": "Bummo Bag",

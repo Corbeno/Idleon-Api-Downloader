@@ -420,3 +420,8 @@ var statueNameMap = {
     17: "Seesaw",
     18: "Twosoul",
 }
+
+//maps the stored carry cap values with their item names
+var carryCapMap = {
+
+}
