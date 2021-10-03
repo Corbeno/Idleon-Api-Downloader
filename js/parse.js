@@ -475,7 +475,10 @@ function formCarryCapacityData(fields, charIndex) {
         let storedValue = parseInt(JSON.parse(fields["MaxCarryCap_" + charIndex].stringValue)[fieldKey]);
         //loop through each value in map, and add the bag to r if its less or equal to the value
         for (let mapKey of Object.keys(map)) {
-            if (storedValue <= mapKey) {
+            if (storedValue >= mapKey) {
+                if (charIndex == 0 && fieldKey == "bCraft") {
+                    console.log("adding for value: " + mapKey + " from stored value: " + storedValue);
+                }
                 r.push(mapLookup(itemMap, map[mapKey]));
             }
         }

@@ -67,9 +67,7 @@ function parseCompanionionChars(clean) {
                 "Worship": char.skillLevels.worship
             },
             "statues": parseCompanionCharStatues(char),
-            "constellations": {
-
-            },
+            "constellations": parseCompanionCharConstellations(char),
             "starSigns": {
 
             }
@@ -79,6 +77,10 @@ function parseCompanionionChars(clean) {
 }
 
 function parseCompanionCharStatues(char) {
+
+}
+
+function parseCompanionCharConstellations(char) {
 
 }
 

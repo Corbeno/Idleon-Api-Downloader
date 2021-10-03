@@ -554,9 +554,9 @@ var itemMap = {
     "MaxCapBagF5": "Big Food Pouch",
     "MaxCapBagF6": "Large Food Pouch",
     "MaxCapBagM1": "Mini Materials Pouch",
-    "MaxCapBagM2": "Cramped Material Pouch",
-    "MaxCapBagM3": "Small Material Pouch",
-    "MaxCapBagM4": "Average Material Pouch",
+    "MaxCapBagM2": "Cramped Materials Pouch", //added s to material for companion
+    "MaxCapBagM3": "Small Materials Pouch", //also added s
+    "MaxCapBagM4": "Average Materials Pouch", //also added s
     "MaxCapBagM5": "Sizable Materials Pouch",
     "MaxCapBagM6": "Big Materials Pouch",
     "MaxCapBagM7": "Large Materials Pouch",
