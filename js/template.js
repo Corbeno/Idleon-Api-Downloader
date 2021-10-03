@@ -43,7 +43,7 @@ var templateData = {
         },
         "bribes": {},
         "cards": {},
-        "starSigns": {},
+        "starSignsEquipped": {},
         "forge": {
             "level": {}
         },
@@ -109,6 +109,7 @@ var templateData = {
         "starTalentLevels": {},
         "skillLevels": {},
         "starSigns": {},
+        "constellations": {},
         "bubblesEquipped": [],
         "fishingToolkitEquipped": {
             "bait": "",

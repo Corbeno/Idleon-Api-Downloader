@@ -289,6 +289,44 @@ var starSignMap = {
     33: "Chronus_Cosmos"
 }
 
+var starSignsAbbreviationsmap = {
+    "None": "None",
+    "The_Buff_Guy": "1a",
+    "Flexo_Bendo": "2",
+    "The_Book_Worm": "1",
+    "The_Fuzzy_Dice": "1b",
+    "Dwarfo_Beardus": "3",
+    "Hipster_Logger": "4",
+    "Pie_Seas": "4a",
+    "Shoe_Fly": "4c",
+    "Blue_Hedgehog": "9a",
+    "Gum_Drop": "11a",
+    "Activelius": "11",
+    "Pack_Mule": "5",
+    "Ned_Kelly": "10",
+    "Robinhood": "9",
+    "Pirate_Booty": "6",
+    "Muscle_Man": "7a",
+    "Fast_Frog": "7b",
+    "Smart_Stooge": "7c",
+    "Lucky_Larry": "7d",
+    "Silly_Snoozer": "15",
+    "The_Big_Comatose": "14",
+    "Miniature_Game": "4b",
+    "Mount_Eaterest": "12",
+    "Bob_Build_Guy": "13",
+    "The_Big_Brain": "15a",
+    "The_OG_Skiller": "17",
+    "Grim_Reaper": "16",
+    "The_Fallen_Titan": "10a",
+    "The_Forsaken": "16a",
+    "Mr_No_Sleep": "18",
+    "Sir_Savvy": "14a",
+    "All_Rounder": "7",
+    "Fatty_Doodoo": "8",
+    "Chronus_Cosmos": "CR"
+}
+
 var fishingBaitMap = {
     0: "Fly",
     1: "Wormie",

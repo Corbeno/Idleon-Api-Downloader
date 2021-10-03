@@ -204,6 +204,9 @@ function fillAccountData(account, characters, fields) {
     });
     account.cogs = cogs;
 
+    // star signs unlocked
+    account.starSigns = formStarSignUnlockedData(fields);
+
     return account;
 }
 
@@ -349,19 +352,8 @@ function fillCharacterData(characters, numChars, fields) {
         }
         characters[i].skillLevels = mappedSkillLevels;
 
-        // star signs
-        var rawStarSignData = fields["PVtStarSign_" + i].stringValue;
-        var starSignSplit = rawStarSignData.split(",");
-        for (var j = 0; j < starSignSplit.length; j++) {
-            starSignSplit[j] = starSignSplit[j].replace(/_/, "-1");
-            if (starSignSplit[j] == "") {
-                starSignSplit[j] = "-1";
-            }
-        }
-        var starSign1 = starSignMap[parseInt(starSignSplit[0])] || "None";
-        var starSign2 = starSignMap[parseInt(starSignSplit[1])] || "None";
-        var starSignFinal = [starSign1, starSign2];
-        characters[i].starSigns = starSignFinal;
+        // star signs equipped
+        characters[i].starSignsEquipped = formStarSignEquippedData(fields, i);
 
         // talents
         var unmappedTalents = JSON.parse(fields["SL_" + i].stringValue);
@@ -455,6 +447,32 @@ function fillCharacterData(characters, numChars, fields) {
         // TODO anvil stats (data isn't very clear, might need to ask)
     }
     return characters;
+}
+
+function formStarSignEquippedData(fields, charIndex) {
+    let rawStarSignData = fields["PVtStarSign_" + charIndex].stringValue;
+    let starSignSplit = rawStarSignData.split(",");
+    for (let i = 0; i < starSignSplit.length; i++) {
+        starSignSplit[i] = starSignSplit[i].replace(/_/, "-1");
+        if (starSignSplit[i] == "") {
+            starSignSplit[i] = "-1";
+        }
+    }
+    var starSign1 = starSignMap[parseInt(starSignSplit[0])] || "None";
+    var starSign2 = starSignMap[parseInt(starSignSplit[1])] || "None";
+    return [starSign1, starSign2];
+}
+
+function formStarSignUnlockedData(fields) {
+    let r = {};
+    console.log(fields.StarSg.stringValue);
+    let unlockedSigns = Object.keys(JSON.parse(fields.StarSg.stringValue));
+    let allSigns = Object.values(starSignMap);
+    for (let sign of allSigns) {
+        if (sign == "None") { continue }
+        r[mapLookup(starSignsAbbreviationsmap, sign)] = unlockedSigns.includes(sign);
+    }
+    return r;
 }
 
 function formCarryCapacityData(fields, charIndex) {

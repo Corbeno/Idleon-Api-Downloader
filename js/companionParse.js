@@ -5,7 +5,7 @@ function companionParseData(cleanData) {
     r.cards = parseCompanionCards(cleanData);
     r.chars = parseCompanionionChars(cleanData);
     r.checklist = {};
-    r.starSigns = {};
+    r.starSigns = cleanData.account.starSigns; //data is in the same format :D
     r.version = "0.2.3"; // unsure if this should be hardcoded
     return r;
 }
@@ -68,9 +68,7 @@ function parseCompanionionChars(clean) {
             },
             "statues": parseCompanionCharStatues(char),
             "constellations": parseCompanionCharConstellations(char),
-            "starSigns": {
-
-            }
+            "starSigns": parseCompanionCharStarSigns(char)
         });
     }
     return r;
@@ -81,6 +79,10 @@ function parseCompanionCharStatues(char) {
 }
 
 function parseCompanionCharConstellations(char) {
+
+}
+
+function parseCompanionCharStarSigns(char) {
 
 }
 
