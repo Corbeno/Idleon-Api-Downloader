@@ -12,6 +12,15 @@ async function queryFirebaseWithRetry() {
                 continue;
             }
 
+            //TESTING
+            // r.child(Ge).once("value", function(dataSnapshot){
+            //     try{
+            //         console.log(dataSnapshot.exportVal());
+            //     }catch(e){
+            //         //ignore
+            //     }
+            // });
+
             var send = new CustomEvent("PassCharNameToInject", { detail: usernameList });
             window.dispatchEvent(send);
 
