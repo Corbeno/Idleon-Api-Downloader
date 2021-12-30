@@ -2,9 +2,9 @@ queryFirebaseWithRetry();
 
 async function queryFirebaseWithRetry() {
     let count = 0;
-    let maxTimeout = 20;
+    let maxTimeout = 60;
     while (true) {
-        if(count > maxTimeout){
+        if (count > maxTimeout) {
             console.error("Reached max timeout to check variables. Did their names change?");
             break;
         }
@@ -20,13 +20,13 @@ async function queryFirebaseWithRetry() {
         }
         //verify all variables have been obtained
         let isBadData = false;
-        for(const key in external){
-            if(external[key] == null || external[key] == undefined){
+        for (const key in external) {
+            if (external[key] == null || external[key] == undefined) {
                 isBadData = true;
                 break;
             }
         }
-        if(isBadData){
+        if (isBadData) {
             count++;
             continue;
         };

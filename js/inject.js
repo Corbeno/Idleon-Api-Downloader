@@ -7,7 +7,6 @@ s.onload = function () {
 chrome.storage.local.set({ "data": null })
 
 window.addEventListener("PassSaveToInject", function (event) {
-    console.log("passed save");
     var jsonData = event.detail;
     chrome.storage.local.set({ "saveData": jsonData })
     checkTempData();
@@ -15,14 +14,12 @@ window.addEventListener("PassSaveToInject", function (event) {
 
 
 window.addEventListener("PassCharNameToInject", function (event) {
-    console.log("passed charname");
     var jsonData = event.detail;
     chrome.storage.local.set({ "charNameData": jsonData });
     checkTempData();
 }, false);
 
 window.addEventListener("PassGuildInfoToInject", function (event) {
-    console.log("passed guild info");
     var jsonData = event.detail;
     chrome.storage.local.set({ "guildInfo": jsonData });
     checkTempData();

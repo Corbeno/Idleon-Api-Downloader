@@ -25,24 +25,24 @@ function updateAllButtons() {
             const rawString = JSON.stringify(rawJson);
 
             // custom clean json
-            // const cleanJson = parseAnyData(parseData, rawJson);
-            // const cleanString = JSON.stringify(cleanJson);
+            const cleanJson = parseAnyData(parseData, rawJson);
+            const cleanString = JSON.stringify(cleanJson);
 
             //for looty spreadsheet
-            // const lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
+            const lootyString = rawJson.saveData.Cards1.replace(/\"/g, "\\");
 
             // for quests spreadsheet
-            // var questsString = null;
-            // if (cleanJson != null) {
-            //     questsString = JSON.stringify(cleanJson.account.quests);
-            // }
+            var questsString = null;
+            if (cleanJson != null) {
+                questsString = JSON.stringify(cleanJson.account.quests);
+            }
 
             // for idleon calculator spreadsheet
-            // const familyCsv = parseAnyData(getFamilyCsv, cleanJson);
-            // const guildCsv = parseAnyData(getGuildCsv, cleanJson);
+            const familyCsv = parseAnyData(getFamilyCsv, cleanJson);
+            const guildCsv = parseAnyData(getGuildCsv, cleanJson);
 
             // for guild spreadsheet
-            // const guildExportCsvString = parseAnyData(guildExportCsv, cleanJson);
+            const guildExportCsvString = parseAnyData(guildExportCsv, cleanJson);
 
             // // companion import data (coming soon! tm)
             // const companionJson = companionParseData(cleanJson);
@@ -50,20 +50,20 @@ function updateAllButtons() {
 
             const buttons = [
                 { id: 'rawCopyLink', data: rawString },
-                // { id: 'cleanJsonCopyLink', data: cleanString },
-                // { id: 'lootyCopyLink', data: lootyString },
-                // { id: 'questsCopyLink', data: questsString },
-                // { id: 'familyCopyLink', data: familyCsv },
-                // { id: 'guildCopyLink', data: guildCsv },
-                // { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
+                { id: 'cleanJsonCopyLink', data: cleanString },
+                { id: 'lootyCopyLink', data: lootyString },
+                { id: 'questsCopyLink', data: questsString },
+                { id: 'familyCopyLink', data: familyCsv },
+                { id: 'guildCopyLink', data: guildCsv },
+                { id: 'guildExportCsvCopyLink', data: guildExportCsvString },
             ];
 
             // add each character button to buttons
-            // for (let i = 0; i < 9; i++) {
-            //     const charData = getCharacterCsv(cleanJson, i);
-            //     const characters = document.querySelectorAll('.characters > li > a');
-            //     buttons.push({ id: characters[i].id, data: charData })
-            // }
+            for (let i = 0; i < 9; i++) {
+                const charData = getCharacterCsv(cleanJson, i);
+                const characters = document.querySelectorAll('.characters > li > a');
+                buttons.push({ id: characters[i].id, data: charData })
+            }
 
             // only show buttons with non-empty data
             buttons.forEach((buttonElement) => {
@@ -91,12 +91,12 @@ function updateAllButtons() {
 }
 
 function parseAnyData(func, data) {
-    try {
-        return func(data);
-    } catch (e) {
-        console.error("Unable to parse function. Error was: " + e);
-        return null;
-    }
+    // try {
+    return func(data);
+    // } catch (e) {
+    // console.error("Unable to parse function. Error was: " + e);
+    // return null;
+    // }
 }
 
 function copyTextToClipboard(text) {
