@@ -15,128 +15,144 @@
     <div class="loader-text">Waiting for Legends Of Idleon...</div>
 </div>
 
-<div id="content">
-    <div class="json">
-        <span>Raw JSON</span>
-        <a id="rawCopyLink">
-            <img src="assets/copy.svg" alt="copy">
-        </a>
-        <a id="rawDownloadLink">
-            <img src="assets/download.svg" alt="download">
-        </a>
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'tab1')">tab1</button>
+    <button class="tablinks" onclick="openTab(event, 'tab2')">tab2</button>
+    <button class="tablinks" onclick="openTab(event, 'tab3')">tab3</button>
+  </div>
+
+<div id="tab1">
+    <div id="content">
+        <div class="json">
+            <span>Raw JSON</span>
+            <a id="rawCopyLink">
+                <img src="assets/copy.svg" alt="copy">
+            </a>
+            <a id="rawDownloadLink">
+                <img src="assets/download.svg" alt="download">
+            </a>
+        </div>
+    
+        <div class="json">
+            <span>Clean JSON</span>
+            <a id="cleanJsonCopyLink">
+                <img class="copy" src="assets/copy.svg" alt="copy">
+            </a>
+            <a id="cleanJsonDownloadLink">
+                <img class="download" src="assets/download.svg" alt="download">
+            </a>
+        </div>
+    
+        <div class="json">
+            <span>Looty String</span>
+            <a id="lootyCopyLink">
+                <img class="copy" src="assets/copy.svg" alt="copy">
+            </a>
+        </div>
+    
+        <div class="json">
+            <span>Quests String</span>
+            <a id="questsCopyLink">
+                <img class="copy" src="assets/copy.svg" alt="copy">
+            </a>
+        </div>
+    
+        <div class="sub-header">Idleon Calculator Import Columns</div>
+    
+        <div class="json">
+            <span>Family</span>
+            <a id="familyCopyLink">
+                <img class="copy" src="assets/copy.svg" alt="copy">
+            </a>
+        </div>
+    
+        <div class="json">
+            <span>Guild</span>
+            <a id="guildCopyLink">
+                <img class="copy" src="assets/copy.svg" alt="copy">
+            </a>
+        </div>
+    
+        <div class="sub-header">Characters</div>
+        <ul class="characters">
+            <li>
+                <span class="character-index">#1</span>
+                <a id="char0CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#2</span>
+                <a id="char1CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#3</span>
+                <a id="char2CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#4</span>
+                <a id="char3CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#5</span>
+                <a id="char4CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#6</span>
+                <a id="char5CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#7</span>
+                <a id="char6CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#8</span>
+                <a id="char7CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+            <li>
+                <span class="character-index">#9</span>
+                <a id="char8CopyLink">
+                    <img class="copy" src="assets/copy.svg" alt="copy">
+                </a>
+            </li>
+        </ul>
+    
+        <div class="json">
+            <span>Companion (Coming Soon)</span>
+            <!--        <a id="companionCopyLink">-->
+            <!--            <img src="./copy.svg" alt="copy">-->
+            <!--        </a>-->
+        </div>
+    
+        <div class="json">
+            <span>Guild CSV</span>
+            <a id="guildExportCsvCopyLink">
+                <img class="copy" src="assets/copy.svg" alt="copy">
+            </a>
+        </div>
     </div>
+</div>
 
-    <div class="json">
-        <span>Clean JSON</span>
-        <a id="cleanJsonCopyLink">
-            <img class="copy" src="assets/copy.svg" alt="copy">
-        </a>
-        <a id="cleanJsonDownloadLink">
-            <img class="download" src="assets/download.svg" alt="download">
-        </a>
-    </div>
+<div id="tab2">
+<p>2</p>
+</div>
 
-    <div class="json">
-        <span>Looty String</span>
-        <a id="lootyCopyLink">
-            <img class="copy" src="assets/copy.svg" alt="copy">
-        </a>
-    </div>
-
-    <div class="json">
-        <span>Quests String</span>
-        <a id="questsCopyLink">
-            <img class="copy" src="assets/copy.svg" alt="copy">
-        </a>
-    </div>
-
-    <div class="sub-header">Idleon Calculator Import Columns</div>
-
-    <div class="json">
-        <span>Family</span>
-        <a id="familyCopyLink">
-            <img class="copy" src="assets/copy.svg" alt="copy">
-        </a>
-    </div>
-
-    <div class="json">
-        <span>Guild</span>
-        <a id="guildCopyLink">
-            <img class="copy" src="assets/copy.svg" alt="copy">
-        </a>
-    </div>
-
-    <div class="sub-header">Characters</div>
-    <ul class="characters">
-        <li>
-            <span class="character-index">#1</span>
-            <a id="char0CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#2</span>
-            <a id="char1CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#3</span>
-            <a id="char2CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#4</span>
-            <a id="char3CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#5</span>
-            <a id="char4CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#6</span>
-            <a id="char5CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#7</span>
-            <a id="char6CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#8</span>
-            <a id="char7CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-        <li>
-            <span class="character-index">#9</span>
-            <a id="char8CopyLink">
-                <img class="copy" src="assets/copy.svg" alt="copy">
-            </a>
-        </li>
-    </ul>
-
-    <div class="json">
-        <span>Companion (Coming Soon)</span>
-        <!--        <a id="companionCopyLink">-->
-        <!--            <img src="./copy.svg" alt="copy">-->
-        <!--        </a>-->
-    </div>
-
-    <div class="json">
-        <span>Guild CSV</span>
-        <a id="guildExportCsvCopyLink">
-            <img class="copy" src="assets/copy.svg" alt="copy">
-        </a>
-    </div>
+<div id="tab3">
+    <p>3</p>
 </div>
 
 <input type="text" id="copy-from" hidden>
