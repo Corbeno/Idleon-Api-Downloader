@@ -4,24 +4,24 @@ s.onload = function () {
     this.remove();
 };
 (document.head || document.documentElement).appendChild(s);
-chrome.storage.local.set({"data": null})
+chrome.storage.local.set({ "data": null })
 
 window.addEventListener("PassSaveToInject", function (event) {
     var jsonData = event.detail;
-    chrome.storage.local.set({"saveData": jsonData})
+    chrome.storage.local.set({ "saveData": jsonData })
     checkTempData();
 }, false);
 
 
 window.addEventListener("PassCharNameToInject", function (event) {
     var jsonData = event.detail;
-    chrome.storage.local.set({"charNameData": jsonData});
+    chrome.storage.local.set({ "charNameData": jsonData });
     checkTempData();
 }, false);
 
 window.addEventListener("PassGuildInfoToInject", function (event) {
     var jsonData = event.detail;
-    chrome.storage.local.set({"guildInfo": jsonData});
+    chrome.storage.local.set({ "guildInfo": jsonData });
     checkTempData();
 }, false);
 
@@ -39,12 +39,12 @@ function checkTempData() {
                         "charNameData": charNameData,
                         "guildInfo": guildInfo
                     }
-                    chrome.storage.local.set({"data": combined})
+                    chrome.storage.local.set({ "data": combined })
 
                     // remove temp data
-                    chrome.storage.local.set({"saveData": null});
-                    chrome.storage.local.set({"charNameData": null});
-                    chrome.storage.local.set({"guildInfo": null});
+                    chrome.storage.local.set({ "saveData": null });
+                    chrome.storage.local.set({ "charNameData": null });
+                    chrome.storage.local.set({ "guildInfo": null });
                 }
             });
         });

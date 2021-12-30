@@ -19,9 +19,9 @@
   "content_scripts": [{
     "matches": ["*://*.legendsofidleon.com/*"],
     "js": ["js/inject.js"],
-    "run_at": "document_start"
+    "run_at": "document_idle"
   }],
 
-  "web_accessible_resources": ["js/injected.js"]
+  "web_accessible_resources": ["js/injected.js", "js/firebaseInjected.js"]
 
 }

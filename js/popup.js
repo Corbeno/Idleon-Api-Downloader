@@ -26,11 +26,10 @@ function updateAllButtons() {
 
             // custom clean json
             const cleanJson = parseAnyData(parseData, rawJson);
-            // cleanJson = null;
             const cleanString = JSON.stringify(cleanJson);
 
             //for looty spreadsheet
-            const lootyString = rawJson.saveData.documentChange.document.fields.Cards1.stringValue.replace(/\"/g, "\\");
+            const lootyString = rawJson.saveData.Cards1.replace(/\"/g, "\\");
 
             // for quests spreadsheet
             var questsString = null;
@@ -83,21 +82,21 @@ function updateAllButtons() {
                     copyTextToClipboard(buttonElement.data);
                 });
             });
-            
+
             // TODO: RE-WRITE THIS FUNCTION
             allowDownloadButton("rawDownloadLink", rawString, "rawData.json")
-            allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
+            // allowDownloadButton("cleanJsonDownloadLink", cleanString, "cleanData.json");
         }
     });
 }
 
 function parseAnyData(func, data) {
-    try {
-        return func(data);
-    } catch (e) {
-        console.error("Unable to parse function. Error was: " + e);
-        return null;
-    }
+    // try {
+    return func(data);
+    // } catch (e) {
+    // console.error("Unable to parse function. Error was: " + e);
+    // return null;
+    // }
 }
 
 function copyTextToClipboard(text) {
