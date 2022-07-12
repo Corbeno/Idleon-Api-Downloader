@@ -63,8 +63,16 @@ var classTalentMap = {
         "Rage Basics", "Warrior", "Barbarian"
     ],
 
+    "Blood Berserker": [
+        "Rage Basics", "Warrior", "Barbarian", "Blood Berserker"
+    ],
+
     "Squire": [
         "Rage Basics", "Warrior", "Squire"
+    ],
+
+    "Divine Knight": [
+        "Rage Basics", "Warrior", "Squire", "Divine Knight"
     ],
 
     "Archer": [
@@ -75,8 +83,16 @@ var classTalentMap = {
         "Calm Basics", "Archer", "Bowman"
     ],
 
+    "Siege Breaker": [
+        "Calm Basics", "Archer", "Bowman", "Siege Breaker"
+    ],
+
     "Hunter": [
         "Calm Basics", "Archer", "Hunter"
+    ],
+
+    "Beast Master": [
+        "Calm Basics", "Archer", "Hunter", "Beast Master"
     ],
 
     "Mage": [
@@ -87,7 +103,17 @@ var classTalentMap = {
         "Savvy Basics", "Mage", "Shaman"
     ],
 
-    "Wizard": ["Savy Basics", "Mage", "Wizard"]
+    "Bubonic Conjuror": [
+        "Savy Basics", "Mage", "Shaman", "Bubonic Conjuror"
+    ],
+
+    "Wizard": [
+        "Savy Basics", "Mage", "Wizard"
+    ],
+
+    "Elemental Sorcerer": [
+        "Savy Basics", "Mage", "Wizard", "Elemental Sorcerer"
+    ]
 }
 
 // maps a talent page with its coorsponding talents
