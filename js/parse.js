@@ -206,7 +206,7 @@ function fillAccountData(account, characters, fields) {
 }
 
 function createRefineryData(fields) {
-    // 0 = num unlocked ([0]) and number required to unlock/2(i.e. 644 * 2 = ~1300 of salt 6 to unlock salt 7)
+    // 0 = num unlocked ([0]) and number required to unlock/2(i.e. 644 * 2 = ~1300 of salt 6 to unlock salt 7)???
         // They all end in the same decimal value 
     // 1 = inventory order
     // 2 = number in inventory
@@ -224,6 +224,7 @@ function createRefineryData(fields) {
     var rawRefinery = JSON.parse(fields.Refinery);
     var refinery = {};
     refinery.salts = {};
+    refinery.storage = [];
 
     //this is how they are named in the template file
     var salts = ["redox", "explosive", "spontaneity", "dioxide", "red", "red2"];
@@ -236,8 +237,14 @@ function createRefineryData(fields) {
             "state": ((rawSalt[3] == 1) ? "on" : "off"),
             "autoPercent": rawSalt[4]
         }
-
-        //TODO add refinery storage
+    });
+    //TODO add refinery storage
+    rawRefinery[1].forEach((salt, i) => {
+        storageSpace = {
+            "salt": mapLookup(itemMap, salt),
+            "count": rawRefinery[2][i]
+        }
+        refinery.storage.push(storageSpace);
     });
 
     return refinery;
