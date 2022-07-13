@@ -76,6 +76,10 @@ var templateData = {
                 "red2": {}
             }
         },
+        "printer": {
+            "samples":{},
+            "printing":{}
+        },
         "anvilCraftsUnlocked": {}
 
     },

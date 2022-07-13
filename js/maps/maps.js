@@ -6,14 +6,18 @@ Maestro = 3
 Warrior = 7
 Barbarian = 8
 Squire = 9
+Blood Berserker = 10
+Divine Knight = 12
 
 Archer = 19
 Bowman = 20
 Hunter = 21
+Beast Master = 25
 
 Mage = 31
 Wizard = 32
 Shaman = 33
+Bubonic Conjuror = 36
 */
 /*
 Maps class numbers stored in guild data to their display names
@@ -22,15 +26,19 @@ var classNumberMap = {
     1: "Beginner",
     2: "Journeyman",
     3: "Maestro",
-    7: "warrior",
+    7: "Warrior",
     8: "Barbarian",
     9: "Squire",
+    10: "Blood_Berserker",
+    12: "Divine_Knight",
     19: "Archer",
     20: "Bowman",
     21: "Hunter",
+    25: "Beast_Master",
     31: "Mage",
     32: "Wizard",
-    33: "Shaman"
+    33: "Shaman",
+    36: "Bubonic_Conjuror"
 }
 
 var charSubclassMap = {
@@ -62,7 +70,10 @@ var skillIndexMap = {
     6: "catching",
     7: "trapping",
     8: "construction",
-    9: "worship"
+    9: "worship",
+    10: "cooking",
+    11: "breeding",
+    12: "laboratory"
 };
 
 var obolNameMap = {

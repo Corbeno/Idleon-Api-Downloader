@@ -161,6 +161,9 @@ function fillAccountData(account, characters, fields) {
     // refinery
     account.refinery = createRefineryData(fields);
 
+    //3D Printer
+    account.printer = createPrinterData(characters.length, fields)
+
     // quests complete (possibly temporary for use in spreadsheet)
     var quests = {};
     for (var i = 0; i < Object.keys(account).length; i++) {
@@ -203,9 +206,10 @@ function fillAccountData(account, characters, fields) {
 }
 
 function createRefineryData(fields) {
-    // 0 =
-    // 1 = inventory
-    // 2 =
+    // 0 = num unlocked ([0]) and number required to unlock/2(i.e. 644 * 2 = ~1300 of salt 6 to unlock salt 7)
+        // They all end in the same decimal value 
+    // 1 = inventory order
+    // 2 = number in inventory
     // 3 = redox salt 
     // 3[0] = refined (unclaimed)
     // 3[1] = rank
@@ -237,6 +241,31 @@ function createRefineryData(fields) {
     });
 
     return refinery;
+}
+
+function createPrinterData(numChars, fields) {
+    var rawPrinter = JSON.parse(fields.Print)
+    var printer = {}
+    printer.samples = []
+    printer.printing = []
+    for (var i = 0; i < numChars; i++) {
+        for (var j = 0; j < 5; j ++) {
+            sample = {
+                "item": mapLookup(itemMap, rawPrinter[14 * i + 5 + 2 * j]),
+                "rate": rawPrinter[14 * i + 6 + 2 * j]
+            }
+            printer.samples.push(sample)
+        }
+        for (var k = 0; k < 2; k++) {
+            sample = {
+                "item": mapLookup(itemMap, rawPrinter[14 * i + 15 + 2 * k]),
+                "rate": rawPrinter[14 * i + 16 + 2 * k]
+
+            }
+            printer.printing.push(sample)
+        }
+    }
+    return printer
 }
 
 // grabs information from fields and inserts it into characters and returns the filled out characters
