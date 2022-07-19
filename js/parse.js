@@ -158,6 +158,10 @@ function fillAccountData(account, characters, fields) {
     account.bribes = condenseRawArray(bribes, null, true);
     // TODO add map for bribe names?
 
+    // salt lick
+    var salt = parseRawArrayFromString(fields.SaltLick, 1, 1)
+    account.saltLick = condenseRawArray(salt, null, true)
+
     // refinery
     account.refinery = createRefineryData(fields);
 
@@ -227,7 +231,7 @@ function createRefineryData(fields) {
     refinery.storage = [];
 
     //this is how they are named in the template file
-    var salts = ["redox", "explosive", "spontaneity", "dioxide", "red", "red2"];
+    var salts = ["redox", "explosive", "spontaneity", "dioxide", "purple", "nullo"];
     salts.forEach((salt, i) => {
         // redox starts at index 3, so it has such an offset
         var rawSalt = rawRefinery[i + 3];
@@ -704,4 +708,9 @@ function getAnyFieldValue(field) {
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function parseRawArrayFromString(str, startPad = 0, endPad = 0, delim = ',') {
+    sub = str.substr(startPad, str.length - (startPad + endPad))
+    return sub.split(delim)
 }
